@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KYCA News Talk Radio — FM 103.5 / AM 1490 — KYCA News Talk Radio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/kyca-base.css" />
+  <link rel="stylesheet" href="css/kyca.css" />
+  <style id="nav-critical">
+    nav.main-nav{background:#fff7ec !important;position:sticky !important;top:0 !important;z-index:9999 !important;}
+    .main-nav-inner{width:100%;padding:0 48px;display:flex;align-items:center;justify-content:space-between;min-height:100px;}
+    .nav-logo img{height:180px;width:auto;object-fit:contain;}
+    .nav-search{background:none;border:none;cursor:pointer;color:#1a2f4e;padding:6px;display:flex;align-items:center;}
+    .nav-hamburger{display:none;background:none;border:none;cursor:pointer;color:#1a2f4e;padding:6px;}
+    @media(max-width:900px){.main-nav-inner{padding:0 20px;}.nav-links li a{padding:6px 7px;font-size:11px;}}
+    @media(max-width:640px){.nav-links-wrap{display:none !important;}.nav-hamburger{display:flex !important;}}
+  </style>
+  
+</head>
+<body class="kyca-home">
+  <div id="site-header"></div>
+  </div>
+  
+  <!-- HERO -->
+  <section id="hero-section" data-hero-bg="/uploads/3835b1c866c1445d850f42db1a8d7fc4.png" style="width:100%;position:relative;">
+    <img src="/uploads/3835b1c866c1445d850f42db1a8d7fc4.png" alt="KYCA" style="width:100%;display:block;height:auto;" onerror="this.style.display='none'"/>
+  </section>
+
+  <!-- ON AIR BAR -->
+  <div class="on-air-bar" id="on-air-bar" style="display:none;padding-bottom:12px;">
+    <span class="on-air-badge">On Air Now</span>
+    <span class="on-air-show" id="on-air-show"></span>
+    <span class="on-air-host" id="on-air-host"></span>
+    <span class="on-air-time" id="on-air-time"></span>
+    <div style="display:flex;gap:10px;margin-left:auto;flex-shrink:0;align-items:center;">
+      <a href="#" data-listen="kyca" style="display:inline-flex;align-items:center;gap:6px;background:#c0392b;color:#fff;padding:6px 14px;border-radius:6px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;text-decoration:none;white-space:nowrap;">&#9654; Listen Live</a>
+      <a href="#" id="watch-live-btn" style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.15);color:#fff;padding:6px 14px;border-radius:6px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;text-decoration:none;white-space:nowrap;border:1px solid rgba(255,255,255,.3);">&#128250; Watch Live</a>
+    </div>
+  </div>
+
+
+
+
+  <!-- WEATHER BAND -->
+  <div id="kyca-weather-band" style="background:#032a48;border-bottom:1px solid rgba(255,255,255,0.08);overflow:hidden;height:120px;display:flex;align-items:center;">
+    <div style="flex:1;overflow:hidden;height:95px;position:relative;margin-top:4px;">
+      <a class="weatherwidget-io" href="https://forecast7.com/en/34d54n112d47/prescott/?unit=us" data-label_1="PRESCOTT" data-label_2="WEATHER" data-theme="original" data-basecolor="#032a48" data-days="7">PRESCOTT WEATHER</a>
+    </div>
+    <div id="kyca-weather-report" style="flex-shrink:0;display:none;align-items:center;gap:8px;padding:0 20px;border-left:1px solid rgba(255,255,255,0.1);min-width:520px;background:#032a48;">
+      <span style="font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,0.5);">&#127925; Today&#39;s Report</span>
+      <div id="kyca-weather-player"></div>
+    </div>
+  </div>
+  <script>
+  // Wrap nav+on-air-bar+weather-band in sticky container after layout.js builds them
+  document.addEventListener('DOMContentLoaded', function() {
+    setTimeout(function() {
+      var nav = document.querySelector('nav.main-nav');
+      var onAir = document.getElementById('on-air-bar');
+      var weather = document.getElementById('kyca-weather-band');
+      if (!nav || !nav.parentNode || document.getElementById('kyca-sticky-stack')) return;
+      var wrapper = document.createElement('div');
+      wrapper.id = 'kyca-sticky-stack';
+      wrapper.style.cssText = 'position:sticky;top:0;z-index:1000;';
+      nav.parentNode.insertBefore(wrapper, nav);
+      wrapper.appendChild(nav);
+      if (onAir) wrapper.appendChild(onAir);
+      if (weather) wrapper.appendChild(weather);
+      nav.style.position = 'relative';
+    }, 100);
+  });
+  </script>
+  <div id="kyca-ad-banner" style="display:none;text-align:center;padding:12px 0;background:#f8f9fa;border-bottom:1px solid #e8ecf0;"></div>
+
+  <!-- NEWS + VIDEO SIDEBAR (2/3 + 1/3) -->
+  <div id="home-top-row" style="display:grid;grid-template-columns:3fr 1fr;gap:0;align-items:start;background:#f8f9fa;">
+
+    <!-- LEFT 2/3: News -->
+    <section style="padding:48px 48px;background:#f8f9fa;" id="news-section">
+      <div class="section-header">
+        <h2 class="section-title" >Latest News</h2>
+        <a href="pages/news.html" class="section-link">View All News &rsaquo;</a>
+      </div>
+      <div class="news-grid" id="news-grid">
+        <div style="color:#546e7a;font-size:14px;padding:24px 0;">Loading news…</div>
+      </div>
+    </section>
+
+    <!-- RIGHT 1/3: Video sidebar -->
+    <div id="home-video-sidebar" style="background:#032a48;padding:24px 20px;display:flex;flex-direction:column;gap:24px;align-self:stretch;">
+
+      <!-- Courthouse Cam -->
+      <div>
+        <div style="font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-bottom:8px;">&#128247; Live — Courthouse Plaza</div>
+        <div style="position:relative;width:100%;padding-bottom:56.25%;border-radius:8px;overflow:hidden;background:#000;">
+          <iframe
+            src="https://www.youtube.com/embed/GXZg8SFR4LI?autoplay=1&mute=1&controls=1&modestbranding=1&rel=0"
+            style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;"
+            allow="autoplay; fullscreen"
+            allowfullscreen>
+          </iframe>
+        </div>
+      </div>
+
+      <!-- Sponsor Video -->
+      <div>
+        <div style="font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-bottom:8px;">&#9733; Sponsored</div>
+        <div style="position:relative;width:100%;padding-bottom:56.25%;border-radius:8px;overflow:hidden;background:#000;">
+          <iframe
+            src="https://www.youtube.com/embed/A_cuyvgU_g4?autoplay=1&mute=1&loop=1&playlist=A_cuyvgU_g4&controls=0&modestbranding=1&rel=0"
+            style="position:absolute;top:0;left:0;width:100%;height:100%;border:none;"
+            allow="autoplay; fullscreen"
+            allowfullscreen>
+          </iframe>
+        </div>
+        <a href="https://olsensgrain.com" target="_blank" rel="noopener"
+          style="display:flex;align-items:center;justify-content:space-between;margin-top:10px;padding:8px 12px;background:rgba(255,255,255,0.07);border-radius:6px;text-decoration:none;transition:background .15s;"
+          onmouseover="this.style.background='rgba(255,255,255,0.13)'"
+          onmouseout="this.style.background='rgba(255,255,255,0.07)'">
+          <span style="font-size:12px;font-weight:700;color:#fff;">Olsen's for Healthy Animals</span>
+          <span style="font-size:10px;color:rgba(255,255,255,0.5);">olsensgrain.com &rsaquo;</span>
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SCHEDULE: Full width below -->
+  <section style="padding:48px 48px;background:#fff;" id="schedule-section">
+    <div>
+      <div class="section-header">
+        <h2 class="section-title" >Today's Lineup</h2>
+        <a href="pages/schedule.html" class="section-link">Full Schedule &rsaquo;</a>
+      </div>
+      <div class="schedule-grid" id="schedule-grid">
+        <div style="color:#546e7a;font-size:14px;padding:24px 0;">Loading schedule…</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Responsive -->
+  <style>
+    @media (max-width: 900px) {
+      #home-top-row { grid-template-columns: 1fr !important; }
+      #home-video-sidebar { align-self:auto !important; }
+    }
+  </style>
+
+  <div id="site-footer"></div>
+  <script src="js/layout.js" data-depth="0"></script>
+  
+<script>
+(function() {
+  var API = 'https://pbc-cms-production.up.railway.app';
+
+  Promise.all([
+    fetch(API + '/api/stations/kyca').then(function(r){return r.json();}),
+    fetch(API + '/api/pages/kyca-home').then(function(r){return r.json();}).catch(function(){return {};})
+  ]).then(function(res) {
+    var s = res[0];
+    var p = res[1];
+
+    // ── ON AIR — from real schedule ────────────────────────────
+    fetch(API + '/api/schedule/kyca').then(function(r){return r.json();}).then(function(d) {
+      var slots = d.slots || [];
+      var now = new Date();
+      var nowH = now.getHours();
+      var dow = now.getDay();
+      var todayGroup = dow === 0 ? 'sun' : dow === 6 ? 'sat' : dow === 1 ? 'mon' : 'tue-fri';
+      // Find current slot — check exact day group first, fall back to tue-fri for mon
+      var current = slots.find(function(sl) {
+        return sl.day_group === todayGroup && sl.start_hour <= nowH && sl.end_hour > nowH;
+      });
+      if (!current && todayGroup === 'mon') {
+        current = slots.find(function(sl) {
+          return sl.day_group === 'tue-fri' && sl.start_hour <= nowH && sl.end_hour > nowH;
+        });
+      }
+      if (current) {
+        function fmtH(h) { if(h===0)return'12:00 AM'; if(h===12)return'12:00 PM'; return h<12?h+':00 AM':(h-12)+':00 PM'; }
+        document.getElementById('on-air-show').textContent = current.name;
+        document.getElementById('on-air-host').textContent = '';
+        document.getElementById('on-air-time').textContent = fmtH(current.start_hour) + ' – ' + fmtH(current.end_hour);
+        document.getElementById('on-air-bar').style.display = 'flex';
+        if (typeof setStickyOffsets === 'function') setTimeout(setStickyOffsets, 50);
+      }
+    }).catch(function(){});
+
+    // ── HERO IMAGE ───────────────────────────────────────────────
+    // p.hero_image is like "/uploads/abc123.png" — served via symlink on same origin
+    if (p.hero_image) {
+      var heroImg = document.querySelector('#hero-section img');
+      if (heroImg) heroImg.src = p.hero_image;
+    }
+
+    
+
+    // ── NEWS ─────────────────────────────────────────────────────
+    fetch(API + '/api/news?limit=6').then(function(r){return r.json();}).then(function(d) {
+      var items = (d.items || d) || [];
+      var grid = document.getElementById('news-grid');
+      if (!items.length) { grid.innerHTML = '<p style="color:#546e7a">No news yet.</p>'; return; }
+      grid.innerHTML = items.map(function(n) {
+        var img = n.image ? (n.image.startsWith('/uploads/') ? n.image : '/uploads/' + n.image.split('/').pop()) : 'images/news-placeholder.png';
+        var date = n.published_at ? new Date(n.published_at).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}) : '';
+        return '<a href="pages/news.html" class="news-card" style="text-decoration:none;">'
+          + '<img src="'+img+'" class="news-card-img" alt="'+n.headline+'" onerror="this.src=&quot;images/news-placeholder.png&quot;" />'
+          + '<div class="news-card-body">'
+          + (n.category ? '<div class="news-card-cat">'+n.category+'</div>' : '')
+          + '<div class="news-card-title">'+n.headline+'</div>'
+          + '<div class="news-card-date">'+date+'</div>'
+          + '</div></a>';
+      }).join('');
+    }).catch(function(){});
+
+    // ── SCHEDULE — from new schedule API, current + upcoming ─────
+    fetch(API + '/api/schedule/kyca').then(function(r){return r.json();}).then(function(d) {
+      var slots = d.slots || [];
+      var grid = document.getElementById('schedule-grid');
+      if (!slots.length) { grid.innerHTML = '<p style="color:#546e7a">Schedule coming soon.</p>'; return; }
+
+      var now = new Date();
+      var nowH = now.getHours();
+      // Determine today's day group
+      var dow = now.getDay(); // 0=Sun,1=Mon,2=Tue,3=Wed,4=Thu,5=Fri,6=Sat
+      var todayGroup = dow === 0 ? 'sun' : dow === 6 ? 'sat' : dow === 1 ? 'mon' : 'tue-fri';
+
+      // Get today's slots, sorted by start_hour
+      var todaySlots = slots.filter(function(sl) {
+        return sl.day_group === todayGroup || (todayGroup === 'mon' && sl.day_group === 'tue-fri');
+      });
+      // Prefer exact day_group match over tue-fri fallback for mon
+      if (todayGroup === 'mon') {
+        var monSlots = slots.filter(function(sl){ return sl.day_group === 'mon'; });
+        var tuefriSlots = slots.filter(function(sl){ return sl.day_group === 'tue-fri'; });
+        // Merge: for each hour, prefer mon slot, fall back to tue-fri
+        var merged = {};
+        tuefriSlots.forEach(function(sl){ merged[sl.start_hour] = sl; });
+        monSlots.forEach(function(sl){ merged[sl.start_hour] = sl; }); // mon overrides
+        todaySlots = Object.values(merged).sort(function(a,b){ return a.start_hour - b.start_hour; });
+      } else {
+        todaySlots = todaySlots.sort(function(a,b){ return a.start_hour - b.start_hour; });
+      }
+
+      // Find current slot and next 5
+      var currentIdx = -1;
+      for (var i = 0; i < todaySlots.length; i++) {
+        if (todaySlots[i].start_hour <= nowH && todaySlots[i].end_hour > nowH) {
+          currentIdx = i; break;
+        }
+      }
+      var startFrom = currentIdx >= 0 ? currentIdx : todaySlots.findIndex(function(sl){ return sl.start_hour > nowH; });
+      if (startFrom < 0) startFrom = 0;
+      var display = todaySlots.slice(startFrom, startFrom + 6);
+
+      function fmtH(h) {
+        if (h === 0) return '12:00 AM';
+        if (h === 12) return '12:00 PM';
+        return h < 12 ? h + ':00 AM' : (h-12) + ':00 PM';
+      }
+
+      grid.innerHTML = display.map(function(sl, i) {
+        var isNow = sl.start_hour <= nowH && sl.end_hour > nowH;
+        return '<div class="schedule-card'+(isNow?' on-air-now':'')+'">'
+          + '<div class="schedule-time">'+(isNow?'&#9654; On Air Now &mdash; ':'')+fmtH(sl.start_hour)+' &ndash; '+fmtH(sl.end_hour)+'</div>'
+          + '<div class="schedule-show">'+(sl.name||'')+'</div>'
+          + '</div>';
+      }).join('');
+    }).catch(function(){});
+
+  }).catch(function(e){ console.error('KYCA home error:', e); });
+
+})();
+</script>
+<script src="js/player.js"></script>
+  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');</script>
+</body>
+</html>

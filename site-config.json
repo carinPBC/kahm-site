@@ -1,0 +1,139 @@
+{
+  "site": {
+    "name": "KYCA News Talk Radio",
+    "tagline": "LOCAL VOICES. LOCAL TRUST.",
+    "stationId": "kyca",
+    "logo": "images/logo-kyca.png",
+    "logoWhite": "images/logo-kyca-white.png",
+    "favicon": "images/logo-kyca.png",
+    "apiBase": "https://1hnhof7gem-8001.hosted.obvious.ai",
+    "social": {
+      "facebook": "https://facebook.com/prescottbroadcasting",
+      "instagram": "https://instagram.com/prescottbroadcasting",
+      "youtube": "https://youtube.com/prescottbroadcasting",
+      "email": "mailto:kyca@prescottbroadcasting.com"
+    }
+  },
+  "station": {
+    "id": "kyca",
+    "name": "KYCA",
+    "fullName": "KYCA News Talk Radio",
+    "frequency": "FM 103.5 / AM 1490",
+    "tagline": "Northern Arizona's News Talk Leader",
+    "accentColor": "#c0392b",
+    "listenUrl": "http://ophanim.net:8444/s/8030",
+    "phone": "(928) 445-1700",
+    "email": "kyca@prescottbroadcasting.com",
+    "address": "500 Henry Street",
+    "city": "Prescott, Arizona 86301",
+    "streamUrl": "http://ophanim.net:8444/s/8030",
+    "playerUrl": "https://player.streamguys.com/prescott/kyca/sgplayer/player.php"
+  },
+  "nav": {
+    "links": [
+      {
+        "label": "Home",
+        "url": "/index.html"
+      },
+      {
+        "label": "News",
+        "url": "/pages/news.html"
+      },
+      {
+        "label": "Events",
+        "url": "/pages/events.html"
+      },
+      {
+        "label": "Podcasts",
+        "url": "/pages/podcasts.html"
+      },
+      {
+        "label": "Schedule",
+        "url": "/pages/schedule.html"
+      },
+      {
+        "label": "Shows",
+        "url": "/pages/shows.html"
+      },
+      {
+        "label": "Advertise",
+        "url": "/pages/advertise.html"
+      },
+      {
+        "label": "About",
+        "url": "/pages/about.html"
+      },
+      {
+        "label": "Contact",
+        "url": "/pages/contact.html"
+      }
+    ]
+  },
+  "footer": {
+    "columns": [
+      {
+        "title": "Quick Links",
+        "links": [
+          {
+            "label": "News",
+            "url": "pages/news.html"
+          },
+          {
+            "label": "Events",
+            "url": "pages/events.html"
+          },
+          {
+            "label": "Podcasts",
+            "url": "pages/podcasts.html"
+          },
+          {
+            "label": "Schedule",
+            "url": "pages/schedule.html"
+          },
+          {
+            "label": "Advertise",
+            "url": "pages/advertise.html"
+          },
+          {
+            "label": "Contact",
+            "url": "pages/contact.html"
+          }
+        ]
+      },
+      {
+        "title": "Station Info",
+        "links": [
+          {
+            "label": "About KYCA",
+            "url": "pages/about.html"
+          },
+          {
+            "label": "Shows",
+            "url": "pages/shows.html"
+          },
+          {
+            "label": "FCC Applications",
+            "url": "pages/fcc.html"
+          },
+          {
+            "label": "Employment",
+            "url": "pages/employment.html"
+          },
+          {
+            "label": "Archive",
+            "url": "pages/archive.html"
+          },
+          {
+            "label": "Prescott Broadcasting",
+            "url": "https://prescottbroadcasting.com"
+          }
+        ]
+      }
+    ],
+    "legal": {
+      "copyright": "\u00a9 2026 Prescott Broadcasting, LLC. All Rights Reserved.",
+      "privacyPolicyUrl": "/pages/privacy.html",
+      "termsUrl": "/pages/terms.html"
+    }
+  }
+}
