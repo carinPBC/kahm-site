@@ -23,8 +23,8 @@
   </div>
   
   <!-- HERO -->
-  <section id="hero-section" data-hero-bg="/uploads/3835b1c866c1445d850f42db1a8d7fc4.png" style="width:100%;position:relative;">
-    <img src="/uploads/3835b1c866c1445d850f42db1a8d7fc4.png" alt="KYCA" style="width:100%;display:block;height:auto;" onerror="this.style.display='none'"/>
+  <section id="hero-section" data-hero-bg="https://pbc-cms-production.up.railway.app/uploads/3835b1c866c1445d850f42db1a8d7fc4.png" style="width:100%;position:relative;">
+    <img src="https://pbc-cms-production.up.railway.app/uploads/3835b1c866c1445d850f42db1a8d7fc4.png" alt="KYCA" style="width:100%;display:block;height:auto;" onerror="this.style.display='none'"/>
   </section>
 
   <!-- ON AIR BAR -->
@@ -188,10 +188,10 @@
     }).catch(function(){});
 
     // ── HERO IMAGE ───────────────────────────────────────────────
-    // p.hero_image is like "/uploads/abc123.png" — served via symlink on same origin
+    // p.hero_image from CMS — prefix with API base URL
     if (p.hero_image) {
       var heroImg = document.querySelector('#hero-section img');
-      if (heroImg) heroImg.src = p.hero_image;
+      if (heroImg) heroImg.src = p.hero_image.startsWith('http') ? p.hero_image : p.hero_image.startsWith('/') ? 'https://pbc-cms-production.up.railway.app' + p.hero_image : 'https://pbc-cms-production.up.railway.app/' + p.hero_image;
     }
 
     
@@ -202,7 +202,7 @@
       var grid = document.getElementById('news-grid');
       if (!items.length) { grid.innerHTML = '<p style="color:#546e7a">No news yet.</p>'; return; }
       grid.innerHTML = items.map(function(n) {
-        var img = n.image ? (n.image.startsWith('/uploads/') ? n.image : '/uploads/' + n.image.split('/').pop()) : 'images/news-placeholder.png';
+        var img = n.image ? (n.image.startsWith('http') ? n.image : n.image.startsWith('/uploads/') ? 'https://pbc-cms-production.up.railway.app' + n.image : 'https://pbc-cms-production.up.railway.app/' + n.image) : 'images/news-placeholder.png';
         var date = n.published_at ? new Date(n.published_at).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}) : '';
         return '<a href="pages/article.html?id=' + n.id + '" class="news-card" style="text-decoration:none;color:inherit;display:block;">'
           + '<img src="'+img+'" class="news-card-img" alt="'+n.headline+'" style="object-fit:contain;background:#f4f6f8;" onerror="this.src=&quot;images/news-placeholder.png&quot;" />'
