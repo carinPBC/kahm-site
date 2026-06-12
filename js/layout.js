@@ -58,7 +58,7 @@
     var mtrSection = mtrGraphic
       ? '<section class="more-than-radio" style="background:'+mtrBg+' !important;">'
         + '<div class="more-than-radio-bg"><img src="'
-        + (mtrGraphic.startsWith('http') ? mtrGraphic : mtrGraphic.startsWith('/') ? mtrGraphic : '/' + mtrGraphic)
+        + (mtrGraphic.startsWith('http') ? mtrGraphic : mtrGraphic.startsWith('/uploads/') ? 'https://pbc-cms-production.up.railway.app' + mtrGraphic : mtrGraphic.startsWith('uploads/') ? 'https://pbc-cms-production.up.railway.app/' + mtrGraphic : mtrGraphic)
         + '" alt="KYCA" style="width:100%;display:block;" /></div>'
         + '</section>'
       : '';
@@ -233,7 +233,7 @@
         // Build all img elements up front — swap src only on rotation, no DOM rebuild
         function buildBanner() {
           var ad = ads[0];
-          var src = ad.image.startsWith('/uploads/') ? ad.image : '/' + ad.image;
+          var src = ad.image.startsWith('http') ? ad.image : ad.image.startsWith('/uploads/') ? 'https://pbc-cms-production.up.railway.app' + ad.image : 'https://pbc-cms-production.up.railway.app/uploads/' + ad.image.split('/').pop();
           if (ad.link_url) {
             banner.innerHTML = '<a id="kyca-ad-link" href="' + ad.link_url + '" target="_blank" rel="noopener" style="display:inline-block;">'
               + '<img id="kyca-ad-img" src="' + src + '" alt="Advertisement" style="max-width:100%;height:auto;display:inline-block;" />'
@@ -246,7 +246,7 @@
 
         function showAd(idx) {
           var ad = ads[idx];
-          var src = ad.image.startsWith('/uploads/') ? ad.image : '/' + ad.image;
+          var src = ad.image.startsWith('http') ? ad.image : ad.image.startsWith('/uploads/') ? 'https://pbc-cms-production.up.railway.app' + ad.image : 'https://pbc-cms-production.up.railway.app/uploads/' + ad.image.split('/').pop();
           var img = document.getElementById('kyca-ad-img');
           var link = document.getElementById('kyca-ad-link');
           if (img) img.src = src;
