@@ -52,17 +52,22 @@
     </div>
   </div>
   <script>
-  // Move on-air-bar and weather-band into site-header after load
+  // Wrap nav+on-air-bar+weather-band in sticky container after layout.js builds them
   document.addEventListener('DOMContentLoaded', function() {
     setTimeout(function() {
-      var header = document.getElementById('site-header');
+      var nav = document.querySelector('nav.main-nav');
       var onAir = document.getElementById('on-air-bar');
       var weather = document.getElementById('kyca-weather-band');
-      if (!header) return;
-      header.style.cssText = 'position:sticky;top:0;z-index:1000;';
-      if (onAir) header.appendChild(onAir);
-      if (weather) header.appendChild(weather);
-    }, 100);
+      if (!nav || !nav.parentNode || document.getElementById('kyca-sticky-stack')) return;
+      var wrapper = document.createElement('div');
+      wrapper.id = 'kyca-sticky-stack';
+      wrapper.style.cssText = 'position:sticky;top:0;z-index:1000;';
+      nav.parentNode.insertBefore(wrapper, nav);
+      wrapper.appendChild(nav);
+      if (onAir) wrapper.appendChild(onAir);
+      if (weather) wrapper.appendChild(weather);
+      nav.style.position = 'relative';
+    }, 500);
   });
   </script>
   <div id="kyca-ad-banner" style="display:none;text-align:center;padding:12px 0;background:#f8f9fa;border-bottom:1px solid #e8ecf0;"></div>
