@@ -64,6 +64,10 @@
         "url": "/pages/about.html"
       },
       {
+        "label": "FCC Applications",
+        "url": "/pages/fcc.html"
+      },
+      {
         "label": "Contact",
         "url": "/pages/contact.html"
       }
@@ -126,6 +130,18 @@
           {
             "label": "Prescott Broadcasting",
             "url": "https://prescottbroadcasting.com"
+          },
+          {
+            "label": "Public Inspection File",
+            "url": "https://publicfiles.fcc.gov/am-profile/kyca"
+          },
+          {
+            "label": "Public Inspection File Help",
+            "url": "pages/public-inspection-help.html"
+          },
+          {
+            "label": "EEO",
+            "url": "https://kyca-bucket.s3.us-west-1.amazonaws.com/wp-content/uploads/20250610194039/EEO-REPORT-PRESCOTT-BROADCASTING-2024-2025.docx.pdf"
           }
         ]
       }
