@@ -366,7 +366,7 @@ fetch(API_URL+'/api/pages/kyca-public-inspection-help')
     // Render editorial sections
     var secs = JSON.parse(p.sections||'[]');
     var html = secs.map(function(s, i) { return renderSection(s, i); }).join('');
-    var contentEl = document.getElementById('advertise-content');
+    var contentEl = document.getElementById('pih-content');
     if (contentEl) contentEl.innerHTML = html;
 
     // Hero image
