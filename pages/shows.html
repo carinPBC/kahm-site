@@ -215,7 +215,7 @@
         el.innerHTML = '<div class="shows-grid">'
           + displayShows.map(function(s) {
             var imgSrc = s.image
-              ? (s.image.startsWith('/uploads/') ? s.image : (s.image.startsWith('http') ? s.image : '/uploads/' + s.image.split('/').pop()))
+              ? (s.image.startsWith('http') ? s.image : s.image.startsWith('/uploads/') ? 'https://pbc-cms-production.up.railway.app' + s.image : 'https://pbc-cms-production.up.railway.app/' + s.image)
               : null;
             var times = showTimes[s.id] ? showTimes[s.id].join('<br>') : '';
             return '<div class="show-card">'
