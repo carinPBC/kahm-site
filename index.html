@@ -20,7 +20,6 @@
 </head>
 <body class="kyca-home">
   <div id="site-header"></div>
-  </div>
   
   <!-- HERO -->
   <section id="hero-section" data-hero-bg="https://pbc-cms-production.up.railway.app/files/d5193ef3876b43559ac565ab934506fd.png" style="width:100%;position:relative;">
@@ -53,21 +52,16 @@
     </div>
   </div>
   <script>
-  // Wrap nav+on-air-bar+weather-band in sticky container after layout.js builds them
+  // Move on-air-bar and weather-band into site-header after load
   document.addEventListener('DOMContentLoaded', function() {
     setTimeout(function() {
-      var nav = document.querySelector('nav.main-nav');
+      var header = document.getElementById('site-header');
       var onAir = document.getElementById('on-air-bar');
       var weather = document.getElementById('kyca-weather-band');
-      if (!nav || !nav.parentNode || document.getElementById('kyca-sticky-stack')) return;
-      var wrapper = document.createElement('div');
-      wrapper.id = 'kyca-sticky-stack';
-      wrapper.style.cssText = 'position:sticky;top:0;z-index:1000;';
-      nav.parentNode.insertBefore(wrapper, nav);
-      wrapper.appendChild(nav);
-      if (onAir) wrapper.appendChild(onAir);
-      if (weather) wrapper.appendChild(weather);
-      nav.style.position = 'relative';
+      if (!header) return;
+      header.style.cssText = 'position:sticky;top:0;z-index:1000;';
+      if (onAir) header.appendChild(onAir);
+      if (weather) header.appendChild(weather);
     }, 100);
   });
   </script>
