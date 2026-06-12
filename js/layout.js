@@ -413,7 +413,7 @@
     var now = new Date();
     var day = now.getDay();
     var nowH = now.getHours();
-    var dayGroups = {0:'sun',1:'mon',2:'tue-fri',3:'tue-fri',4:'tue-fri',5:'fri',6:'sat'};
+    var dayGroups = {0:'sun',1:'mon',2:'tue-fri',3:'tue-fri',4:'tue-fri',5:'tue-fri',6:'sat'};
     // fallback groups same as homepage
     var todayGroup = dayGroups[day] || 'mon';
 
