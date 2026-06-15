@@ -202,7 +202,7 @@
       if (!items.length) { grid.innerHTML = '<p style="color:#546e7a">No news yet.</p>'; return; }
       grid.innerHTML = items.map(function(n) {
         var img = n.image ? (n.image.startsWith('http') ? n.image : n.image.startsWith('/uploads/') ? 'https://pbc-cms-production.up.railway.app' + n.image : 'https://pbc-cms-production.up.railway.app/' + n.image) : 'images/news-placeholder.png';
-        var date = n.published_at ? new Date(n.published_at).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}) : '';
+        var date = n.published_at ? new Date(n.published_at.slice(0,10)+'T12:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}) : '';
         return '<a href="pages/article.html?id=' + n.id + '" class="news-card" style="text-decoration:none;color:inherit;display:block;">'
           + '<img src="'+img+'" class="news-card-img" alt="'+n.headline+'" style="object-fit:contain;background:#f4f6f8;" onerror="this.src=&quot;images/news-placeholder.png&quot;" />'
           + '<div class="news-card-body">'
