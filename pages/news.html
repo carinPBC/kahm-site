@@ -102,7 +102,7 @@
         var img = n.image
           ? (n.image.startsWith('http') ? n.image : (n.image.startsWith('uploads/') ? API + '/' + n.image : '../' + n.image))
           : '../images/news-placeholder.png';
-        var date = n.published_at ? new Date(n.published_at).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}) : '';
+        var date = n.published_at ? new Date(n.published_at.slice(0,10)+'T12:00:00').toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}) : '';
         var station = '';
         return '<a class="news-card" href="article.html?id=' + n.id + '" style="text-decoration:none;color:inherit;display:block;">'
           + '<img class="news-card-img" src="' + img + '" alt="' + (n.headline||'').replace(/"/g,'&quot;') + '" onerror="this.src=&quot;../images/news-placeholder.png&quot;" />'
