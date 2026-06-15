@@ -202,13 +202,14 @@ fetch(API_URL+"/api/pages/podcasts").then(function(r){return r.json();}).then(fu
           : '';
         var href = show.video_url || show.audio_url || '#';
         var btnLabel = show.video_url ? '&#9654;&nbsp; Watch / Listen' : show.audio_url ? '&#9654;&nbsp; Listen' : '';
-        return '<a href="show.html?id=' + show.id + '"' style="display:block;background:#fff;border-radius:8px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,.08);text-decoration:none;transition:transform .2s,box-shadow .2s;" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 6px 20px rgba(0,0,0,.13)'" onmouseout="this.style.transform='';this.style.boxShadow='0 2px 10px rgba(0,0,0,.08)'">'
-          + (thumb ? '<img src="' + thumb + '" alt="' + show.show_name + '" style="width:100%;aspect-ratio:16/9;object-fit:cover;display:block;" onerror="this.style.display='none'" />' : '<div style="width:100%;aspect-ratio:16/9;background:linear-gradient(135deg,#032a48,#6c8ea3);display:flex;align-items:center;justify-content:center;"><span style="font-size:40px;color:rgba(255,255,255,.3);">&#9654;</span></div>')
+        return '<a href="show.html?id=' + show.id + '" style="display:block;background:#fff;border-radius:8px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,.08);text-decoration:none;transition:transform .2s,box-shadow .2s;" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 6px 20px rgba(0,0,0,.13)'" onmouseout="this.style.transform='';this.style.boxShadow='0 2px 10px rgba(0,0,0,.08)'">'
+          + (thumb ? '<img src="' + thumb + '" alt="' + show.show_name.replace(/"/g,'&quot;') + '" style="width:100%;aspect-ratio:16/9;object-fit:cover;display:block;" />' : '<div style="width:100%;aspect-ratio:16/9;background:linear-gradient(135deg,#032a48,#6c8ea3);display:flex;align-items:center;justify-content:center;"><span style="font-size:40px;color:rgba(255,255,255,.3);">&#9654;</span></div>')
           + '<div style="padding:16px;">'
           + '<div style="font-size:15px;font-weight:700;color:#032a48;margin-bottom:6px;">' + show.show_name + '</div>'
           + (show.description ? '<div style="font-size:12px;color:#546e7a;line-height:1.5;margin-bottom:10px;">' + show.description + '</div>' : '')
-          + (btnLabel ? '<span style="display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;color:#c0392b;text-transform:uppercase;letter-spacing:.05em;">' + btnLabel + '</span>' : '')
-          + '</div></a>';
+          + '<span style="display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;color:#c0392b;text-transform:uppercase;letter-spacing:.05em;">&#9654;&nbsp; Watch / Listen</span>'
+          + '</div>'
+          + '</a>';
       }).join('');
     }).catch(function(){});
 })();
