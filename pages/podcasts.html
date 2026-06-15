@@ -184,7 +184,6 @@ fetch(API_URL+"/api/pages/podcasts").then(function(r){return r.json();}).then(fu
 
 </script>
 <script>
-
 (function() {
   var API_URL = "https://pbc-cms-production.up.railway.app";
   var container = document.getElementById('podcasts-container');
@@ -192,74 +191,27 @@ fetch(API_URL+"/api/pages/podcasts").then(function(r){return r.json();}).then(fu
 
   fetch(API_URL + '/api/podcasts?limit=500')
     .then(function(r) { return r.json(); })
-    .then(function(episodes) {
-      if (!episodes.length) {
-        container.innerHTML = '<p style="text-align:center;padding:60px;color:#546e7a;">No podcasts available yet.</p>';
+    .then(function(shows) {
+      if (!shows.length) {
+        container.innerHTML = '<p style="text-align:center;padding:60px;color:#546e7a;">No shows available yet.</p>';
         return;
       }
-
-      // Group by show_name
-      var shows = {};
-      episodes.forEach(function(ep) {
-        var show = ep.show_name || 'Uncategorized';
-        if (!shows[show]) shows[show] = { station: ep.station_id, episodes: [] };
-        shows[show].episodes.push(ep);
-      });
-
-      container.innerHTML = Object.keys(shows).map(function(showName) {
-        var show = shows[showName];
-        var stationBadge = show.station
-          ? '<span class="show-group-station">' + show.station.toUpperCase() + '</span>' : '';
-        var cards = show.episodes.map(function(ep) {
-          var thumb = ep.image
-            ? '<img class="pod-thumb" src="' + (ep.image.startsWith('uploads/') ? API_URL + '/' + ep.image : '../' + ep.image) + '" alt="' + ep.show_name + '" />'
-            : '<div class="pod-thumb pod-thumb-placeholder"></div>';
-          var listenBtn = ep.audio_url
-            ? '<a href="' + ep.audio_url + '" target="_blank" class="pod-listen">&#9654; Listen</a>' : '';
-          var videoEmbed = '';
-          if (ep.video_url) {
-            var vSrc = ep.video_url;
-            if (vSrc.indexOf('vimeo.com/') !== -1 && vSrc.indexOf('player.vimeo.com') === -1) {
-              var vId = vSrc.split('/').filter(Boolean).pop().split('?')[0];
-              vSrc = 'https://player.vimeo.com/video/' + vId;
-            }
-            videoEmbed = '<div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:6px;margin-top:10px;"><iframe src="' + vSrc + '" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;" allow="autoplay;fullscreen" allowfullscreen></iframe></div>';
-          }
-          var date = ep.published_at ? new Date(ep.published_at).toLocaleDateString('en-US', {month:'short',day:'numeric',year:'numeric'}) : '';
-          // If video, render as full-width embed card instead of square card
-          if (videoEmbed) {
-            return '<div style="background:#fff;border-radius:8px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,.08);margin-bottom:8px;">'
-              + videoEmbed
-              + '<div style="padding:14px;">'
-              + '<div style="font-size:14px;font-weight:700;color:#032a48;margin-bottom:4px;">' + (ep.episode_title || ep.show_name) + '</div>'
-              + (ep.description ? '<div style="font-size:12px;color:#546e7a;line-height:1.5;">' + ep.description + '</div>' : '')
-              + (listenBtn ? '<div style="margin-top:8px;">' + listenBtn + '</div>' : '')
-              + '</div></div>';
-          }
-          return '<div class="pod-card">'
-            + thumb
-            + '<div class="pod-body">'
-            + (ep.episode_num ? '<div class="pod-date">EP ' + ep.episode_num + (date ? ' &middot; ' + date : '') + '</div>' : (date ? '<div class="pod-date">' + date + '</div>' : ''))
-            + '<div class="pod-title">' + (ep.episode_title || ep.show_name) + '</div>'
-            + (ep.description ? '<div class="pod-desc">' + ep.description + '</div>' : '')
-            + listenBtn
-            + '</div></div>';
-        }).join('');
-
-        return '<div class="show-group">'
-          + '<div class="show-group-header">'
-          + '<div class="show-group-name">' + showName + '</div>'
-          + stationBadge
-          + '</div>'
-          + '<div class="pod-grid">' + cards + '</div>'
-          + '</div>';
+      container.innerHTML = shows.map(function(show) {
+        var thumb = show.image
+          ? (show.image.startsWith('http') ? show.image : show.image.startsWith('uploads/') ? API_URL + '/' + show.image : '../' + show.image)
+          : '';
+        var href = show.video_url || show.audio_url || '#';
+        var btnLabel = show.video_url ? '&#9654;&nbsp; Watch / Listen' : show.audio_url ? '&#9654;&nbsp; Listen' : '';
+        return '<a href="' + href + '" target="_blank" rel="noopener" style="display:block;background:#fff;border-radius:8px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,.08);text-decoration:none;transition:transform .2s,box-shadow .2s;" onmouseover="this.style.transform='translateY(-3px)';this.style.boxShadow='0 6px 20px rgba(0,0,0,.13)'" onmouseout="this.style.transform='';this.style.boxShadow='0 2px 10px rgba(0,0,0,.08)'">'
+          + (thumb ? '<img src="' + thumb + '" alt="' + show.show_name + '" style="width:100%;aspect-ratio:16/9;object-fit:cover;display:block;" onerror="this.style.display='none'" />' : '<div style="width:100%;aspect-ratio:16/9;background:linear-gradient(135deg,#032a48,#6c8ea3);display:flex;align-items:center;justify-content:center;"><span style="font-size:40px;color:rgba(255,255,255,.3);">&#9654;</span></div>')
+          + '<div style="padding:16px;">'
+          + '<div style="font-size:15px;font-weight:700;color:#032a48;margin-bottom:6px;">' + show.show_name + '</div>'
+          + (show.description ? '<div style="font-size:12px;color:#546e7a;line-height:1.5;margin-bottom:10px;">' + show.description + '</div>' : '')
+          + (btnLabel ? '<span style="display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;color:#c0392b;text-transform:uppercase;letter-spacing:.05em;">' + btnLabel + '</span>' : '')
+          + '</div></a>';
       }).join('');
-    })
-    .catch(function() {
-      container.innerHTML = '<p style="text-align:center;padding:60px;color:#546e7a;">Unable to load podcasts. Please try again.</p>';
-    });
+    }).catch(function(){});
 })();
-
 </script>
 <script>
 
