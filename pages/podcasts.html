@@ -226,6 +226,16 @@ fetch(API_URL+"/api/pages/podcasts").then(function(r){return r.json();}).then(fu
             videoEmbed = '<div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:6px;margin-top:10px;"><iframe src="' + vSrc + '" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;" allow="autoplay;fullscreen" allowfullscreen></iframe></div>';
           }
           var date = ep.published_at ? new Date(ep.published_at).toLocaleDateString('en-US', {month:'short',day:'numeric',year:'numeric'}) : '';
+          // If video, render as full-width embed card instead of square card
+          if (videoEmbed) {
+            return '<div style="background:#fff;border-radius:8px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,.08);margin-bottom:8px;">'
+              + videoEmbed
+              + '<div style="padding:14px;">'
+              + '<div style="font-size:14px;font-weight:700;color:#032a48;margin-bottom:4px;">' + (ep.episode_title || ep.show_name) + '</div>'
+              + (ep.description ? '<div style="font-size:12px;color:#546e7a;line-height:1.5;">' + ep.description + '</div>' : '')
+              + (listenBtn ? '<div style="margin-top:8px;">' + listenBtn + '</div>' : '')
+              + '</div></div>';
+          }
           return '<div class="pod-card">'
             + thumb
             + '<div class="pod-body">'
