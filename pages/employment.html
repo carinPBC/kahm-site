@@ -28,7 +28,7 @@
     @media(max-width:640px){.emp-wrap{padding:32px 16px;}}
   </style>
 </head>
-<body>
+<body style="background:#f8f9fa;">
   <div id="site-header"></div>
   <div class="emp-wrap">
     <h1 style="font-size:clamp(24px,3vw,36px);font-weight:900;color:#032a48;text-transform:uppercase;letter-spacing:.03em;margin-bottom:16px;">Employment Opportunities</h1>
@@ -53,15 +53,15 @@
         var el = document.getElementById('job-listings');
         if (!el) return;
         if (!jobs.length) {
-          el.innerHTML = '<div class="no-openings"><h3>No Current Openings</h3><p>There are no open positions at this time. Please check back later or send your resume to <a href="mailto:info@prescottbroadcasting.com">info@prescottbroadcasting.com</a> for future consideration.</p></div>';
+          el.innerHTML = '<div class="no-openings"><h3>No Current Openings</h3><p>There are no open positions at this time. Please check back later or send your resume to <a href="mailto:jobs@prescottbroadcasting.com">info@prescottbroadcasting.com</a> for future consideration.</p></div>';
           return;
         }
         el.innerHTML = jobs.map(function(j) {
           var applyBtn = j.apply_url
             ? '<a href="' + j.apply_url + '" target="_blank" rel="noopener" class="job-apply">Apply Now &rsaquo;</a>'
-            : '<a href="mailto:info@prescottbroadcasting.com" class="job-apply">Apply by Email &rsaquo;</a>';
+            : '<a href="mailto:jobs@prescottbroadcasting.com" class="job-apply">Apply by Email &rsaquo;</a>';
           return '<div class="job-card">'
-            + '<div class="job-station">' + (j.station || 'Prescott Broadcasting') + (j.station ? ' &middot; Prescott, AZ' : '') + '</div>'
+            + '<div class="job-station">' + (j.station || 'Prescott Broadcasting')  + '</div>'
             + '<div class="job-title">' + j.title + '</div>'
             + '<div class="job-meta">'
             + (j.department ? '<span class="job-badge">' + j.department + '</span>' : '')
@@ -78,5 +78,5 @@
       });
   })();
   </script>
-</body>
+</body style="background:#f8f9fa;">
 </html>
