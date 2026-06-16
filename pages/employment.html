@@ -7,89 +7,76 @@
   <link rel="stylesheet" href="../css/kyca-base.css" /><link rel="stylesheet" href="../css/kyca.css" />
   <style id="nav-critical">
     nav.main-nav{background:#fff7ec !important;position:sticky !important;top:0 !important;z-index:9999 !important;}
-    .main-nav-inner{width:100%;padding:0 48px;display:flex;align-items:center;justify-content:space-between;min-height:100px;}
-    .nav-logo img{height:180px;width:auto;object-fit:contain;}
-    .nav-search{background:none;border:none;cursor:pointer;color:#1a2f4e;padding:6px;display:flex;align-items:center;}
-    .nav-hamburger{display:none;background:none;border:none;cursor:pointer;color:#1a2f4e;padding:6px;}
+    .main-nav-inner{width:100%;padding:0 48px;display:flex;align-items:center;justify-content:space-between;min-height:110px;}
+    .nav-logo img{height:100px;width:auto;object-fit:contain;}
     @media(max-width:900px){.main-nav-inner{padding:0 20px;}}
-    @media(max-width:640px){.nav-links-wrap{display:none !important;}.nav-hamburger{display:flex !important;}}
+    @media(max-width:640px){.nav-links-wrap{display:none !important;}}
+  </style>
+  <style>
+    .emp-wrap{max-width:860px;margin:0 auto;padding:48px 32px;}
+    .emp-intro{font-size:15px;color:#546e7a;line-height:1.8;margin-bottom:40px;padding-bottom:32px;border-bottom:2px solid #e8ecf0;}
+    .job-card{background:#fff;border-radius:10px;padding:28px;box-shadow:0 2px 12px rgba(0,0,0,.07);margin-bottom:16px;}
+    .job-station{font-size:11px;font-weight:800;color:#c0392b;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;}
+    .job-title{font-size:20px;font-weight:800;color:#032a48;margin-bottom:8px;}
+    .job-meta{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:12px;}
+    .job-badge{background:#f4f6f8;color:#546e7a;padding:3px 10px;border-radius:100px;font-size:11px;font-weight:700;}
+    .job-desc{font-size:14px;color:#444;line-height:1.7;margin-bottom:16px;}
+    .job-apply{display:inline-flex;align-items:center;gap:6px;padding:10px 20px;background:#032a48;color:#fff;border-radius:6px;font-size:13px;font-weight:700;text-decoration:none;transition:background .15s;}
+    .job-apply:hover{background:#0a2239;}
+    .no-openings{text-align:center;padding:60px 0;color:#546e7a;}
+    .no-openings h3{font-size:20px;font-weight:700;color:#032a48;margin-bottom:8px;}
+    @media(max-width:640px){.emp-wrap{padding:32px 16px;}}
   </style>
 </head>
 <body>
   <div id="site-header"></div>
-
-  <!-- WEATHER BAND -->
-  <div id="kyca-weather-band" style="background:#032a48;border-bottom:1px solid rgba(255,255,255,0.08);overflow:hidden;height:120px;display:flex;align-items:center;">
-    <div style="flex:1;overflow:hidden;height:95px;position:relative;margin-top:4px;">
-      <a class="weatherwidget-io" href="https://forecast7.com/en/34d54n112d47/prescott/?unit=us" data-label_1="PRESCOTT" data-label_2="WEATHER" data-theme="original" data-basecolor="#032a48" data-days="7">PRESCOTT WEATHER</a>
-    </div>
-    <div id="kyca-weather-report" style="flex-shrink:0;display:none;align-items:center;gap:8px;padding:0 20px;border-left:1px solid rgba(255,255,255,0.1);min-width:520px;background:#032a48;">
-      <span style="font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,0.5);">&#127925; Today&#39;s Report</span>
-      <div id="kyca-weather-player"></div>
+  <div class="emp-wrap">
+    <h1 style="font-size:clamp(24px,3vw,36px);font-weight:900;color:#032a48;text-transform:uppercase;letter-spacing:.03em;margin-bottom:16px;">Employment Opportunities</h1>
+    <p class="emp-intro">
+      Prescott Broadcasting, LLC is an equal opportunity employer committed to a diverse and inclusive workplace.
+      We do not discriminate on the basis of race, color, religion, sex, national origin, age, disability, or any other
+      characteristic protected by law. Current openings at our stations are listed below.
+    </p>
+    <div id="job-listings">
+      <div style="text-align:center;padding:40px 0;color:#546e7a;">Loading...</div>
     </div>
   </div>
-
-  </div>
-  <div class="page-hero"><h1>Employment Opportunities</h1><p>Join the KYCA team.</p></div>
-  <div class="content-wrap"><div style="max-width:800px;">
-    <div id="emp-content">
-      <p style="font-size:16px;color:#546e7a;line-height:1.8;margin-bottom:32px;">
-        Prescott Broadcasting is an equal opportunity employer. We are committed to a diverse and inclusive workplace. Current openings at KYCA and our sister stations are listed below.
-      </p>
-      <div id="job-listings">
-        <div style="background:#fff;border-radius:10px;padding:28px;box-shadow:0 2px 12px rgba(0,0,0,.07);margin-bottom:16px;">
-          <div style="font-size:12px;font-weight:800;color:#c0392b;text-transform:uppercase;letter-spacing:.08em;margin-bottom:8px;">KYCA · Prescott, AZ</div>
-          <h3 style="font-size:18px;font-weight:700;color:#032a48;margin-bottom:8px;">Openings Posted Here</h3>
-          <p style="font-size:14px;color:#546e7a;line-height:1.7;">Current job openings will be listed here. To inquire about opportunities at KYCA or Prescott Broadcasting, please send your resume and cover letter to <a href="mailto:jobs@prescottbroadcasting.com" style="color:#c0392b;font-weight:600;">jobs@prescottbroadcasting.com</a>.</p>
-        </div>
-      </div>
-      <div style="margin-top:32px;padding:20px 24px;background:#f8f9fa;border-radius:8px;font-size:13px;color:#546e7a;">
-        <strong style="color:#032a48;">EEO Policy:</strong> Prescott Broadcasting, LLC is an equal opportunity employer and does not discriminate on the basis of race, color, religion, sex, national origin, age, disability, or any other characteristic protected by law.
-        <br><br>
-        <a href="fcc.html" style="color:#c0392b;font-weight:600;">View our FCC EEO Public File &rsaquo;</a>
-      </div>
-    </div>
-  </div></div>
   <div id="site-footer"></div>
+  <script src="../js/theme.js"></script>
   <script src="../js/layout.js" data-depth="1"></script>
-  
-<script>
-(function() {
-  var API = 'https://pbc-cms-production.up.railway.app';
-  fetch(API + '/api/pages/kyca-employment')
-    .then(function(r) { return r.json(); })
-    .then(function(p) {
-      if (p.page_heading) {
-        var h1 = document.querySelector('.page-hero h1');
-        if (h1) h1.textContent = p.page_heading;
-      }
-      if (p.page_subheading) {
-        var sub = document.querySelector('.page-hero p');
-        if (sub) sub.textContent = p.page_subheading;
-      }
-      if (p.bg_color) {
-        var s = document.getElementById('pbc-page-bg');
-        if (!s) { s = document.createElement('style'); s.id = 'pbc-page-bg'; document.head.appendChild(s); }
-        s.textContent = 'body, .page-hero, .content-wrap, .schedule-wrap, #shows-content, .editorial-section { background: ' + p.bg_color + ' !important; }';
-      }
-    }).catch(function() {});
-})();
-</script>
-<script>
-(function() {
-  var API = 'https://pbc-cms-production.up.railway.app';
-  fetch(API + '/api/pages/kyca-employment')
-    .then(function(r) { return r.json(); })
-    .then(function(p) {
-      if (p.bg_color) {
-        var s = document.getElementById('pbc-page-bg');
-        if (!s) { s = document.createElement('style'); s.id = 'pbc-page-bg'; document.head.appendChild(s); }
-        s.textContent = 'body, .page-hero, .content-wrap, .schedule-wrap, #shows-content, .editorial-section { background: ' + p.bg_color + ' !important; }';
-      }
-    }).catch(function() {});
-})();
-</script>
-<script src="../js/player.js"></script>
-  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');</script>
+  <script>
+  (function() {
+    var API = 'https://pbc-cms-production.up.railway.app';
+    fetch(API + '/api/jobs?status=open')
+      .then(function(r) { return r.json(); })
+      .then(function(jobs) {
+        var el = document.getElementById('job-listings');
+        if (!el) return;
+        if (!jobs.length) {
+          el.innerHTML = '<div class="no-openings"><h3>No Current Openings</h3><p>There are no open positions at this time. Please check back later or send your resume to <a href="mailto:info@prescottbroadcasting.com">info@prescottbroadcasting.com</a> for future consideration.</p></div>';
+          return;
+        }
+        el.innerHTML = jobs.map(function(j) {
+          var applyBtn = j.apply_url
+            ? '<a href="' + j.apply_url + '" target="_blank" rel="noopener" class="job-apply">Apply Now &rsaquo;</a>'
+            : '<a href="mailto:info@prescottbroadcasting.com" class="job-apply">Apply by Email &rsaquo;</a>';
+          return '<div class="job-card">'
+            + '<div class="job-station">' + (j.station || 'Prescott Broadcasting') + (j.station ? ' &middot; Prescott, AZ' : '') + '</div>'
+            + '<div class="job-title">' + j.title + '</div>'
+            + '<div class="job-meta">'
+            + (j.department ? '<span class="job-badge">' + j.department + '</span>' : '')
+            + '<span class="job-badge">' + (j.employment_type || 'Full-time') + '</span>'
+            + (j.posted_date ? '<span class="job-badge">Posted ' + new Date(j.posted_date + 'T12:00:00').toLocaleDateString("en-US",{month:"short",day:"numeric",year:"numeric"}) + '</span>' : '')
+            + '</div>'
+            + (j.description ? '<div class="job-desc">' + j.description.replace(/\n/g,'<br>') + '</div>' : '')
+            + applyBtn
+            + '</div>';
+        }).join('');
+      }).catch(function() {
+        var el = document.getElementById('job-listings');
+        if (el) el.innerHTML = '<div class="no-openings"><h3>No Current Openings</h3><p>Please check back soon.</p></div>';
+      });
+  })();
+  </script>
 </body>
 </html>
