@@ -422,16 +422,25 @@
 
   function toEmbedUrl(url) {
     if (!url) return url;
-    // YouTube: watch?v=ID or youtu.be/ID → embed/ID
+    // YouTube: watch?v=ID or youtu.be/ID → embed/ID?autoplay=1
     var ytMatch = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&?/]+)/);
     if (ytMatch) return 'https://www.youtube.com/embed/' + ytMatch[1] + '?autoplay=1';
-    // Vimeo event: vimeo.com/event/ID → player.vimeo.com/video/ID
+    // Vimeo event already in embed form (vimeo.com/event/ID/embed...)
+    // Append autoplay=1 if not already present
+    if (url.indexOf('vimeo.com/event') !== -1 && url.indexOf('/embed') !== -1) {
+      return url.indexOf('autoplay=1') !== -1 ? url
+        : url + (url.indexOf('?') !== -1 ? '&' : '?') + 'autoplay=1';
+    }
+    // Vimeo event: vimeo.com/event/ID (bare) → embed with autoplay
     var vimeoEvent = url.match(/vimeo\.com\/event\/(\d+)/);
-    if (vimeoEvent) return 'https://vimeo.com/event/' + vimeoEvent[1] + '/embed';
+    if (vimeoEvent) return 'https://vimeo.com/event/' + vimeoEvent[1] + '/embed?autoplay=1';
     // Vimeo video: vimeo.com/ID
     var vimeoVideo = url.match(/vimeo\.com\/(\d+)/);
     if (vimeoVideo) return 'https://player.vimeo.com/video/' + vimeoVideo[1] + '?autoplay=1';
-    // Already an embed URL or unknown — use as-is
+    // Already an embed URL — append autoplay if missing
+    if (url.indexOf('autoplay') === -1) {
+      return url + (url.indexOf('?') !== -1 ? '&' : '?') + 'autoplay=1';
+    }
     return url;
   }
 
