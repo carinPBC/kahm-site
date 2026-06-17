@@ -503,12 +503,14 @@
       if (watchEl) {
         e.preventDefault();
         var videoUrl = watchEl.getAttribute('data-video-url');
-        openPlayer(true); // skipAudio=true
-        if (videoUrl) {
-          switchToVideo(videoUrl);
-        } else {
-          checkSchedule();
-        }
+        openPlayer(true); // skipAudio=true, widget slides up
+        // Defer switchToVideo slightly so widget is visible before iframe loads
+        var urlToPlay = videoUrl;
+        setTimeout(function() {
+          if (urlToPlay) {
+            switchToVideo(urlToPlay);
+          }
+        }, 50);
         if (pollTimer) clearInterval(pollTimer);
         pollTimer = setInterval(checkSchedule, POLL_INTERVAL);
         return;
