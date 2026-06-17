@@ -226,7 +226,7 @@ nav.main-nav { background: var(--cream) !important; }
 }
 
 /* Footer logo — 50% larger, no tagline */
-.footer-logo img { height: 80px !important; }
+.footer-logo img { height: 120px !important; margin-bottom: 6px !important; }
 .footer-tagline { display: none !important; }
 
 /* ── STICKY HEADER ───────────────────────────────────────────── */
