@@ -441,7 +441,7 @@
     var day = now.getDay(); // 0=Sun, 1=Mon...
     var hour = now.getHours();
     var dayGroups = {
-      0:'sun', 1:'mon-fri', 2:'mon-fri', 3:'mon-fri', 4:'mon-fri', 5:'mon-fri', 6:'sat'
+      0:'sun', 1:'mon', 2:'tue-fri', 3:'tue-fri', 4:'tue-fri', 5:'tue-fri', 6:'sat'
     };
     var dayGroup = dayGroups[day];
 
@@ -496,14 +496,15 @@
 
   // ── Hook all Listen Live links ───────────────────────────────
   function hookListenLinks() {
-    document.querySelectorAll('a[href*="streamguys"], [data-listen]').forEach(function(el) {
-      el.addEventListener('click', function(e) {
-        e.preventDefault();
-        openPlayer();
-        checkSchedule();
-        if (pollTimer) clearInterval(pollTimer);
-        pollTimer = setInterval(checkSchedule, POLL_INTERVAL);
-      });
+    // Use delegation so dynamically-injected buttons (on-air bar) are caught too
+    document.addEventListener('click', function(e) {
+      var el = e.target.closest('[data-listen], a[href*="streamguys"]');
+      if (!el) return;
+      e.preventDefault();
+      openPlayer();
+      checkSchedule();
+      if (pollTimer) clearInterval(pollTimer);
+      pollTimer = setInterval(checkSchedule, POLL_INTERVAL);
     });
   }
 
