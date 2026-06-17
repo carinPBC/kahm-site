@@ -440,9 +440,11 @@
             if (current.video_url) {
               watchBtn.style.display = 'inline-flex';
               watchBtn.setAttribute('data-video-url', current.video_url);
+              window.KYCA_CURRENT_VIDEO_URL = current.video_url; // shared ref for player.js
             } else {
               watchBtn.style.display = 'none';
               watchBtn.removeAttribute('data-video-url');
+              window.KYCA_CURRENT_VIDEO_URL = null;
             }
           }
         }

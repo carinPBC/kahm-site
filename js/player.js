@@ -502,15 +502,12 @@
       var watchEl = e.target.closest('#watch-live-btn');
       if (watchEl) {
         e.preventDefault();
-        var videoUrl = watchEl.getAttribute('data-video-url');
-        openPlayer(true); // skipAudio=true, widget slides up
-        // Defer switchToVideo slightly so widget is visible before iframe loads
-        var urlToPlay = videoUrl;
-        setTimeout(function() {
-          if (urlToPlay) {
-            switchToVideo(urlToPlay);
-          }
-        }, 50);
+        // Read URL from attribute OR shared window ref (handles async race)
+        var videoUrl = watchEl.getAttribute('data-video-url') || window.KYCA_CURRENT_VIDEO_URL || null;
+        openPlayer(true); // skipAudio=true
+        if (videoUrl) {
+          switchToVideo(videoUrl);
+        }
         if (pollTimer) clearInterval(pollTimer);
         pollTimer = setInterval(checkSchedule, POLL_INTERVAL);
         return;
