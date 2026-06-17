@@ -321,7 +321,7 @@
           + '<span class="on-air-time" id="on-air-time"></span>'
           + '<div style="display:flex;gap:10px;margin-left:auto;flex-shrink:0;align-items:center;">'
           + '<a href="#" data-listen="kyca" style="display:inline-flex;align-items:center;gap:6px;background:#c0392b;color:#fff;padding:6px 14px;border-radius:6px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;text-decoration:none;white-space:nowrap;">&#9654; Listen Live</a>'
-          + '<a href="#" id="watch-live-btn" style="display:none;align-items:center;gap:6px;background:rgba(255,255,255,.15);color:#fff;padding:6px 14px;border-radius:6px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;text-decoration:none;white-space:nowrap;border:1px solid rgba(255,255,255,.3);">&#128250; Watch Live</a>'
+          + '<button id="watch-live-btn" style="display:none;align-items:center;gap:6px;background:rgba(255,255,255,.15);color:#fff;padding:6px 14px;border-radius:6px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;cursor:pointer;white-space:nowrap;border:1px solid rgba(255,255,255,.3);">&#128250; Watch Live</button>'
           + '</div>'
           + '</div>';
         var nav = document.querySelector('nav.main-nav');
@@ -437,7 +437,11 @@
           // Watch Live button if show has video_url
           if (current.video_url) {
             var watchBtn = document.getElementById('watch-live-btn');
-            if (watchBtn) watchBtn.style.display = 'inline-flex';
+            if (watchBtn) {
+              watchBtn.style.display = 'inline-flex';
+              // Store video URL on the button so player.js can pick it up
+              watchBtn.setAttribute('data-video-url', current.video_url);
+            }
           }
         }
       })

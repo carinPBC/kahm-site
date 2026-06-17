@@ -498,6 +498,22 @@
   function hookListenLinks() {
     // Use delegation so dynamically-injected buttons (on-air bar) are caught too
     document.addEventListener('click', function(e) {
+      // Watch Live button in on-air bar
+      var watchEl = e.target.closest('#watch-live-btn');
+      if (watchEl) {
+        e.preventDefault();
+        var videoUrl = watchEl.getAttribute('data-video-url');
+        openPlayer();
+        if (videoUrl) {
+          switchToVideo(videoUrl);
+        } else {
+          checkSchedule();
+        }
+        if (pollTimer) clearInterval(pollTimer);
+        pollTimer = setInterval(checkSchedule, POLL_INTERVAL);
+        return;
+      }
+      // Listen Live buttons
       var el = e.target.closest('[data-listen], a[href*="streamguys"]');
       if (!el) return;
       e.preventDefault();
