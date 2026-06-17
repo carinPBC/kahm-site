@@ -4,8 +4,8 @@
   <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Contact — KYCA News Talk Radio</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../css/kyca-base.css?v=15" />
-  <link rel="stylesheet" href="../css/kyca.css?v=15" />
+  <link rel="stylesheet" href="../css/kyca-base.css?v=16" />
+  <link rel="stylesheet" href="../css/kyca.css?v=16" />
   <style id="nav-critical">
     nav.main-nav{background:#fff7ec !important;position:sticky !important;top:0 !important;z-index:9999 !important;}
     .main-nav-inner{width:100%;padding:0 48px;display:flex;align-items:center;justify-content:space-between;min-height:100px;}
@@ -173,7 +173,7 @@
 </div>
 
   <div id="site-footer"></div>
-  <script src="../js/layout.js?v=15" data-depth="1"></script>
+  <script src="../js/layout.js?v=16" data-depth="1"></script>
   <script>
 
 var API_URL="https://pbc-cms-production.up.railway.app";
@@ -445,7 +445,36 @@ fetch(API_URL+'/api/pages/kyca-contact')
     }).catch(function() {});
 })();
 </script>
-<script src="../js/player.js?v=7"></script>
+<script src="../js/player.js?v=8"></script>
   <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');</script>
+
+<script>
+function submitContact(e) {
+  e.preventDefault();
+  var name    = document.getElementById('cf-name').value.trim();
+  var email   = document.getElementById('cf-email').value.trim();
+  var subject = document.getElementById('cf-subject').value;
+  var message = document.getElementById('cf-msg').value.trim();
+  if (!name || !email || !message) { alert('Please fill in all required fields.'); return; }
+  var btn = e.target.querySelector('[type=submit]');
+  btn.disabled = true; btn.textContent = 'Sending…';
+  fetch('https://pbc-cms-production.up.railway.app/api/submit/contact', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({name: name, email: email, subject: subject, message: message, station: 'kyca'})
+  }).then(function(r){return r.json();}).then(function(res){
+    if (res.ok) {
+      e.target.innerHTML = '<div style="text-align:center;padding:32px 0;"><div style="font-size:20px;margin-bottom:12px;">✅</div><div style="font-size:16px;font-weight:700;color:#032a48;">Message sent!</div><p style="color:#546e7a;margin-top:8px;">Thanks for reaching out. We'll be in touch soon.</p></div>';
+    } else {
+      btn.disabled = false; btn.textContent = 'Send Message';
+      alert('Something went wrong. Please try again.');
+    }
+  }).catch(function(){
+    btn.disabled = false; btn.textContent = 'Send Message';
+    alert('Something went wrong. Please try again.');
+  });
+}
+</script>
+
 </body>
 </html>
