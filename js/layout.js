@@ -434,13 +434,15 @@
           if (bar) { bar.style.display = 'flex'; setStickyOffsets(); }
           if (showEl) showEl.textContent = current.name;
           if (timeEl) timeEl.textContent = fmtH(current.start_hour) + ' – ' + fmtH(current.end_hour);
-          // Watch Live button if show has video_url
-          if (current.video_url) {
-            var watchBtn = document.getElementById('watch-live-btn');
-            if (watchBtn) {
+          // Watch Live button only when show has a video_url
+          var watchBtn = document.getElementById('watch-live-btn');
+          if (watchBtn) {
+            if (current.video_url) {
               watchBtn.style.display = 'inline-flex';
-              // Store video URL on the button so player.js can pick it up
               watchBtn.setAttribute('data-video-url', current.video_url);
+            } else {
+              watchBtn.style.display = 'none';
+              watchBtn.removeAttribute('data-video-url');
             }
           }
         }

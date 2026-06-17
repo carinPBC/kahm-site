@@ -371,14 +371,14 @@
   }
 
   // ── Player state ─────────────────────────────────────────────
-  function openPlayer() {
+  function openPlayer(skipAudio) {
     if (!isOpen) {
       isOpen = true;
       localStorage.setItem(STORAGE_KEY, '1');
-      // Start audio stream
-      startAudio();
       // Load hidden StreamGuys iframe (contract requirement)
       sgIframe.src = STREAMGUYS_URL;
+      // Only auto-start audio if not going straight to video
+      if (!skipAudio) startAudio();
     }
     widget.classList.add('visible');
     widget.style.bottom = '';
@@ -498,12 +498,12 @@
   function hookListenLinks() {
     // Use delegation so dynamically-injected buttons (on-air bar) are caught too
     document.addEventListener('click', function(e) {
-      // Watch Live button in on-air bar
+      // Watch Live button in on-air bar — skip audio, go straight to video
       var watchEl = e.target.closest('#watch-live-btn');
       if (watchEl) {
         e.preventDefault();
         var videoUrl = watchEl.getAttribute('data-video-url');
-        openPlayer();
+        openPlayer(true); // skipAudio=true
         if (videoUrl) {
           switchToVideo(videoUrl);
         } else {
