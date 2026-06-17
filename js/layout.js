@@ -79,7 +79,6 @@
       +   '<div class="footer-logo-col">'
       +     '<div class="footer-logo"><img src="'+root+'images/logo-kyca-white.png" alt="'+cfg.site.name+'" onerror="this.src=\''+root+cfg.site.logo+'\'" /></div>'
       +     '<div class="footer-tagline">'+st.frequency+'<br>'+st.tagline+'</div>'
-      +     '<div class="footer-social" style="margin-top:12px">'+socialHTML(cfg.site.social)+'</div>'
       +   '</div>'
       +   '<div class="footer-right-group">'
       +   cols

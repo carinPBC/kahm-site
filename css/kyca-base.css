@@ -515,7 +515,7 @@ footer {
   border-bottom: 2px solid var(--red);
   display: inline-block;
 }
-.footer-links { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 0 20px; }
+.footer-links { list-style: none; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0 20px; }
 .footer-links li { line-height: 1; }
 .footer-links li a {
   font-size: 12px;
