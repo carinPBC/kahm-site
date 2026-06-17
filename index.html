@@ -6,8 +6,8 @@
   <title>KYCA News Talk Radio — FM 103.5 / AM 1490 — KYCA News Talk Radio</title>
   <link rel="icon" type="image/png" href="images/logo-kyca.png" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/kyca-base.css?v=14" />
-  <link rel="stylesheet" href="css/kyca.css?v=14" />
+  <link rel="stylesheet" href="css/kyca-base.css?v=15" />
+  <link rel="stylesheet" href="css/kyca.css?v=15" />
   <style id="nav-critical">
     nav.main-nav{background:#fff7ec !important;position:sticky !important;top:0 !important;z-index:9999 !important;}
     .main-nav-inner{width:100%;padding:0 48px;display:flex;align-items:center;justify-content:space-between;min-height:100px;}
@@ -35,7 +35,7 @@
     <span class="on-air-time" id="on-air-time"></span>
     <div style="display:flex;gap:10px;margin-left:auto;flex-shrink:0;align-items:center;">
       <a href="#" data-listen="kyca" style="display:inline-flex;align-items:center;gap:6px;background:#c0392b;color:#fff;padding:6px 14px;border-radius:6px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;text-decoration:none;white-space:nowrap;">&#9654; Listen Live</a>
-      <a href="#" id="watch-live-btn" style="display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.15);color:#fff;padding:6px 14px;border-radius:6px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;text-decoration:none;white-space:nowrap;border:1px solid rgba(255,255,255,.3);">&#128250; Watch Live</a>
+      <button id="watch-live-btn" style="display:none;align-items:center;gap:6px;background:rgba(255,255,255,.15);color:#fff;padding:6px 14px;border-radius:6px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;cursor:pointer;white-space:nowrap;border:1px solid rgba(255,255,255,.3);">&#128250; Watch Live</button>
     </div>
   </div>
 
@@ -53,7 +53,7 @@
     </div>
   </div>
   <script>
-  // Wrap nav+on-air-bar+weather-band in sticky container after layout.js?v=14 builds them
+  // Wrap nav+on-air-bar+weather-band in sticky container after layout.js?v=15 builds them
   document.addEventListener('DOMContentLoaded', function() {
     setTimeout(function() {
       var nav = document.querySelector('nav.main-nav');
@@ -148,7 +148,7 @@
   </style>
 
   <div id="site-footer"></div>
-  <script src="js/layout.js?v=14" data-depth="0"></script>
+  <script src="js/layout.js?v=15" data-depth="0"></script>
   
 <script>
 (function() {
