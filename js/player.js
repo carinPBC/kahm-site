@@ -443,21 +443,27 @@
   function toEmbedUrl(url) {
     if (!url) return url;
     url = url.trim();
+    function fresh(u) {
+      var sep = u.indexOf('?') !== -1 ? '&' : '?';
+      var out = u;
+      if (out.indexOf('autoplay=') === -1) out += sep + 'autoplay=1';
+      sep = out.indexOf('?') !== -1 ? '&' : '?';
+      return out + sep + 'cb=' + Date.now();
+    }
     // YouTube: watch?v=ID or youtu.be/ID → embed/ID
     var ytMatch = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&?/]+)/);
-    if (ytMatch) return 'https://www.youtube.com/embed/' + ytMatch[1] + '?autoplay=1';
-    // Vimeo event/show URLs from CMS should be respected exactly.
-    // The station uses /embed/interaction links for live event playback.
+    if (ytMatch) return fresh('https://www.youtube.com/embed/' + ytMatch[1]);
+    // Vimeo event/show URLs from CMS should be respected, but forced fresh.
     if (url.indexOf('vimeo.com/event') !== -1 && url.indexOf('/embed') !== -1) {
-      return url;
+      return fresh(url);
     }
     // Bare Vimeo event: vimeo.com/event/ID → interactive embed
     var vimeoEvent = url.match(/vimeo\.com\/event\/(\d+)/);
-    if (vimeoEvent) return 'https://vimeo.com/event/' + vimeoEvent[1] + '/embed/interaction';
+    if (vimeoEvent) return fresh('https://vimeo.com/event/' + vimeoEvent[1] + '/embed/interaction');
     // Vimeo video: vimeo.com/ID
     var vimeoVideo = url.match(/vimeo\.com\/(\d+)/);
-    if (vimeoVideo) return 'https://player.vimeo.com/video/' + vimeoVideo[1] + '?autoplay=1';
-    return url;
+    if (vimeoVideo) return fresh('https://player.vimeo.com/video/' + vimeoVideo[1]);
+    return fresh(url);
   }
 
   // ── Schedule check ───────────────────────────────────────────
