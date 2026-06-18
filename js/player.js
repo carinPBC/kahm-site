@@ -294,9 +294,9 @@
       <!-- Hidden StreamGuys iframe — satisfies streaming contract -->
       <iframe id="kyca-sg-iframe"
         src=""
-        style="position:absolute;width:1px;height:1px;opacity:0;pointer-events:none;top:0;left:0;"
-        tabindex="-1"
-        aria-hidden="true">
+        style="width:100%;height:0;border:none;display:block;transition:height 0.2s;"
+        scrolling="no"
+        allow="autoplay">
       </iframe>
     </div>
   `;
@@ -375,10 +375,15 @@
     if (!isOpen) {
       isOpen = true;
       localStorage.setItem(STORAGE_KEY, '1');
-      // Load hidden StreamGuys iframe (contract requirement)
-      sgIframe.src = STREAMGUYS_URL;
-      // Only auto-start audio if not going straight to video
-      if (!skipAudio) startAudio();
+      // Load StreamGuys player as the visible audio player
+      if (!skipAudio) {
+        sgIframe.src = STREAMGUYS_URL;
+        sgIframe.style.height = '160px';
+        // Hide custom audio controls — StreamGuys handles playback
+        var audioMode = document.getElementById('kyca-audio-mode');
+        if (audioMode) audioMode.style.display = 'none';
+        isPlaying = true;
+      }
     }
     widget.classList.add('visible');
     widget.style.bottom = '';
@@ -394,8 +399,12 @@
     stopAudio();
     iframe.src = '';
     sgIframe.src = '';
+    sgIframe.style.height = '0';
+    var audioMode = document.getElementById('kyca-audio-mode');
+    if (audioMode) audioMode.style.display = '';
     isOpen = false;
     isVideoMode = false;
+    isPlaying = false;
     widget.classList.remove('visible', 'video-mode');
     widget.style.bottom = '';
     localStorage.removeItem(STORAGE_KEY);
@@ -418,6 +427,12 @@
     iframe.style.display = 'none';
     iframe.src = '';
     currentVideoUrl = null;
+    // Restore StreamGuys player
+    if (isOpen) {
+      sgIframe.style.height = '160px';
+      var audioMode = document.getElementById('kyca-audio-mode');
+      if (audioMode) audioMode.style.display = 'none';
+    }
   }
 
   function toEmbedUrl(url) {
