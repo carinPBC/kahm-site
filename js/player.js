@@ -443,25 +443,20 @@
   function toEmbedUrl(url) {
     if (!url) return url;
     url = url.trim();
-    // YouTube: watch?v=ID or youtu.be/ID → embed/ID?autoplay=1
+    // YouTube: watch?v=ID or youtu.be/ID → embed/ID
     var ytMatch = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&?/]+)/);
     if (ytMatch) return 'https://www.youtube.com/embed/' + ytMatch[1] + '?autoplay=1';
-
-    // Vimeo event URLs. CMS may store /embed/interaction, but the live player
-    // should use /embed. The interaction shell can surface archived/previous media.
-    var vimeoEvent = url.match(/vimeo\.com\/event\/(\d+)/);
-    if (vimeoEvent) {
-      return 'https://vimeo.com/event/' + vimeoEvent[1] + '/embed?autoplay=1';
+    // Vimeo event/show URLs from CMS should be respected exactly.
+    // The station uses /embed/interaction links for live event playback.
+    if (url.indexOf('vimeo.com/event') !== -1 && url.indexOf('/embed') !== -1) {
+      return url;
     }
-
+    // Bare Vimeo event: vimeo.com/event/ID → interactive embed
+    var vimeoEvent = url.match(/vimeo\.com\/event\/(\d+)/);
+    if (vimeoEvent) return 'https://vimeo.com/event/' + vimeoEvent[1] + '/embed/interaction';
     // Vimeo video: vimeo.com/ID
     var vimeoVideo = url.match(/vimeo\.com\/(\d+)/);
     if (vimeoVideo) return 'https://player.vimeo.com/video/' + vimeoVideo[1] + '?autoplay=1';
-
-    // Already an embed URL — append autoplay if missing
-    if (url.indexOf('autoplay') === -1) {
-      return url + (url.indexOf('?') !== -1 ? '&' : '?') + 'autoplay=1';
-    }
     return url;
   }
 
