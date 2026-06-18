@@ -414,10 +414,15 @@
   function switchToVideo(url) {
     currentVideoUrl = url;
     isVideoMode = true;
+    // Stop any audio source before loading video so streams don't overlap
+    stopAudio();
+    sgIframe.src = '';
+    sgIframe.style.height = '0';
+    var audioMode = document.getElementById('kyca-audio-mode');
+    if (audioMode) audioMode.style.display = 'none';
     widget.classList.add('video-mode');
     iframe.style.display = 'block';
     iframe.src = toEmbedUrl(url);
-    // Keep audio running underneath
   }
 
   function switchToAudio() {
