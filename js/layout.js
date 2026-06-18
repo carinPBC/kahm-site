@@ -387,17 +387,27 @@
 
 
   function initWeatherReport(globals) {
-    var url = globals.weather_report_url || '';
-    if (!url) return;
+    var raw = globals.weather_report_url || '';
+    if (!raw) return;
     var playerEl = document.getElementById('kyca-weather-player');
     var reportEl = document.getElementById('kyca-weather-report');
     if (!playerEl || !reportEl) return;
-    var embedUrl = 'https://w.soundcloud.com/player/?url=' + encodeURIComponent(url)
-      + '&color=%23c0392b&auto_play=false&hide_related=true&show_comments=false'
-      + '&show_user=true&show_reposts=false&show_teaser=false&visual=false'
-      + '&buying=false&liking=false&download=false&sharing=false';
-    playerEl.innerHTML = '<iframe width="500" height="90" scrolling="no" frameborder="no" allow="autoplay"'
-      + ' style="border-radius:4px;" src="' + embedUrl + '"></iframe>';
+    // If they pasted a full iframe embed, extract the src URL
+    var srcMatch = raw.match(/src=["']([^"']+)["\']/);
+    if (srcMatch) {
+      // Already a full embed — inject directly but override dimensions
+      playerEl.innerHTML = '<iframe width="500" height="90" scrolling="no" frameborder="no" allow="autoplay"'
+        + ' style="border-radius:4px;" src="' + srcMatch[1] + '"></iframe>';
+    } else {
+      // Plain SoundCloud URL — build embed
+      var url = raw.trim();
+      var embedUrl = 'https://w.soundcloud.com/player/?url=' + encodeURIComponent(url)
+        + '&color=%23c0392b&auto_play=false&hide_related=true&show_comments=false'
+        + '&show_user=true&show_reposts=false&show_teaser=false&visual=false'
+        + '&buying=false&liking=false&download=false&sharing=false';
+      playerEl.innerHTML = '<iframe width="500" height="90" scrolling="no" frameborder="no" allow="autoplay"'
+        + ' style="border-radius:4px;" src="' + embedUrl + '"></iframe>';
+    }
     reportEl.style.display = 'flex';
   }
 
