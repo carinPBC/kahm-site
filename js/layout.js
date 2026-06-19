@@ -413,6 +413,14 @@
 
   function initOnAirBar() {
     var API_URL = window.KYCA_API || 'https://pbc-cms-production.up.railway.app';
+    // Keep on-air bar current for visitors who leave the site open.
+    if (!window.KYCA_ON_AIR_TIMER) {
+      window.KYCA_ON_AIR_TIMER = setInterval(initOnAirBar, 60000);
+      window.addEventListener('focus', initOnAirBar);
+      document.addEventListener('visibilitychange', function() {
+        if (!document.hidden) initOnAirBar();
+      });
+    }
     function fmtH(h) {
       if (h === 0) return '12:00 AM';
       if (h === 12) return '12:00 PM';
@@ -437,15 +445,21 @@
             return sl.day_group === 'tue-fri' && sl.start_hour <= nowH && sl.end_hour > nowH;
           });
         }
+        var bar = document.getElementById('on-air-bar');
+        var watchBtn = document.getElementById('watch-live-btn');
+        if (!current) {
+          if (bar) { bar.style.display = 'none'; setStickyOffsets(); }
+          if (watchBtn) { watchBtn.style.display = 'none'; watchBtn.removeAttribute('data-video-url'); }
+          window.KYCA_CURRENT_VIDEO_URL = null;
+          return;
+        }
         if (current) {
-          var bar = document.getElementById('on-air-bar');
           var showEl = document.getElementById('on-air-show');
           var timeEl = document.getElementById('on-air-time');
           if (bar) { bar.style.display = 'flex'; setStickyOffsets(); }
           if (showEl) showEl.textContent = current.name;
           if (timeEl) timeEl.textContent = fmtH(current.start_hour) + ' – ' + fmtH(current.end_hour);
           // Watch Live button only when show has a video_url
-          var watchBtn = document.getElementById('watch-live-btn');
           if (watchBtn) {
             if (current.video_url) {
               watchBtn.style.display = 'inline-flex';
