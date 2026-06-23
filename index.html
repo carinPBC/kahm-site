@@ -158,10 +158,19 @@
 
   Promise.all([
     fetch(API + '/api/stations/kahm').then(function(r){return r.json();}),
-    fetch(API + '/api/pages/kahm-home').then(function(r){return r.json();}).catch(function(){return {};})
+    fetch(API + '/api/pages/kahm-home').then(function(r){return r.json();}).catch(function(){return {}; }),
+    fetch(API + '/api/station-globals/kahm').then(function(r){return r.json();}).catch(function(){return {};})
   ]).then(function(res) {
     var s = res[0];
     var p = res[1];
+    var globals = res[2] || {};
+    var sidebarEnabled = !(globals.home_video_sidebar_enabled === false || globals.home_video_sidebar_enabled === 'false' || globals.home_video_sidebar_enabled === '0');
+    if (!sidebarEnabled) {
+      var topRow = document.getElementById('home-top-row');
+      var sidebar = document.getElementById('home-video-sidebar');
+      if (topRow) topRow.style.gridTemplateColumns = '1fr';
+      if (sidebar) sidebar.style.display = 'none';
+    }
 
     // ── ON AIR — from real schedule ────────────────────────────
     function updateHomeOnAirBar() {
