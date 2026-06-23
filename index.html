@@ -129,7 +129,7 @@
   </div>
 
   <!-- SCHEDULE: Full width below -->
-  <section style="padding:48px 48px;background:#fff;" id="schedule-section">
+  <section style="display:none;padding:48px 48px;background:#fff;" id="schedule-section">
     <div>
       <div class="section-header">
         <h2 class="section-title" >Today's Lineup</h2>
@@ -170,10 +170,8 @@
       try { return JSON.parse(globals.active_pages); } catch(e) { return ['home','news','events','podcasts','schedule','shows','advertise','about','fcc','contact','public-inspection-help','employment','archive']; }
     }
     var scheduleActive = activePages().indexOf('schedule') !== -1;
-    if (!scheduleActive) {
-      var scheduleSection = document.getElementById('schedule-section');
-      if (scheduleSection) scheduleSection.style.display = 'none';
-    }
+    var scheduleSection = document.getElementById('schedule-section');
+    if (scheduleSection) scheduleSection.style.display = scheduleActive ? 'block' : 'none';
     var sidebarEnabled = !(globals.home_video_sidebar_enabled === false || globals.home_video_sidebar_enabled === 'false' || globals.home_video_sidebar_enabled === '0');
     if (!sidebarEnabled) {
       var topRow = document.getElementById('home-top-row');
