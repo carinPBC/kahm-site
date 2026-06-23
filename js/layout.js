@@ -315,6 +315,7 @@
     if (globals.footer_graphic)   cfg._footerGraphic         = globals.footer_graphic;
     if (globals.footer_bg)        cfg._footerBg              = globals.footer_bg;
     if (globals.mtr_bg)           cfg._mtrBg                 = globals.mtr_bg;
+    if (globals.active_pages)     cfg._activePages            = globals.active_pages;
 
     window.KAHM_CFG = cfg;
     window.KAHM_API = API;
