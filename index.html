@@ -23,8 +23,10 @@
   <div id="site-header"></div>
   
   <!-- HERO -->
-  <section id="hero-section" data-hero-bg="images/hero-station-default.png" style="width:100%;position:relative;background:#f5f8fb;">
-    <img src="images/hero-station-default.png" alt="KAHM" style="width:100%;display:block;height:auto;" onerror="this.style.display='none'"/>
+  <section id="hero-section" data-hero-bg="" style="width:100%;min-height:520px;position:relative;background:#072f57;display:flex;align-items:center;justify-content:center;border-bottom:4px solid #ffffff;">
+    <div id="hero-placeholder" style="color:rgba(255,255,255,.78);font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-align:center;line-height:1.5;">
+      Station Hero<br><span style="font-size:11px;font-weight:500;opacity:.75;">Replace with art</span>
+    </div>
   </section>
 
   <!-- ON AIR BAR -->
@@ -213,8 +215,14 @@
     // ── HERO IMAGE ───────────────────────────────────────────────
     // p.hero_image from CMS — prefix with API base URL
     if (p.hero_image) {
-      var heroImg = document.querySelector('#hero-section img');
-      if (heroImg) heroImg.src = p.hero_image.startsWith('http') ? p.hero_image : p.hero_image.startsWith('/') ? 'https://pbc-cms-production.up.railway.app' + p.hero_image : 'https://pbc-cms-production.up.railway.app/' + p.hero_image;
+      var heroSection = document.getElementById('hero-section');
+      var heroSrc = p.hero_image.startsWith('http') ? p.hero_image : p.hero_image.startsWith('/') ? 'https://pbc-cms-production.up.railway.app' + p.hero_image : 'https://pbc-cms-production.up.railway.app/' + p.hero_image;
+      if (heroSection) {
+        heroSection.style.minHeight = '';
+        heroSection.style.display = 'block';
+        heroSection.style.background = '#072f57';
+        heroSection.innerHTML = '<img src="' + heroSrc + '" alt="KAHM" style="width:100%;display:block;height:auto;" onerror="this.style.display=\'none\'" />';
+      }
     }
 
     
