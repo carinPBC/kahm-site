@@ -164,6 +164,16 @@
     var s = res[0];
     var p = res[1];
     var globals = res[2] || {};
+    function activePages() {
+      if (!globals.active_pages) return ['home','news','events','podcasts','schedule','shows','advertise','about','fcc','contact','public-inspection-help','employment','archive'];
+      if (Array.isArray(globals.active_pages)) return globals.active_pages;
+      try { return JSON.parse(globals.active_pages); } catch(e) { return ['home','news','events','podcasts','schedule','shows','advertise','about','fcc','contact','public-inspection-help','employment','archive']; }
+    }
+    var scheduleActive = activePages().indexOf('schedule') !== -1;
+    if (!scheduleActive) {
+      var scheduleSection = document.getElementById('schedule-section');
+      if (scheduleSection) scheduleSection.style.display = 'none';
+    }
     var sidebarEnabled = !(globals.home_video_sidebar_enabled === false || globals.home_video_sidebar_enabled === 'false' || globals.home_video_sidebar_enabled === '0');
     if (!sidebarEnabled) {
       var topRow = document.getElementById('home-top-row');

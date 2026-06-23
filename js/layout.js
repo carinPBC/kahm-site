@@ -26,8 +26,26 @@
     return html;
   }
 
+  function parseActivePages(cfg) {
+    var defaults = ['home','news','events','podcasts','schedule','shows','advertise','about','fcc','contact','public-inspection-help','employment','archive'];
+    var val = cfg._activePages;
+    if (!val) return defaults;
+    if (Array.isArray(val)) return val;
+    try { return JSON.parse(val); } catch(e) { return defaults; }
+  }
+  function pageKeyFromUrl(url) {
+    url = (url || '').replace(/^\//,'').replace(/^pages\//,'').replace(/\.html$/,'');
+    if (url === 'index') return 'home';
+    return url;
+  }
+  function isPageActive(cfg, key) {
+    return parseActivePages(cfg).indexOf(key) !== -1;
+  }
+
   function buildNav(cfg) {
-    var links = cfg.nav.links.map(function(l) {
+    var links = cfg.nav.links.filter(function(l) {
+      return isPageActive(cfg, pageKeyFromUrl(l.url));
+    }).map(function(l) {
       var href = root + l.url.replace(/^\//, '');
       var active = window.location.pathname.endsWith(l.url.replace(/^\//, '')) ||
                    (l.url === '/index.html' && (window.location.pathname.endsWith('/') || window.location.pathname.endsWith('index.html')));
@@ -63,7 +81,9 @@
         + '</section>'
       : '';
     var cols = cfg.footer.columns.map(function(col) {
-      var links = col.links.map(function(l) {
+      var links = col.links.filter(function(l) {
+        return l.url.startsWith('http') || isPageActive(cfg, pageKeyFromUrl(l.url));
+      }).map(function(l) {
         var href = l.url.startsWith('http') ? l.url : root + l.url;
         return '<li><a href="'+href+'">'+l.label+'</a></li>';
       }).join('');
