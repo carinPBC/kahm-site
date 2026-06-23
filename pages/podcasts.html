@@ -4,8 +4,8 @@
   <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Podcasts — KYCA News Talk Radio</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../css/kyca-base.css?v=26" />
-  <link rel="stylesheet" href="../css/kyca.css?v=26" />
+  <link rel="stylesheet" href="../css/kyca-base.css?v=27" />
+  <link rel="stylesheet" href="../css/kyca.css?v=27" />
   <style id="nav-critical">
     nav.main-nav{background:#fff7ec !important;position:sticky !important;top:0 !important;z-index:9999 !important;}
     .main-nav-inner{width:100%;padding:0 48px;display:flex;align-items:center;justify-content:space-between;min-height:100px;}
@@ -63,7 +63,7 @@
 <div id="podcasts-container" class="content-wrap"></div>
 
   <div id="site-footer"></div>
-  <script src="../js/layout.js?v=26" data-depth="1"></script>
+  <script src="../js/layout.js?v=27" data-depth="1"></script>
   <script>
 
 var API_URL="https://pbc-cms-production.up.railway.app";
@@ -198,6 +198,14 @@ fetch(API_URL+"/api/pages/podcasts").then(function(r){return r.json();}).then(fu
         container.innerHTML = '<p style="text-align:center;padding:60px;color:#546e7a;">No shows available yet.</p>';
         return;
       }
+      shows.sort(function(a,b) {
+        var ao = parseInt(a.display_order || 0, 10);
+        var bo = parseInt(b.display_order || 0, 10);
+        if (ao && bo && ao !== bo) return ao - bo;
+        if (ao && !bo) return -1;
+        if (!ao && bo) return 1;
+        return (a.show_name || '').localeCompare(b.show_name || '');
+      });
       container.innerHTML = shows.map(function(show) {
         var thumb = show.image
           ? (show.image.startsWith('http') ? show.image : show.image.startsWith('uploads/') ? API_URL + '/' + show.image : '../' + show.image)

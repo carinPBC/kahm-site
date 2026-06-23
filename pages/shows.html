@@ -4,8 +4,8 @@
   <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Shows — KYCA News Talk Radio</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../css/kyca-base.css?v=26" />
-  <link rel="stylesheet" href="../css/kyca.css?v=26" />
+  <link rel="stylesheet" href="../css/kyca-base.css?v=27" />
+  <link rel="stylesheet" href="../css/kyca.css?v=27" />
   <style id="nav-critical">
     nav.main-nav{background:#fff7ec !important;position:sticky !important;top:0 !important;z-index:9999 !important;}
     .main-nav-inner{width:100%;padding:0 48px;display:flex;align-items:center;justify-content:space-between;min-height:100px;}
@@ -100,6 +100,13 @@
       letter-spacing: .05em;
     }
     .show-card-link:hover { text-decoration: underline; }
+
+    .shows-toolbar { max-width: var(--max-width); margin: 0 auto; padding: 24px 48px 0; display:flex; justify-content:flex-end; gap:10px; }
+    .shows-toggle { border:1.5px solid #c0392b; background:#fff; color:#c0392b; border-radius:999px; padding:8px 16px; font-size:12px; font-weight:800; letter-spacing:.04em; text-transform:uppercase; cursor:pointer; }
+    .shows-toggle.active { background:#c0392b; color:#fff; }
+    .schedule-group { max-width: var(--max-width); margin: 0 auto; padding: 20px 48px 0; }
+    .schedule-group-title { font-size:18px; font-weight:900; color:#032a48; text-transform:uppercase; letter-spacing:.06em; border-bottom:3px solid #c0392b; padding-bottom:10px; margin-bottom:4px; }
+    .schedule-group .shows-grid { padding: 20px 0 28px; }
     @media (max-width: 768px) {
       .shows-grid { padding: 24px 16px; grid-template-columns: 1fr 1fr; }
     }
@@ -131,112 +138,124 @@
     <p>Meet the voices of KYCA News Talk Radio.</p>
   </div>
 
+  <div class="shows-toolbar">
+    <button id="schedule-toggle" class="shows-toggle" type="button">Organize by Schedule</button>
+  </div>
   <div id="shows-content">
     <div style="text-align:center;padding:48px;color:#546e7a;">Loading shows…</div>
   </div>
 
   <div id="site-footer"></div>
-  <script src="../js/layout.js?v=26" data-depth="1"></script>
+  <script src="../js/layout.js?v=27" data-depth="1"></script>
   <script>
   (function() {
     var API = 'https://pbc-cms-production.up.railway.app';
+    var scheduleMode = false;
+    var cachedShows = [];
+    var cachedSlots = [];
+    var showTimes = {};
+
+    function fmtHour(h) {
+      if (h === 0 || h === 24) return '12:00 AM';
+      if (h === 12) return '12:00 PM';
+      return h < 12 ? h + ':00 AM' : (h - 12) + ':00 PM';
+    }
+    function groupLabel(g) {
+      return {mon:'Monday','tue-fri':'Tuesday–Friday',sat:'Saturday',sun:'Sunday'}[g] || g;
+    }
+    function imgForShow(s) {
+      return s.image ? (s.image.startsWith('http') ? s.image : s.image.startsWith('/uploads/') ? 'https://pbc-cms-production.up.railway.app' + s.image : 'https://pbc-cms-production.up.railway.app/' + s.image) : null;
+    }
+    function buildShowTimes(slots) {
+      var rawSlots = {};
+      slots.forEach(function(slot) {
+        if (!rawSlots[slot.show_id]) rawSlots[slot.show_id] = [];
+        rawSlots[slot.show_id].push(slot);
+      });
+      var out = {};
+      Object.keys(rawSlots).forEach(function(showId) {
+        var slotsForShow = rawSlots[showId];
+        var entries = [];
+        var skipTueFri = {};
+        slotsForShow.forEach(function(slot) {
+          if (slot.day_group !== 'mon') return;
+          var timeStr = fmtHour(slot.start_hour) + ' – ' + fmtHour(slot.end_hour);
+          var match = slotsForShow.find(function(s) { return s.day_group === 'tue-fri' && s.start_hour === slot.start_hour && s.end_hour === slot.end_hour; });
+          if (match) { entries.push('Mon–Fri · ' + timeStr); skipTueFri[match.id] = true; }
+          else { entries.push('Monday · ' + timeStr); }
+        });
+        slotsForShow.forEach(function(slot) {
+          if (slot.day_group !== 'tue-fri' || skipTueFri[slot.id]) return;
+          entries.push('Tue–Fri · ' + fmtHour(slot.start_hour) + ' – ' + fmtHour(slot.end_hour));
+        });
+        slotsForShow.forEach(function(slot) {
+          if (slot.day_group !== 'sat' && slot.day_group !== 'sun') return;
+          entries.push((slot.day_group === 'sat' ? 'Saturday' : 'Sunday') + ' · ' + fmtHour(slot.start_hour) + ' – ' + fmtHour(slot.end_hour));
+        });
+        out[showId] = entries;
+      });
+      return out;
+    }
+    function showCard(s, slot) {
+      var imgSrc = imgForShow(s);
+      var times = slot ? (groupLabel(slot.day_group) + ' · ' + fmtHour(slot.start_hour) + ' – ' + fmtHour(slot.end_hour)) : (showTimes[s.id] ? showTimes[s.id].join('<br>') : '');
+      return '<div class="show-card">'
+        + (imgSrc ? '<div class="show-card-img-wrap"><img src="'+imgSrc+'" alt="'+s.name+'" onerror="this.parentNode.style.display=\'none\'" /></div>' : '')
+        + '<div class="show-card-header">'
+        + '<div class="show-color-bar" style="background:'+(s.color||'#c0392b')+';"></div>'
+        + '<div><div class="show-card-name">'+s.name+'</div>'
+        + (times ? '<div class="show-card-times">'+times+'</div>' : '')
+        + '</div></div>'
+        + '<div class="show-card-body">'
+        + (s.description ? '<div class="show-card-desc">'+s.description+'</div>' : '')
+        + (s.link_url ? '<a href="'+s.link_url+'" target="_blank" class="show-card-link">Learn More &rsaquo;</a>' : '')
+        + '</div></div>';
+    }
+    function renderDefault() {
+      var el = document.getElementById('shows-content');
+      var featured = cachedShows.filter(function(s) { return s.description || s.image; });
+      var displayShows = featured.length ? featured : cachedShows;
+      if (!displayShows.length) { el.innerHTML = '<div style="text-align:center;padding:48px;color:#546e7a;">Shows coming soon.</div>'; return; }
+      el.innerHTML = '<div class="shows-grid">' + displayShows.map(function(s){ return showCard(s); }).join('') + '</div>';
+    }
+    function renderBySchedule() {
+      var el = document.getElementById('shows-content');
+      var showMap = {};
+      cachedShows.forEach(function(s){ showMap[s.id] = s; });
+      var groups = [
+        {key:'mon', title:'Monday'},
+        {key:'tue-fri', title:'Tuesday–Friday'},
+        {key:'sat', title:'Saturday'},
+        {key:'sun', title:'Sunday'}
+      ];
+      var html = groups.map(function(g) {
+        var groupSlots = cachedSlots.filter(function(slot){ return slot.day_group === g.key && showMap[slot.show_id]; })
+          .sort(function(a,b){ return (a.start_hour - b.start_hour) || (a.end_hour - b.end_hour); });
+        if (!groupSlots.length) return '';
+        return '<section class="schedule-group"><div class="schedule-group-title">'+g.title+'</div><div class="shows-grid">'
+          + groupSlots.map(function(slot){ return showCard(showMap[slot.show_id], slot); }).join('')
+          + '</div></section>';
+      }).join('');
+      el.innerHTML = html || '<div style="text-align:center;padding:48px;color:#546e7a;">No scheduled shows found.</div>';
+    }
+    function render() {
+      var btn = document.getElementById('schedule-toggle');
+      if (btn) { btn.classList.toggle('active', scheduleMode); btn.textContent = scheduleMode ? 'Show Default View' : 'Organize by Schedule'; }
+      scheduleMode ? renderBySchedule() : renderDefault();
+    }
 
     fetch(API + '/api/schedule/kyca')
       .then(function(r) { return r.json(); })
       .then(function(d) {
-        var shows = d.shows || [];
-        var slots = d.slots || [];
-        var el = document.getElementById('shows-content');
-
-        // Filter to shows that have either a description or image (i.e. featured shows)
-        // Fall back to showing all shows if none have been enriched yet
-        var featured = shows.filter(function(s) { return s.description || s.image; });
-        var displayShows = featured.length ? featured : shows;
-
-        if (!displayShows.length) {
-          el.innerHTML = '<div style="text-align:center;padding:48px;color:#546e7a;">Shows coming soon.</div>';
-          return;
-        }
-
-        // Build time summary per show from slots
-        function fmtHour(h) {
-          if (h === 0 || h === 24) return '12:00 AM';
-          if (h === 12) return '12:00 PM';
-          return h < 12 ? h + ':00 AM' : (h - 12) + ':00 PM';
-        }
-
-        var showTimes = {};
-        // Group slots by show
-        var rawSlots = {};
-        slots.forEach(function(slot) {
-          if (!rawSlots[slot.show_id]) rawSlots[slot.show_id] = [];
-          rawSlots[slot.show_id].push(slot);
-        });
-
-        Object.keys(rawSlots).forEach(function(showId) {
-          var slotsForShow = rawSlots[showId];
-          var entries = [];
-          var skipTueFri = {}; // tue-fri slot ids already merged into Mon-Fri
-
-          // Process mon slots first — check if matching tue-fri exists
-          slotsForShow.forEach(function(slot) {
-            if (slot.day_group !== 'mon') return;
-            var timeStr = fmtHour(slot.start_hour) + ' – ' + fmtHour(slot.end_hour);
-            var match = slotsForShow.find(function(s) {
-              return s.day_group === 'tue-fri' && s.start_hour === slot.start_hour && s.end_hour === slot.end_hour;
-            });
-            if (match) {
-              entries.push('Mon–Fri · ' + timeStr);
-              skipTueFri[match.id] = true;
-            } else {
-              entries.push('Monday · ' + timeStr);
-            }
-          });
-
-          // Process tue-fri slots not already merged
-          slotsForShow.forEach(function(slot) {
-            if (slot.day_group !== 'tue-fri') return;
-            if (skipTueFri[slot.id]) return;
-            var timeStr = fmtHour(slot.start_hour) + ' – ' + fmtHour(slot.end_hour);
-            entries.push('Tue–Fri · ' + timeStr);
-          });
-
-          // Sat + Sun
-          slotsForShow.forEach(function(slot) {
-            if (slot.day_group !== 'sat' && slot.day_group !== 'sun') return;
-            var dayLabel = slot.day_group === 'sat' ? 'Saturday' : 'Sunday';
-            var timeStr = fmtHour(slot.start_hour) + ' – ' + fmtHour(slot.end_hour);
-            entries.push(dayLabel + ' · ' + timeStr);
-          });
-
-          showTimes[showId] = entries;
-        });
-
-        el.innerHTML = '<div class="shows-grid">'
-          + displayShows.map(function(s) {
-            var imgSrc = s.image
-              ? (s.image.startsWith('http') ? s.image : s.image.startsWith('/uploads/') ? 'https://pbc-cms-production.up.railway.app' + s.image : 'https://pbc-cms-production.up.railway.app/' + s.image)
-              : null;
-            var times = showTimes[s.id] ? showTimes[s.id].join('<br>') : '';
-            return '<div class="show-card">'
-              + (imgSrc ? '<div class="show-card-img-wrap"><img src="'+imgSrc+'" alt="'+s.name+'" onerror="this.parentNode.style.display=\'none\'" /></div>' : '')
-              + '<div class="show-card-header">'
-              + '<div class="show-color-bar" style="background:'+s.color+';"></div>'
-              + '<div>'
-              + '<div class="show-card-name">'+s.name+'</div>'
-              + (times ? '<div class="show-card-times">'+times+'</div>' : '')
-              + '</div></div>'
-              + '<div class="show-card-body">'
-              + (s.description ? '<div class="show-card-desc">'+s.description+'</div>' : '')
-              + (s.link_url ? '<a href="'+s.link_url+'" target="_blank" class="show-card-link">Learn More &rsaquo;</a>' : '')
-              + '</div>'
-              + '</div>';
-          }).join('')
-          + '</div>';
+        cachedShows = d.shows || [];
+        cachedSlots = d.slots || [];
+        showTimes = buildShowTimes(cachedSlots);
+        render();
+        var btn = document.getElementById('schedule-toggle');
+        if (btn) btn.onclick = function(){ scheduleMode = !scheduleMode; render(); };
       })
       .catch(function() {
-        document.getElementById('shows-content').innerHTML =
-          '<div style="text-align:center;padding:48px;color:#c0392b;">Could not load shows.</div>';
+        document.getElementById('shows-content').innerHTML = '<div style="text-align:center;padding:48px;color:#c0392b;">Could not load shows.</div>';
       });
   })();
   </script>
