@@ -16,7 +16,7 @@
       'nav.main-nav .nav-links li a.active { color: ' + (t.nav_active || '#487ea6') + ' !important;' +
         (underline ? ' border-bottom: 3px solid ' + (t.nav_active || '#487ea6') + ' !important;' : ' border-bottom: none !important;') +
         ' font-weight: 800 !important; }',
-      'footer { background: ' + (t.footer_bg || '#072f57') + ' !important; }',
+      'footer { background: ' + (t.footer_bg || '#05254c') + ' !important; }',
       '.footer-col-title { color: ' + (t.footer_heading || '#ffffff') + ' !important; }',
       '.footer-tagline { color: ' + (t.footer_text || 'rgba(255,255,255,0.6)') + ' !important; }',
       '.footer-links li a { color: ' + (t.footer_link || 'rgba(255,255,255,0.75)') + ' !important; }',

@@ -20,8 +20,8 @@
     .page-hero-img{width:100%;display:block;object-fit:cover;}
     .content-wrap{max-width:1600px;margin:0 auto;padding:48px 24px;}
     .show-group{margin-bottom:52px;}
-    .show-group-header{display:flex;align-items:center;gap:14px;margin-bottom:20px;padding-bottom:12px;border-bottom:3px solid #072f57;}
-    .show-group-name{font-size:20px;font-weight:900;color:#072f57;text-transform:uppercase;letter-spacing:.04em;}
+    .show-group-header{display:flex;align-items:center;gap:14px;margin-bottom:20px;padding-bottom:12px;border-bottom:3px solid #05254c;}
+    .show-group-name{font-size:20px;font-weight:900;color:#05254c;text-transform:uppercase;letter-spacing:.04em;}
     .show-group-station{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:#6c8ea3;color:#fff;padding:3px 10px;border-radius:100px;}
     #podcasts-container{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:24px;}
     .pod-show-card{display:block;background:#fff;border-radius:8px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,.08);text-decoration:none;transition:transform .2s,box-shadow .2s;}
@@ -29,10 +29,10 @@
     .pod-card{background:#fff;border-radius:8px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,.08);text-decoration:none;display:flex;flex-direction:column;transition:transform .2s,box-shadow .2s;}
     .pod-card:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(0,0,0,.13);}
     .pod-thumb{width:100%;aspect-ratio:1;object-fit:cover;background:#e8ecf0;display:block;}
-    .pod-thumb-placeholder{width:100%;aspect-ratio:1;background:linear-gradient(135deg,#072f57,#6c8ea3);display:flex;align-items:center;justify-content:center;font-size:48px;}
+    .pod-thumb-placeholder{width:100%;aspect-ratio:1;background:linear-gradient(135deg,#05254c,#6c8ea3);display:flex;align-items:center;justify-content:center;font-size:48px;}
     .pod-body{padding:14px;flex:1;display:flex;flex-direction:column;gap:5px;}
     .pod-date{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#6c8ea3;}
-    .pod-title{font-size:14px;font-weight:700;color:#072f57;line-height:1.4;flex:1;}
+    .pod-title{font-size:14px;font-weight:700;color:#05254c;line-height:1.4;flex:1;}
     .pod-desc{font-size:12px;color:#546e7a;line-height:1.5;margin-top:2px;}
     .pod-listen{display:inline-flex;align-items:center;gap:6px;margin-top:10px;font-size:11px;font-weight:700;color:#487ea6;text-transform:uppercase;letter-spacing:.05em;}
     .no-results{text-align:center;padding:60px 24px;color:#546e7a;font-size:15px;}
@@ -44,11 +44,11 @@
   </div>
 
   <!-- WEATHER BAND -->
-  <div id="kahm-weather-band" style="background:#072f57;border-bottom:1px solid rgba(255,255,255,0.08);overflow:hidden;height:120px;display:flex;align-items:center;">
+  <div id="kahm-weather-band" style="background:#05254c;border-bottom:1px solid rgba(255,255,255,0.08);overflow:hidden;height:120px;display:flex;align-items:center;">
     <div style="flex:1;overflow:hidden;height:95px;position:relative;margin-top:4px;">
-      <a class="weatherwidget-io" href="https://forecast7.com/en/34d54n112d47/prescott/?unit=us" data-label_1="PRESCOTT" data-label_2="WEATHER" data-theme="original" data-basecolor="#072f57" data-days="7">PRESCOTT WEATHER</a>
+      <a class="weatherwidget-io" href="https://forecast7.com/en/34d54n112d47/prescott/?unit=us" data-label_1="PRESCOTT" data-label_2="WEATHER" data-theme="original" data-basecolor="#05254c" data-days="7">PRESCOTT WEATHER</a>
     </div>
-    <div id="kahm-weather-report" style="flex-shrink:0;display:none;align-items:center;gap:8px;padding:0 20px;border-left:1px solid rgba(255,255,255,0.1);min-width:520px;background:#072f57;">
+    <div id="kahm-weather-report" style="flex-shrink:0;display:none;align-items:center;gap:8px;padding:0 20px;border-left:1px solid rgba(255,255,255,0.1);min-width:520px;background:#05254c;">
       <span style="font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,0.5);">&#127925; Today&#39;s Report</span>
       <div id="kahm-weather-player"></div>
     </div>
@@ -71,7 +71,7 @@ var API_URL="https://pbc-cms-production.up.railway.app";
 function renderSection(s, i) {
   // Embed type — raw HTML (Vimeo/YouTube iframe)
   if (s.type === 'embed') {
-    var title = s.heading ? '<h2 style="font-size:clamp(18px,2.5vw,26px);font-weight:800;color:#072f57;margin-bottom:16px;">' + s.heading + '</h2>' : '';
+    var title = s.heading ? '<h2 style="font-size:clamp(18px,2.5vw,26px);font-weight:800;color:#05254c;margin-bottom:16px;">' + s.heading + '</h2>' : '';
     return '<div style="padding:32px 0;border-bottom:1px solid #e8ecf0;">' + title
       + '<div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;">'
       + '<div style="position:absolute;top:0;left:0;width:100%;height:100%;">' + (s.embed_code || '') + '</div>'
@@ -213,9 +213,9 @@ fetch(API_URL+"/api/pages/podcasts").then(function(r){return r.json();}).then(fu
         var href = show.video_url || show.audio_url || '#';
         var btnLabel = show.video_url ? '&#9654;&nbsp; Watch / Listen' : show.audio_url ? '&#9654;&nbsp; Listen' : '';
         return '<a href="show.html?id=' + show.id + '" class="pod-show-card">'
-          + (thumb ? '<img src="' + thumb + '" alt="' + show.show_name.replace(/"/g,'&quot;') + '" style="width:100%;aspect-ratio:1/1;object-fit:cover;display:block;" />' : '<div style="width:100%;aspect-ratio:1/1;background:linear-gradient(135deg,#072f57,#6c8ea3);display:flex;align-items:center;justify-content:center;"><span style="font-size:40px;color:rgba(255,255,255,.3);">&#9654;</span></div>')
+          + (thumb ? '<img src="' + thumb + '" alt="' + show.show_name.replace(/"/g,'&quot;') + '" style="width:100%;aspect-ratio:1/1;object-fit:cover;display:block;" />' : '<div style="width:100%;aspect-ratio:1/1;background:linear-gradient(135deg,#05254c,#6c8ea3);display:flex;align-items:center;justify-content:center;"><span style="font-size:40px;color:rgba(255,255,255,.3);">&#9654;</span></div>')
           + '<div style="padding:16px;">'
-          + '<div style="font-size:15px;font-weight:700;color:#072f57;margin-bottom:6px;">' + show.show_name + '</div>'
+          + '<div style="font-size:15px;font-weight:700;color:#05254c;margin-bottom:6px;">' + show.show_name + '</div>'
           + (show.description ? '<div style="font-size:12px;color:#546e7a;line-height:1.5;margin-bottom:10px;">' + show.description + '</div>' : '')
           + '<span style="display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;color:#487ea6;text-transform:uppercase;letter-spacing:.05em;">&#9654; Watch / Listen</span>'
           + '</div></a>';

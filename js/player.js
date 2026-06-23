@@ -18,7 +18,7 @@
       bottom: -420px;
       right: 24px;
       width: 320px;
-      background: #072f57;
+      background: #05254c;
       border-radius: 12px 12px 0 0;
       box-shadow: 0 -4px 32px rgba(0,0,0,0.45);
       z-index: 99999;
