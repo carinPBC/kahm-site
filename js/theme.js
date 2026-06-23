@@ -12,11 +12,11 @@
     var css = [
       'nav.main-nav { background: ' + (t.nav_bg || '#fbf3e7') + ' !important; }',
       'nav.main-nav .nav-links li a { color: ' + (t.nav_text || '#1a2f4e') + '; }',
-      'nav.main-nav .nav-links li a:hover { color: ' + (t.nav_hover || '#c0392b') + '; }',
-      'nav.main-nav .nav-links li a.active { color: ' + (t.nav_active || '#c0392b') + ' !important;' +
-        (underline ? ' border-bottom: 3px solid ' + (t.nav_active || '#c0392b') + ' !important;' : ' border-bottom: none !important;') +
+      'nav.main-nav .nav-links li a:hover { color: ' + (t.nav_hover || '#487ea6') + '; }',
+      'nav.main-nav .nav-links li a.active { color: ' + (t.nav_active || '#487ea6') + ' !important;' +
+        (underline ? ' border-bottom: 3px solid ' + (t.nav_active || '#487ea6') + ' !important;' : ' border-bottom: none !important;') +
         ' font-weight: 800 !important; }',
-      'footer { background: ' + (t.footer_bg || '#032a48') + ' !important; }',
+      'footer { background: ' + (t.footer_bg || '#072f57') + ' !important; }',
       '.footer-col-title { color: ' + (t.footer_heading || '#ffffff') + ' !important; }',
       '.footer-tagline { color: ' + (t.footer_text || 'rgba(255,255,255,0.6)') + ' !important; }',
       '.footer-links li a { color: ' + (t.footer_link || 'rgba(255,255,255,0.75)') + ' !important; }',

@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>KYCA News Talk Radio — FM 103.5 / AM 1490 — KYCA News Talk Radio</title>
-  <link rel="icon" type="image/png" href="images/logo-kyca.png" />
+  <title>KAHM FM 102.1 — Music Beautiful as Prescott</title>
+  <link rel="icon" type="image/png" href="images/logo-kahm.png" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/kyca-base.css?v=27" />
-  <link rel="stylesheet" href="css/kyca.css?v=27" />
+  <link rel="stylesheet" href="css/kahm-base.css?v=27" />
+  <link rel="stylesheet" href="css/kahm.css?v=27" />
   <style id="nav-critical">
     nav.main-nav{background:#fff7ec !important;position:sticky !important;top:0 !important;z-index:9999 !important;}
     .main-nav-inner{width:100%;padding:0 48px;display:flex;align-items:center;justify-content:space-between;min-height:100px;}
@@ -19,12 +19,12 @@
   </style>
   
 </head>
-<body class="kyca-home">
+<body class="kahm-home">
   <div id="site-header"></div>
   
   <!-- HERO -->
   <section id="hero-section" data-hero-bg="https://pbc-cms-production.up.railway.app/files/d5193ef3876b43559ac565ab934506fd.png" style="width:100%;position:relative;">
-    <img src="https://pbc-cms-production.up.railway.app/files/d5193ef3876b43559ac565ab934506fd.png" alt="KYCA" style="width:100%;display:block;height:auto;" onerror="this.style.display='none'"/>
+    <img src="https://pbc-cms-production.up.railway.app/files/d5193ef3876b43559ac565ab934506fd.png" alt="KAHM" style="width:100%;display:block;height:auto;" onerror="this.style.display='none'"/>
   </section>
 
   <!-- ON AIR BAR -->
@@ -34,7 +34,7 @@
     <span class="on-air-host" id="on-air-host"></span>
     <span class="on-air-time" id="on-air-time"></span>
     <div style="display:flex;gap:10px;margin-left:auto;flex-shrink:0;align-items:center;">
-      <a href="#" data-listen="kyca" style="display:inline-flex;align-items:center;gap:6px;background:#c0392b;color:#fff;padding:6px 14px;border-radius:6px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;text-decoration:none;white-space:nowrap;">&#9654; Listen Live</a>
+      <a href="#" data-listen="kahm" style="display:inline-flex;align-items:center;gap:6px;background:#487ea6;color:#fff;padding:6px 14px;border-radius:6px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;text-decoration:none;white-space:nowrap;">&#9654; Listen Live</a>
       <button id="watch-live-btn" style="display:none;align-items:center;gap:6px;background:rgba(255,255,255,.15);color:#fff;padding:6px 14px;border-radius:6px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;cursor:pointer;white-space:nowrap;border:1px solid rgba(255,255,255,.3);">&#128250; Watch Live</button>
     </div>
   </div>
@@ -43,13 +43,13 @@
 
 
   <!-- WEATHER BAND -->
-  <div id="kyca-weather-band" style="background:#032a48;border-bottom:1px solid rgba(255,255,255,0.08);overflow:hidden;height:120px;display:flex;align-items:center;">
+  <div id="kahm-weather-band" style="background:#072f57;border-bottom:1px solid rgba(255,255,255,0.08);overflow:hidden;height:120px;display:flex;align-items:center;">
     <div style="flex:1;overflow:hidden;height:95px;position:relative;margin-top:4px;">
-      <a class="weatherwidget-io" href="https://forecast7.com/en/34d54n112d47/prescott/?unit=us" data-label_1="PRESCOTT" data-label_2="WEATHER" data-theme="original" data-basecolor="#032a48" data-days="7">PRESCOTT WEATHER</a>
+      <a class="weatherwidget-io" href="https://forecast7.com/en/34d54n112d47/prescott/?unit=us" data-label_1="PRESCOTT" data-label_2="WEATHER" data-theme="original" data-basecolor="#072f57" data-days="7">PRESCOTT WEATHER</a>
     </div>
-    <div id="kyca-weather-report" style="flex-shrink:0;display:none;align-items:center;gap:8px;padding:0 20px;border-left:1px solid rgba(255,255,255,0.1);min-width:520px;background:#032a48;">
+    <div id="kahm-weather-report" style="flex-shrink:0;display:none;align-items:center;gap:8px;padding:0 20px;border-left:1px solid rgba(255,255,255,0.1);min-width:520px;background:#072f57;">
       <span style="font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,0.5);">&#127925; Today&#39;s Report</span>
-      <div id="kyca-weather-player"></div>
+      <div id="kahm-weather-player"></div>
     </div>
   </div>
   <script>
@@ -58,10 +58,10 @@
     setTimeout(function() {
       var nav = document.querySelector('nav.main-nav');
       var onAir = document.getElementById('on-air-bar');
-      var weather = document.getElementById('kyca-weather-band');
-      if (!nav || !nav.parentNode || document.getElementById('kyca-sticky-stack')) return;
+      var weather = document.getElementById('kahm-weather-band');
+      if (!nav || !nav.parentNode || document.getElementById('kahm-sticky-stack')) return;
       var wrapper = document.createElement('div');
-      wrapper.id = 'kyca-sticky-stack';
+      wrapper.id = 'kahm-sticky-stack';
       wrapper.style.cssText = 'position:sticky;top:0;z-index:1000;';
       nav.parentNode.insertBefore(wrapper, nav);
       wrapper.appendChild(nav);
@@ -71,7 +71,7 @@
     }, 500);
   });
   </script>
-  <div id="kyca-ad-banner" style="display:none;text-align:center;padding:12px 0;background:#f8f9fa;border-bottom:1px solid #e8ecf0;"></div>
+  <div id="kahm-ad-banner" style="display:none;text-align:center;padding:12px 0;background:#f8f9fa;border-bottom:1px solid #e8ecf0;"></div>
 
   <!-- NEWS + VIDEO SIDEBAR (2/3 + 1/3) -->
   <div id="home-top-row" style="display:grid;grid-template-columns:3fr 1fr;gap:0;align-items:start;background:#f8f9fa;">
@@ -88,7 +88,7 @@
     </section>
 
     <!-- RIGHT 1/3: Video sidebar -->
-    <div id="home-video-sidebar" style="background:#032a48;padding:24px 20px;display:flex;flex-direction:column;gap:24px;align-self:stretch;">
+    <div id="home-video-sidebar" style="background:#072f57;padding:24px 20px;display:flex;flex-direction:column;gap:24px;align-self:stretch;">
 
       <!-- Courthouse Cam -->
       <div>
@@ -155,15 +155,15 @@
   var API = 'https://pbc-cms-production.up.railway.app';
 
   Promise.all([
-    fetch(API + '/api/stations/kyca').then(function(r){return r.json();}),
-    fetch(API + '/api/pages/kyca-home').then(function(r){return r.json();}).catch(function(){return {};})
+    fetch(API + '/api/stations/kahm').then(function(r){return r.json();}),
+    fetch(API + '/api/pages/kahm-home').then(function(r){return r.json();}).catch(function(){return {};})
   ]).then(function(res) {
     var s = res[0];
     var p = res[1];
 
     // ── ON AIR — from real schedule ────────────────────────────
     function updateHomeOnAirBar() {
-      fetch(API + '/api/schedule/kyca').then(function(r){return r.json();}).then(function(d) {
+      fetch(API + '/api/schedule/kahm').then(function(r){return r.json();}).then(function(d) {
         var slots = d.slots || [];
         var now = new Date();
         var nowH = now.getHours();
@@ -182,7 +182,7 @@
         if (!current) {
           if (bar) bar.style.display = 'none';
           if (watchBtn) { watchBtn.style.display = 'none'; watchBtn.removeAttribute('data-video-url'); }
-          window.KYCA_CURRENT_VIDEO_URL = null;
+          window.KAHM_CURRENT_VIDEO_URL = null;
           if (typeof setStickyOffsets === 'function') setTimeout(setStickyOffsets, 50);
           return;
         }
@@ -195,18 +195,18 @@
           if (current.video_url) {
             watchBtn.style.display = 'inline-flex';
             watchBtn.setAttribute('data-video-url', current.video_url);
-            window.KYCA_CURRENT_VIDEO_URL = current.video_url;
+            window.KAHM_CURRENT_VIDEO_URL = current.video_url;
           } else {
             watchBtn.style.display = 'none';
             watchBtn.removeAttribute('data-video-url');
-            window.KYCA_CURRENT_VIDEO_URL = null;
+            window.KAHM_CURRENT_VIDEO_URL = null;
           }
         }
         if (typeof setStickyOffsets === 'function') setTimeout(setStickyOffsets, 50);
       }).catch(function(){});
     }
     updateHomeOnAirBar();
-    if (!window.KYCA_HOME_ON_AIR_TIMER) window.KYCA_HOME_ON_AIR_TIMER = setInterval(updateHomeOnAirBar, 60000);
+    if (!window.KAHM_HOME_ON_AIR_TIMER) window.KAHM_HOME_ON_AIR_TIMER = setInterval(updateHomeOnAirBar, 60000);
     window.addEventListener('focus', updateHomeOnAirBar);
     document.addEventListener('visibilitychange', function(){ if (!document.hidden) updateHomeOnAirBar(); });
 
@@ -238,7 +238,7 @@
     }).catch(function(){});
 
     // ── SCHEDULE — from new schedule API, current + upcoming ─────
-    fetch(API + '/api/schedule/kyca').then(function(r){return r.json();}).then(function(d) {
+    fetch(API + '/api/schedule/kahm').then(function(r){return r.json();}).then(function(d) {
       var slots = d.slots || [];
       var grid = document.getElementById('schedule-grid');
       if (!slots.length) { grid.innerHTML = '<p style="color:#546e7a">Schedule coming soon.</p>'; return; }
@@ -292,7 +292,7 @@
       }).join('');
     }).catch(function(){});
 
-  }).catch(function(e){ console.error('KYCA home error:', e); });
+  }).catch(function(e){ console.error('KAHM home error:', e); });
 
 })();
 </script>

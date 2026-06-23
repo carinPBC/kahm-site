@@ -1,15 +1,15 @@
 /* Hero section */
 #hero-section { background: none; }
 
-/* KYCA Station Site — theme overrides */
+/* KAHM Station Site — theme overrides */
 /* Override style2.css cream body default */
-body { background: #f8f9fa !important; }
+body { background: #f5f8fb !important; }
 
 :root {
-  --accent:    #c0392b;
-  --accent2:   #a93226;
-  --navy:      #032a48;
-  --navy2:     #0a2239;
+  --accent:    #487ea6;
+  --accent2:   #315f83;
+  --navy:      #072f57;
+  --navy2:     #0b253f;
   --cream:     #fff7ec;
   --max-width: 1600px;
 }
@@ -230,9 +230,9 @@ nav.main-nav { background: var(--cream) !important; }
 .footer-tagline { display: none !important; }
 
 /* ── STICKY HEADER ───────────────────────────────────────────── */
-/* Nav: already sticky in kyca-base.css — reinforce here */
-/* kyca-sticky-stack wrapper (injected by layout.js) handles sticky */
-#kyca-sticky-stack {
+/* Nav: already sticky in kahm-base.css — reinforce here */
+/* kahm-sticky-stack wrapper (injected by layout.js) handles sticky */
+#kahm-sticky-stack {
   position: sticky;
   top: 0;
   z-index: 1000;
@@ -245,7 +245,22 @@ nav.main-nav {
   position: relative !important;
   top: auto !important;
 }
-#kyca-weather-band {
+#kahm-weather-band {
   position: relative !important;
   top: auto !important;
 }
+
+
+/* KAHM brand finish */
+body { background: #f5f8fb !important; }
+nav.main-nav { background: #eef5fa !important; }
+.nav-logo img { height: 170px !important; }
+.on-air-bar { background: #072f57 !important; }
+.on-air-badge, .listen-btn, .hero-listen, .sc-btn { background: #487ea6 !important; }
+.listen-btn:hover, .hero-listen:hover, .sc-btn:hover { background: #315f83 !important; }
+.section-link, .news-card-cat, .schedule-time, .show-card-link, .show-card-times { color: #487ea6 !important; }
+.schedule-card { border-left-color: #487ea6 !important; }
+footer { background: #072f57 !important; }
+.footer-col-title { border-bottom-color: #487ea6 !important; }
+.footer-contact a { color: #b7d5e8 !important; }
+#kahm-weather-band, #kahm-weather-report { background: #072f57 !important; }

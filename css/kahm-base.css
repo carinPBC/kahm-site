@@ -1,6 +1,6 @@
 /* ============================================================
    PRESCOTT BROADCASTING — MAIN STYLESHEET
-   Brand colors: Navy #1a2f4e, Cream #f5f0e8, Red #c0392b
+   Brand colors: Navy #1a2f4e, Cream #f5f0e8, Red #487ea6
    ============================================================ */
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -9,8 +9,8 @@
   --navy:       #1a2f4e;
   --navy-dark:  #0f1e33;
   --navy-mid:   #1e3a5f;
-  --red:        #c0392b;
-  --red-dark:   #a93226;
+  --red:        #487ea6;
+  --red-dark:   #315f83;
   --cream:      #faf3e6;  /* = header bg */
   --cream-dark: #ede7d8;
   --gold:       #b8860b;
@@ -484,7 +484,7 @@ a { color: inherit; text-decoration: none; }
    FOOTER
    ============================================================ */
 footer {
-  background: #032a48;
+  background: #072f57;
   border-top: none;
   padding: 10px 48px 0;
   position: relative;

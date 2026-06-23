@@ -1,33 +1,33 @@
 {
   "site": {
-    "name": "KYCA News Talk Radio",
-    "tagline": "LOCAL VOICES. LOCAL TRUST.",
-    "stationId": "kyca",
-    "logo": "images/logo-kyca.png",
-    "logoWhite": "images/logo-kyca-white.png",
-    "favicon": "images/logo-kyca.png",
-    "apiBase": "https://1hnhof7gem-8001.hosted.obvious.ai",
+    "name": "KAHM FM 102.1",
+    "tagline": "Music Beautiful as Prescott",
+    "stationId": "kahm",
+    "logo": "images/logo-kahm.png",
+    "logoWhite": "images/logo-kahm.png",
+    "favicon": "images/logo-kahm.png",
+    "apiBase": "https://pbc-cms-production.up.railway.app",
     "social": {
       "facebook": "https://facebook.com/prescottbroadcasting",
       "instagram": "https://instagram.com/prescottbroadcasting",
       "youtube": "https://youtube.com/prescottbroadcasting",
-      "email": "mailto:kyca@prescottbroadcasting.com"
+      "email": "mailto:info@prescottbroadcasting.com"
     }
   },
   "station": {
-    "id": "kyca",
-    "name": "KYCA",
-    "fullName": "KYCA News Talk Radio",
-    "frequency": "FM 103.5 / AM 1490",
-    "tagline": "Northern Arizona's News Talk Leader",
-    "accentColor": "#c0392b",
-    "listenUrl": "http://ophanim.net:8444/s/8030",
+    "id": "kahm",
+    "name": "KAHM",
+    "fullName": "KAHM FM 102.1",
+    "frequency": "FM 102.1",
+    "tagline": "Music Beautiful as Prescott",
+    "accentColor": "#487ea6",
+    "listenUrl": "#",
     "phone": "(928) 445-1700",
-    "email": "kyca@prescottbroadcasting.com",
+    "email": "info@prescottbroadcasting.com",
     "address": "500 Henry Street",
     "city": "Prescott, Arizona 86301",
-    "streamUrl": "http://ophanim.net:8444/s/8030",
-    "playerUrl": "https://player.streamguys.com/prescott/kyca/sgplayer/player.php"
+    "streamUrl": "",
+    "playerUrl": "https://player.streamguys.com/prescott/kahm/sgplayer/player.php"
   },
   "nav": {
     "links": [
@@ -79,7 +79,7 @@
         "title": "Station Info",
         "links": [
           {
-            "label": "About KYCA",
+            "label": "About KAHM",
             "url": "pages/about.html"
           },
           {
@@ -104,7 +104,7 @@
           },
           {
             "label": "Public Inspection File",
-            "url": "https://publicfiles.fcc.gov/am-profile/kyca"
+            "url": "https://publicfiles.fcc.gov/fm-profile/kahm"
           },
           {
             "label": "Public Inspection File Help",

@@ -1,2 +1,2 @@
 # Redirect www to apex
-# https://www.kyca.com/* https://kyca.com/:splat 301
+# #/* #/:splat 301

@@ -1,24 +1,24 @@
 /**
- * KYCA Player — StreamGuys audio (with ads) + schedule-aware Watch Live video
+ * KAHM Player — StreamGuys audio (with ads) + schedule-aware Watch Live video
  * Persists across page navigation via localStorage
  */
 (function() {
-  var STREAM_URL       = 'http://ophanim.net:8444/s/8030';
-  var STREAMGUYS_URL   = 'https://player.streamguys.com/prescott/kyca/sgplayer/player.php';
+  var STREAM_URL       = '';
+  var STREAMGUYS_URL   = '';
   var API_URL          = 'https://pbc-cms-production.up.railway.app';
-  var STORAGE_KEY      = 'kyca_player_open';
-  var VOL_KEY          = 'kyca_volume';
+  var STORAGE_KEY      = 'kahm_player_open';
+  var VOL_KEY          = 'kahm_volume';
   var POLL_INTERVAL    = 5 * 60 * 1000; // check schedule every 5 min
 
   // ── Inject CSS ──────────────────────────────────────────────
   var style = document.createElement('style');
   style.textContent = `
-    #kyca-player-widget {
+    #kahm-player-widget {
       position: fixed;
       bottom: -420px;
       right: 24px;
       width: 320px;
-      background: #032a48;
+      background: #072f57;
       border-radius: 12px 12px 0 0;
       box-shadow: 0 -4px 32px rgba(0,0,0,0.45);
       z-index: 99999;
@@ -27,34 +27,34 @@
       border: 1px solid rgba(255,255,255,0.1);
       border-bottom: none;
     }
-    #kyca-player-widget.visible { bottom: 0; }
+    #kahm-player-widget.visible { bottom: 0; }
 
     /* Header bar */
-    #kyca-player-header {
+    #kahm-player-header {
       display: flex;
       align-items: center;
       justify-content: space-between;
       padding: 10px 14px;
       background: #021d35;
-      border-bottom: 2px solid #c0392b;
+      border-bottom: 2px solid #487ea6;
       cursor: pointer;
       user-select: none;
     }
-    #kyca-player-header-left {
+    #kahm-player-header-left {
       display: flex;
       align-items: center;
       gap: 8px;
     }
-    #kyca-player-logo-img {
+    #kahm-player-logo-img {
       height: 28px;
       width: auto;
       object-fit: contain;
     }
-    .kyca-live-dot {
+    .kahm-live-dot {
       display: inline-flex;
       align-items: center;
       gap: 4px;
-      background: #c0392b;
+      background: #487ea6;
       color: #fff;
       font-size: 9px;
       font-weight: 800;
@@ -63,23 +63,23 @@
       padding: 2px 7px;
       border-radius: 3px;
     }
-    .kyca-live-dot::before {
+    .kahm-live-dot::before {
       content: '';
       width: 5px; height: 5px;
       background: #fff;
       border-radius: 50%;
-      animation: kyca-pulse 1.2s ease-in-out infinite;
+      animation: kahm-pulse 1.2s ease-in-out infinite;
     }
-    @keyframes kyca-pulse {
+    @keyframes kahm-pulse {
       0%,100% { opacity:1; transform:scale(1); }
       50%      { opacity:.4; transform:scale(.7); }
     }
-    #kyca-player-header-right {
+    #kahm-player-header-right {
       display: flex;
       align-items: center;
       gap: 6px;
     }
-    #kyca-minimize-btn, #kyca-close-btn {
+    #kahm-minimize-btn, #kahm-close-btn {
       background: none;
       border: none;
       color: rgba(255,255,255,0.5);
@@ -90,13 +90,13 @@
       line-height: 1;
       transition: color .15s, background .15s;
     }
-    #kyca-minimize-btn:hover, #kyca-close-btn:hover {
+    #kahm-minimize-btn:hover, #kahm-close-btn:hover {
       color: #fff;
       background: rgba(255,255,255,0.1);
     }
 
     /* On-air info bar */
-    #kyca-on-air-bar {
+    #kahm-on-air-bar {
       padding: 8px 14px;
       background: rgba(0,0,0,0.2);
       display: flex;
@@ -104,7 +104,7 @@
       justify-content: space-between;
       gap: 8px;
     }
-    #kyca-on-air-show {
+    #kahm-on-air-show {
       font-size: 12px;
       font-weight: 700;
       color: #fff;
@@ -113,11 +113,11 @@
       overflow: hidden;
       text-overflow: ellipsis;
     }
-    #kyca-watch-live-btn {
+    #kahm-watch-live-btn {
       display: none;
       align-items: center;
       gap: 5px;
-      background: #c0392b;
+      background: #487ea6;
       color: #fff;
       border: none;
       border-radius: 5px;
@@ -130,46 +130,46 @@
       white-space: nowrap;
       flex-shrink: 0;
       transition: background .15s;
-      animation: kyca-pulse-btn 2s ease-in-out infinite;
+      animation: kahm-pulse-btn 2s ease-in-out infinite;
     }
-    #kyca-watch-live-btn:hover { background: #a93226; animation: none; }
-    @keyframes kyca-pulse-btn {
+    #kahm-watch-live-btn:hover { background: #315f83; animation: none; }
+    @keyframes kahm-pulse-btn {
       0%,100% { box-shadow: 0 0 0 0 rgba(192,57,43,0.5); }
       50%      { box-shadow: 0 0 0 6px rgba(192,57,43,0); }
     }
 
     /* Player iframe area */
-    #kyca-player-body {
+    #kahm-player-body {
       position: relative;
       width: 100%;
       background: #000;
     }
-    #kyca-player-iframe {
+    #kahm-player-iframe {
       width: 100%;
       height: 220px;
       border: none;
       display: block;
     }
     /* Video mode — taller */
-    #kyca-player-widget.video-mode #kyca-player-iframe {
+    #kahm-player-widget.video-mode #kahm-player-iframe {
       height: 280px;
     }
-    #kyca-player-widget.video-mode {
+    #kahm-player-widget.video-mode {
       width: 380px;
     }
 
     /* Audio controls */
-    #kyca-audio-controls {
+    #kahm-audio-controls {
       display: flex;
       align-items: center;
       gap: 12px;
       padding: 14px 16px;
       background: #021d35;
     }
-    #kyca-play-btn {
+    #kahm-play-btn {
       width: 42px; height: 42px;
       border-radius: 50%;
-      background: #c0392b;
+      background: #487ea6;
       border: none;
       cursor: pointer;
       color: #fff;
@@ -178,9 +178,9 @@
       flex-shrink: 0;
       transition: background .15s, transform .1s;
     }
-    #kyca-play-btn:hover { background: #a93226; transform: scale(1.07); }
-    #kyca-audio-info { flex: 1; min-width: 0; }
-    #kyca-track-label {
+    #kahm-play-btn:hover { background: #315f83; transform: scale(1.07); }
+    #kahm-audio-info { flex: 1; min-width: 0; }
+    #kahm-track-label {
       font-size: 12px;
       color: rgba(255,255,255,0.7);
       margin-bottom: 6px;
@@ -188,18 +188,18 @@
       overflow: hidden;
       text-overflow: ellipsis;
     }
-    #kyca-vol-row {
+    #kahm-vol-row {
       display: flex;
       align-items: center;
       gap: 8px;
     }
-    #kyca-vol-icon {
+    #kahm-vol-icon {
       color: rgba(255,255,255,0.5);
       font-size: 13px;
       cursor: pointer;
       user-select: none;
     }
-    #kyca-vol {
+    #kahm-vol {
       -webkit-appearance: none;
       appearance: none;
       width: 100%;
@@ -209,23 +209,23 @@
       outline: none;
       cursor: pointer;
     }
-    #kyca-vol::-webkit-slider-thumb {
+    #kahm-vol::-webkit-slider-thumb {
       -webkit-appearance: none;
       width: 12px; height: 12px;
       border-radius: 50%;
-      background: #c0392b;
+      background: #487ea6;
       cursor: pointer;
     }
-    #kyca-vol::-moz-range-thumb {
+    #kahm-vol::-moz-range-thumb {
       width: 12px; height: 12px;
       border-radius: 50%;
-      background: #c0392b;
+      background: #487ea6;
       border: none;
     }
-    #kyca-player-widget.video-mode #kyca-audio-mode { display: none; }
+    #kahm-player-widget.video-mode #kahm-audio-mode { display: none; }
 
     /* Back to audio button (shown in video mode) */
-    #kyca-back-audio-btn {
+    #kahm-back-audio-btn {
       display: none;
       width: 100%;
       background: rgba(0,0,0,0.3);
@@ -238,61 +238,61 @@
       text-align: center;
       transition: color .15s;
     }
-    #kyca-back-audio-btn:hover { color: #fff; }
-    #kyca-player-widget.video-mode #kyca-back-audio-btn { display: block; }
+    #kahm-back-audio-btn:hover { color: #fff; }
+    #kahm-player-widget.video-mode #kahm-back-audio-btn { display: block; }
 
-    body.kyca-player-open { padding-bottom: 0; }
+    body.kahm-player-open { padding-bottom: 0; }
 
     @media (max-width: 400px) {
-      #kyca-player-widget { width: calc(100vw - 16px); right: 8px; }
-      #kyca-player-widget.video-mode { width: calc(100vw - 16px); }
+      #kahm-player-widget { width: calc(100vw - 16px); right: 8px; }
+      #kahm-player-widget.video-mode { width: calc(100vw - 16px); }
     }
   `;
   document.head.appendChild(style);
 
   // ── Build HTML ───────────────────────────────────────────────
   var widget = document.createElement('div');
-  widget.id = 'kyca-player-widget';
+  widget.id = 'kahm-player-widget';
   widget.innerHTML = `
-    <div id="kyca-player-header">
-      <div id="kyca-player-header-left">
-        <img id="kyca-player-logo-img" src="/images/logo-kyca.png" onerror="this.style.display='none'" alt="KYCA" />
-        <span class="kyca-live-dot">Live</span>
+    <div id="kahm-player-header">
+      <div id="kahm-player-header-left">
+        <img id="kahm-player-logo-img" src="/images/logo-kahm.png" onerror="this.style.display='none'" alt="KAHM" />
+        <span class="kahm-live-dot">Live</span>
       </div>
-      <div id="kyca-player-header-right">
-        <button id="kyca-minimize-btn" title="Minimize">&#8211;</button>
-        <button id="kyca-close-btn" title="Close">&#10005;</button>
+      <div id="kahm-player-header-right">
+        <button id="kahm-minimize-btn" title="Minimize">&#8211;</button>
+        <button id="kahm-close-btn" title="Close">&#10005;</button>
       </div>
     </div>
-    <div id="kyca-on-air-bar">
-      <span id="kyca-on-air-show">KYCA 1490 AM</span>
-      <button id="kyca-watch-live-btn">&#128250; Watch Live</button>
+    <div id="kahm-on-air-bar">
+      <span id="kahm-on-air-show">KAHM FM 102.1</span>
+      <button id="kahm-watch-live-btn">&#128250; Watch Live</button>
     </div>
-    <div id="kyca-player-body">
+    <div id="kahm-player-body">
       <!-- Visible: audio controls or video embed -->
-      <div id="kyca-audio-mode">
-        <audio id="kyca-audio" preload="none" style="display:none"></audio>
-        <div id="kyca-audio-controls">
-          <button id="kyca-play-btn">&#9654;</button>
-          <div id="kyca-audio-info">
-            <div id="kyca-track-label">Live Stream</div>
-            <div id="kyca-vol-row">
-              <span id="kyca-vol-icon">&#128266;</span>
-              <input type="range" id="kyca-vol" min="0" max="1" step="0.02" value="1" />
+      <div id="kahm-audio-mode">
+        <audio id="kahm-audio" preload="none" style="display:none"></audio>
+        <div id="kahm-audio-controls">
+          <button id="kahm-play-btn">&#9654;</button>
+          <div id="kahm-audio-info">
+            <div id="kahm-track-label">Live Stream</div>
+            <div id="kahm-vol-row">
+              <span id="kahm-vol-icon">&#128266;</span>
+              <input type="range" id="kahm-vol" min="0" max="1" step="0.02" value="1" />
             </div>
           </div>
         </div>
       </div>
-      <iframe id="kyca-player-iframe"
+      <iframe id="kahm-player-iframe"
         src=""
         allow="autoplay; fullscreen"
         allowfullscreen
         scrolling="no"
         style="width:100%;border:none;display:none;height:280px;">
       </iframe>
-      <button id="kyca-back-audio-btn">&#8592; Back to audio</button>
+      <button id="kahm-back-audio-btn">&#8592; Back to audio</button>
       <!-- Hidden StreamGuys iframe — satisfies streaming contract -->
-      <iframe id="kyca-sg-iframe"
+      <iframe id="kahm-sg-iframe"
         src=""
         style="width:100%;height:0;border:none;display:block;transition:height 0.2s;"
         scrolling="no"
@@ -302,10 +302,10 @@
   `;
   document.body.appendChild(widget);
 
-  var watchBtn     = document.getElementById('kyca-watch-live-btn');
-  var backAudioBtn = document.getElementById('kyca-back-audio-btn');
-  var onAirShow    = document.getElementById('kyca-on-air-show');
-  var header       = document.getElementById('kyca-player-header');
+  var watchBtn     = document.getElementById('kahm-watch-live-btn');
+  var backAudioBtn = document.getElementById('kahm-back-audio-btn');
+  var onAirShow    = document.getElementById('kahm-on-air-show');
+  var header       = document.getElementById('kahm-player-header');
 
   var isOpen       = false;
   var isMinimized  = false;
@@ -314,13 +314,13 @@
   var currentVideoUrl = null;
   var pollTimer    = null;
 
-  var audio    = document.getElementById('kyca-audio');
-  var iframe   = document.getElementById('kyca-player-iframe');
-  var sgIframe = document.getElementById('kyca-sg-iframe');
-  var playBtn  = document.getElementById('kyca-play-btn');
-  var volSlider = document.getElementById('kyca-vol');
-  var volIcon   = document.getElementById('kyca-vol-icon');
-  var trackLabel = document.getElementById('kyca-track-label');
+  var audio    = document.getElementById('kahm-audio');
+  var iframe   = document.getElementById('kahm-player-iframe');
+  var sgIframe = document.getElementById('kahm-sg-iframe');
+  var playBtn  = document.getElementById('kahm-play-btn');
+  var volSlider = document.getElementById('kahm-vol');
+  var volIcon   = document.getElementById('kahm-vol-icon');
+  var trackLabel = document.getElementById('kahm-track-label');
 
   // Restore volume
   var savedVol = parseFloat(localStorage.getItem(VOL_KEY) || '1');
@@ -380,7 +380,7 @@
         sgIframe.src = STREAMGUYS_URL;
         sgIframe.style.height = '160px';
         // Hide custom audio controls — StreamGuys handles playback
-        var audioMode = document.getElementById('kyca-audio-mode');
+        var audioMode = document.getElementById('kahm-audio-mode');
         if (audioMode) audioMode.style.display = 'none';
         isPlaying = true;
       }
@@ -400,7 +400,7 @@
     iframe.src = '';
     sgIframe.src = '';
     sgIframe.style.height = '0';
-    var audioMode = document.getElementById('kyca-audio-mode');
+    var audioMode = document.getElementById('kahm-audio-mode');
     if (audioMode) audioMode.style.display = '';
     isOpen = false;
     isVideoMode = false;
@@ -418,7 +418,7 @@
     stopAudio();
     sgIframe.src = '';
     sgIframe.style.height = '0';
-    var audioMode = document.getElementById('kyca-audio-mode');
+    var audioMode = document.getElementById('kahm-audio-mode');
     if (audioMode) audioMode.style.display = 'none';
     widget.classList.add('video-mode');
     iframe.style.display = 'block';
@@ -435,7 +435,7 @@
     // Restore StreamGuys player
     if (isOpen) {
       sgIframe.style.height = '160px';
-      var audioMode = document.getElementById('kyca-audio-mode');
+      var audioMode = document.getElementById('kahm-audio-mode');
       if (audioMode) audioMode.style.display = 'none';
     }
   }
@@ -476,7 +476,7 @@
     };
     var dayGroup = dayGroups[day];
 
-    fetch(API_URL + '/api/schedule/kyca')
+    fetch(API_URL + '/api/schedule/kahm')
       .then(function(r) { return r.json(); })
       .then(function(data) {
         var slots = data.slots || [];
@@ -499,7 +499,7 @@
             if (isVideoMode) switchToAudio();
           }
         } else {
-          onAirShow.textContent = 'KYCA 1490 AM';
+          onAirShow.textContent = 'KAHM FM 102.1';
           watchBtn.style.display = 'none';
           if (isVideoMode) switchToAudio();
         }
@@ -508,12 +508,12 @@
   }
 
   // ── Wire up buttons ──────────────────────────────────────────
-  document.getElementById('kyca-minimize-btn').addEventListener('click', function(e) {
+  document.getElementById('kahm-minimize-btn').addEventListener('click', function(e) {
     e.stopPropagation();
     if (isMinimized) { openPlayer(); } else { minimizePlayer(); }
   });
 
-  document.getElementById('kyca-close-btn').addEventListener('click', function(e) {
+  document.getElementById('kahm-close-btn').addEventListener('click', function(e) {
     e.stopPropagation();
     closePlayer();
   });
@@ -534,7 +534,7 @@
       if (watchEl) {
         e.preventDefault();
         // Read URL from attribute OR shared window ref (handles async race)
-        var videoUrl = watchEl.getAttribute('data-video-url') || window.KYCA_CURRENT_VIDEO_URL || null;
+        var videoUrl = watchEl.getAttribute('data-video-url') || window.KAHM_CURRENT_VIDEO_URL || null;
         openPlayer(true); // skipAudio=true
         if (videoUrl) {
           switchToVideo(videoUrl);

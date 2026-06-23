@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Shows — KYCA News Talk Radio</title>
+  <title>Shows — KAHM FM 102.1</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../css/kyca-base.css?v=27" />
-  <link rel="stylesheet" href="../css/kyca.css?v=27" />
+  <link rel="stylesheet" href="../css/kahm-base.css?v=27" />
+  <link rel="stylesheet" href="../css/kahm.css?v=27" />
   <style id="nav-critical">
     nav.main-nav{background:#fff7ec !important;position:sticky !important;top:0 !important;z-index:9999 !important;}
     .main-nav-inner{width:100%;padding:0 48px;display:flex;align-items:center;justify-content:space-between;min-height:100px;}
@@ -49,14 +49,14 @@
     .show-card-name {
       font-size: 16px;
       font-weight: 800;
-      color: #032a48;
+      color: #072f57;
       line-height: 1.3;
       text-align: left;
     }
     .show-card-times {
       font-size: 11px;
       font-weight: 700;
-      color: #c0392b;
+      color: #487ea6;
       text-transform: uppercase;
       letter-spacing: .06em;
       margin-top: 3px;
@@ -94,7 +94,7 @@
       gap: 6px;
       font-size: 12px;
       font-weight: 700;
-      color: #c0392b;
+      color: #487ea6;
       text-decoration: none;
       text-transform: uppercase;
       letter-spacing: .05em;
@@ -102,10 +102,10 @@
     .show-card-link:hover { text-decoration: underline; }
 
     .shows-toolbar { max-width: var(--max-width); margin: 0 auto; padding: 24px 48px 0; display:flex; justify-content:flex-end; gap:10px; }
-    .shows-toggle { border:1.5px solid #c0392b; background:#fff; color:#c0392b; border-radius:999px; padding:8px 16px; font-size:12px; font-weight:800; letter-spacing:.04em; text-transform:uppercase; cursor:pointer; }
-    .shows-toggle.active { background:#c0392b; color:#fff; }
+    .shows-toggle { border:1.5px solid #487ea6; background:#fff; color:#487ea6; border-radius:999px; padding:8px 16px; font-size:12px; font-weight:800; letter-spacing:.04em; text-transform:uppercase; cursor:pointer; }
+    .shows-toggle.active { background:#487ea6; color:#fff; }
     .schedule-group { max-width: var(--max-width); margin: 0 auto; padding: 20px 48px 0; }
-    .schedule-group-title { font-size:18px; font-weight:900; color:#032a48; text-transform:uppercase; letter-spacing:.06em; border-bottom:3px solid #c0392b; padding-bottom:10px; margin-bottom:4px; }
+    .schedule-group-title { font-size:18px; font-weight:900; color:#072f57; text-transform:uppercase; letter-spacing:.06em; border-bottom:3px solid #487ea6; padding-bottom:10px; margin-bottom:4px; }
     .schedule-group .shows-grid { padding: 20px 0 28px; }
     @media (max-width: 768px) {
       .shows-grid { padding: 24px 16px; grid-template-columns: 1fr 1fr; }
@@ -121,21 +121,21 @@
 
 
   <!-- WEATHER BAND -->
-  <div id="kyca-weather-band" style="background:#032a48;border-bottom:1px solid rgba(255,255,255,0.08);overflow:hidden;height:120px;display:flex;align-items:center;">
+  <div id="kahm-weather-band" style="background:#072f57;border-bottom:1px solid rgba(255,255,255,0.08);overflow:hidden;height:120px;display:flex;align-items:center;">
     <div style="flex:1;overflow:hidden;height:95px;position:relative;margin-top:4px;">
-      <a class="weatherwidget-io" href="https://forecast7.com/en/34d54n112d47/prescott/?unit=us" data-label_1="PRESCOTT" data-label_2="WEATHER" data-theme="original" data-basecolor="#032a48" data-days="7">PRESCOTT WEATHER</a>
+      <a class="weatherwidget-io" href="https://forecast7.com/en/34d54n112d47/prescott/?unit=us" data-label_1="PRESCOTT" data-label_2="WEATHER" data-theme="original" data-basecolor="#072f57" data-days="7">PRESCOTT WEATHER</a>
     </div>
-    <div id="kyca-weather-report" style="flex-shrink:0;display:none;align-items:center;gap:8px;padding:0 20px;border-left:1px solid rgba(255,255,255,0.1);min-width:520px;background:#032a48;">
+    <div id="kahm-weather-report" style="flex-shrink:0;display:none;align-items:center;gap:8px;padding:0 20px;border-left:1px solid rgba(255,255,255,0.1);min-width:520px;background:#072f57;">
       <span style="font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,0.5);">&#127925; Today&#39;s Report</span>
-      <div id="kyca-weather-player"></div>
+      <div id="kahm-weather-player"></div>
     </div>
   </div>
-  <div id="kyca-ad-banner" style="display:none;text-align:center;padding:12px 0;background:#f8f9fa;border-bottom:1px solid #e8ecf0;"></div>
+  <div id="kahm-ad-banner" style="display:none;text-align:center;padding:12px 0;background:#f8f9fa;border-bottom:1px solid #e8ecf0;"></div>
   </div>
 
   <div class="page-hero">
     <h1>Shows</h1>
-    <p>Meet the voices of KYCA News Talk Radio.</p>
+    <p>Meet the voices of KAHM FM 102.1.</p>
   </div>
 
   <div class="shows-toolbar">
@@ -202,7 +202,7 @@
       return '<div class="show-card">'
         + (imgSrc ? '<div class="show-card-img-wrap"><img src="'+imgSrc+'" alt="'+s.name+'" onerror="this.parentNode.style.display=\'none\'" /></div>' : '')
         + '<div class="show-card-header">'
-        + '<div class="show-color-bar" style="background:'+(s.color||'#c0392b')+';"></div>'
+        + '<div class="show-color-bar" style="background:'+(s.color||'#487ea6')+';"></div>'
         + '<div><div class="show-card-name">'+s.name+'</div>'
         + (times ? '<div class="show-card-times">'+times+'</div>' : '')
         + '</div></div>'
@@ -244,7 +244,7 @@
       scheduleMode ? renderBySchedule() : renderDefault();
     }
 
-    fetch(API + '/api/schedule/kyca')
+    fetch(API + '/api/schedule/kahm')
       .then(function(r) { return r.json(); })
       .then(function(d) {
         cachedShows = d.shows || [];
@@ -255,7 +255,7 @@
         if (btn) btn.onclick = function(){ scheduleMode = !scheduleMode; render(); };
       })
       .catch(function() {
-        document.getElementById('shows-content').innerHTML = '<div style="text-align:center;padding:48px;color:#c0392b;">Could not load shows.</div>';
+        document.getElementById('shows-content').innerHTML = '<div style="text-align:center;padding:48px;color:#487ea6;">Could not load shows.</div>';
       });
   })();
   </script>

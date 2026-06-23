@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Program Schedule — KYCA News Talk Radio</title>
+  <title>Program Schedule — KAHM FM 102.1</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../css/kyca-base.css?v=27" />
-  <link rel="stylesheet" href="../css/kyca.css?v=27" />
+  <link rel="stylesheet" href="../css/kahm-base.css?v=27" />
+  <link rel="stylesheet" href="../css/kahm.css?v=27" />
   <style id="nav-critical">
     nav.main-nav{background:#fff7ec !important;position:sticky !important;top:0 !important;z-index:9999 !important;}
     .main-nav-inner{width:100%;padding:0 48px;display:flex;align-items:center;justify-content:space-between;min-height:100px;}
@@ -20,7 +20,7 @@
     .schedule-table { width: 100%; border-collapse: collapse; font-size: 13px; }
     .schedule-table th {
       padding: 10px 12px;
-      background: #032a48;
+      background: #072f57;
       color: #fff;
       font-size: 12px;
       font-weight: 700;
@@ -103,21 +103,21 @@
 
 
   <!-- WEATHER BAND -->
-  <div id="kyca-weather-band" style="background:#032a48;border-bottom:1px solid rgba(255,255,255,0.08);overflow:hidden;height:120px;display:flex;align-items:center;">
+  <div id="kahm-weather-band" style="background:#072f57;border-bottom:1px solid rgba(255,255,255,0.08);overflow:hidden;height:120px;display:flex;align-items:center;">
     <div style="flex:1;overflow:hidden;height:95px;position:relative;margin-top:4px;">
-      <a class="weatherwidget-io" href="https://forecast7.com/en/34d54n112d47/prescott/?unit=us" data-label_1="PRESCOTT" data-label_2="WEATHER" data-theme="original" data-basecolor="#032a48" data-days="7">PRESCOTT WEATHER</a>
+      <a class="weatherwidget-io" href="https://forecast7.com/en/34d54n112d47/prescott/?unit=us" data-label_1="PRESCOTT" data-label_2="WEATHER" data-theme="original" data-basecolor="#072f57" data-days="7">PRESCOTT WEATHER</a>
     </div>
-    <div id="kyca-weather-report" style="flex-shrink:0;display:none;align-items:center;gap:8px;padding:0 20px;border-left:1px solid rgba(255,255,255,0.1);min-width:520px;background:#032a48;">
+    <div id="kahm-weather-report" style="flex-shrink:0;display:none;align-items:center;gap:8px;padding:0 20px;border-left:1px solid rgba(255,255,255,0.1);min-width:520px;background:#072f57;">
       <span style="font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,0.5);">&#127925; Today&#39;s Report</span>
-      <div id="kyca-weather-player"></div>
+      <div id="kahm-weather-player"></div>
     </div>
   </div>
-  <div id="kyca-ad-banner" style="display:none;text-align:center;padding:12px 0;background:#f8f9fa;border-bottom:1px solid #e8ecf0;"></div>
+  <div id="kahm-ad-banner" style="display:none;text-align:center;padding:12px 0;background:#f8f9fa;border-bottom:1px solid #e8ecf0;"></div>
   </div>
 
   <div class="page-hero">
     <h1>Program Schedule</h1>
-    <p>KYCA News Talk Radio — FM 103.5 / AM 1490</p>
+    <p>KAHM FM 102.1 — FM 102.1</p>
   </div>
 
   <div class="schedule-wrap">
@@ -156,7 +156,7 @@
       return h < 12 ? h + ':00 am' : (h - 12) + ':00 pm';
     }
 
-    fetch(API + '/api/schedule/kyca')
+    fetch(API + '/api/schedule/kahm')
       .then(function(r) { return r.json(); })
       .then(function(d) {
         var shows = d.shows || [];
@@ -221,7 +221,7 @@
       })
       .catch(function() {
         document.getElementById('schedule-body').innerHTML =
-          '<tr><td colspan="5" style="text-align:center;padding:40px;color:#c0392b;">Could not load schedule.</td></tr>';
+          '<tr><td colspan="5" style="text-align:center;padding:40px;color:#487ea6;">Could not load schedule.</td></tr>';
       });
   })();
   </script>

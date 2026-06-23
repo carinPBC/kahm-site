@@ -16,12 +16,12 @@ nav.main-nav{background:#fbf3e7 !important;position:sticky !important;top:0 !imp
 .nav-links-wrap{display:flex;align-items:center;}
 .nav-links{display:flex;align-items:center;gap:0;list-style:none;}
 .nav-links li a{font-size:13px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:#1a2f4e;padding:6px 11px;border-bottom:3px solid transparent;display:block;text-decoration:none;transition:color .15s;}
-.nav-links li a:hover{color:#c0392b;}
-.nav-links li a.active{color:#c0392b !important;border-bottom:3px solid #c0392b !important;font-weight:800 !important;}
+.nav-links li a:hover{color:#487ea6;}
+.nav-links li a.active{color:#487ea6 !important;border-bottom:3px solid #487ea6 !important;font-weight:800 !important;}
 .nav-search{background:none;border:none;cursor:pointer;color:#1a2f4e;font-size:18px;padding:6px;display:flex;align-items:center;}
 .nav-social{display:flex;align-items:center;gap:10px;}
 .nav-social a{color:#1a2f4e;font-size:17px;width:30px;height:30px;display:flex;align-items:center;justify-content:center;border-radius:50%;transition:color .15s;}
-.nav-social a:hover{color:#c0392b;}
+.nav-social a:hover{color:#487ea6;}
 @media(max-width:900px){.main-nav-inner{padding:0 16px;}.nav-links li a{padding:6px 7px;font-size:11px;}}
 @media(max-width:640px){.nav-links-wrap{display:none !important;}}
 </style>
@@ -115,9 +115,9 @@ nav.main-nav{background:#fbf3e7 !important;position:sticky !important;top:0 !imp
 
   <div id="site-footer"></div>
 
-  <script src="../js/layout.js" data-page="station" data-station-id="kyca" data-depth="1"></script>
+  <script src="../js/layout.js" data-page="station" data-station-id="kahm" data-depth="1"></script>
   <script>
-    const STATION_ID = 'kyca';
+    const STATION_ID = 'kahm';
 
     document.addEventListener('site-config-loaded', function(e) {
       const cfg = e.detail;
@@ -175,7 +175,7 @@ nav.main-nav{background:#fbf3e7 !important;position:sticky !important;top:0 !imp
       var weatherW = document.getElementById('weather-widget');
       if (weatherW && station.weather) {
         var w = station.weather;
-        weatherW.innerHTML = '<div class="widget-title">' + (station.name.includes('KYCA') ? 'QUAD-CITIES' : station.name.toUpperCase().split(' ')[0]) + ' WEATHER</div>' +
+        weatherW.innerHTML = '<div class="widget-title">' + (station.name.includes('KAHM') ? 'QUAD-CITIES' : station.name.toUpperCase().split(' ')[0]) + ' WEATHER</div>' +
           '<span class="weather-icon">&#9728;&#65039;</span>' +
           '<div class="weather-temp">' + w.temp + '</div>' +
           '<div class="weather-condition">' + w.condition + '</div>' +
@@ -281,7 +281,7 @@ nav.main-nav{background:#fbf3e7 !important;position:sticky !important;top:0 !imp
         a.addEventListener('mouseover', function(){ this.style.background='rgba(255,255,255,.15)'; });
         a.addEventListener('mouseout',  function(){ this.style.background='rgba(255,255,255,.08)'; });
         a.addEventListener('click', function(){ document.getElementById('pbc-search-overlay').style.display='none'; });
-        a.innerHTML = '<div style="font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#c0392b;margin-bottom:4px;">'+h.type+'</div>'
+        a.innerHTML = '<div style="font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#487ea6;margin-bottom:4px;">'+h.type+'</div>'
           + '<div style="font-size:15px;font-weight:600;color:#fff;margin-bottom:3px;">'+h.label+'</div>'
           + (h.sub ? '<div style="font-size:12px;color:rgba(255,255,255,.55);">'+h.sub+'</div>' : '');
         results.appendChild(a);

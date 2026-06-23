@@ -1,5 +1,5 @@
 /**
- * KYCA News Talk Radio — layout.js
+ * KAHM FM 102.1 — layout.js
  * Builds nav and footer from site-config.json
  */
 (function() {
@@ -59,7 +59,7 @@
       ? '<section class="more-than-radio" style="background:'+mtrBg+' !important;">'
         + '<div class="more-than-radio-bg"><img src="'
         + (mtrGraphic.startsWith('http') ? mtrGraphic : mtrGraphic.startsWith('/uploads/') ? 'https://pbc-cms-production.up.railway.app' + mtrGraphic : mtrGraphic.startsWith('uploads/') ? 'https://pbc-cms-production.up.railway.app/' + mtrGraphic : mtrGraphic)
-        + '" alt="KYCA" style="width:100%;display:block;" /></div>'
+        + '" alt="KAHM" style="width:100%;display:block;" /></div>'
         + '</section>'
       : '';
     var cols = cfg.footer.columns.map(function(col) {
@@ -77,7 +77,7 @@
     return mtrSection + '<footer>'
       + '<div class="footer-grid">'
       +   '<div class="footer-logo-col">'
-      +     '<div class="footer-logo"><img src="'+root+'images/logo-kyca-white.png" alt="'+cfg.site.name+'" onerror="this.src=\''+root+cfg.site.logo+'\'" /></div>'
+      +     '<div class="footer-logo"><img src="'+root+'images/logo-kahm.png" alt="'+cfg.site.name+'" onerror="this.src=\''+root+cfg.site.logo+'\'" /></div>'
       +     '<div class="footer-tagline">'+st.frequency+'<br>'+st.tagline+'</div>'
       +   '</div>'
       +   '<div class="footer-right-group">'
@@ -154,7 +154,7 @@
     results.innerHTML = '<div style="color:rgba(255,255,255,.6);font-size:14px;padding:12px 0;">Searching\u2026</div>';
     var ql = q.toLowerCase();
     Promise.all([
-      fetch(API + '/api/news?limit=200&station_id=kyca').then(function(r){return r.json();}).catch(function(){return {};}),
+      fetch(API + '/api/news?limit=200&station_id=kahm').then(function(r){return r.json();}).catch(function(){return {};}),
       fetch(API + '/api/events?limit=200').then(function(r){return r.json();}).catch(function(){return [];})
     ]).then(function(data) {
       var news = (data[0].items || data[0]) || [];
@@ -180,7 +180,7 @@
         a.addEventListener('mouseover', function(){ this.style.background='rgba(255,255,255,.15)'; });
         a.addEventListener('mouseout',  function(){ this.style.background='rgba(255,255,255,.08)'; });
         a.addEventListener('click', function(){ document.getElementById('pbc-search-overlay').style.display='none'; });
-        a.innerHTML = '<div style="font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#c0392b;margin-bottom:4px;">'+h.type+'</div>'
+        a.innerHTML = '<div style="font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#487ea6;margin-bottom:4px;">'+h.type+'</div>'
           + '<div style="font-size:15px;font-weight:600;color:#fff;margin-bottom:3px;">'+h.label+'</div>'
           + (h.sub ? '<div style="font-size:12px;color:rgba(255,255,255,.55);">'+h.sub+'</div>' : '');
         results.appendChild(a);
@@ -195,28 +195,28 @@
       'nav.main-nav { background: '+(t.nav_bg||'#fff7ec')+' !important; }',
       '.more-than-radio { background: '+(t.mtr_bg||'#faf3e6')+' !important; }',
       'nav.main-nav .nav-links li a { color: '+(t.nav_text||'#1a2f4e')+'; }',
-      'nav.main-nav .nav-links li a:hover { color: '+(t.nav_hover||'#c0392b')+'; }',
-      'nav.main-nav .nav-links li a.active { color: '+(t.nav_active||'#c0392b')+' !important;'+(underline?' border-bottom: 3px solid '+(t.nav_active||'#c0392b')+' !important;':' border-bottom: none !important;')+' font-weight: 800 !important; }',
-      'footer { background: '+(t.footer_bg||'#032a48')+' !important; }',
+      'nav.main-nav .nav-links li a:hover { color: '+(t.nav_hover||'#487ea6')+'; }',
+      'nav.main-nav .nav-links li a.active { color: '+(t.nav_active||'#487ea6')+' !important;'+(underline?' border-bottom: 3px solid '+(t.nav_active||'#487ea6')+' !important;':' border-bottom: none !important;')+' font-weight: 800 !important; }',
+      'footer { background: '+(t.footer_bg||'#072f57')+' !important; }',
       '.footer-col-title { color: '+(t.footer_heading||'#ffffff')+' !important; }',
       '.footer-links li a { color: '+(t.footer_link||'rgba(255,255,255,0.75)')+' !important; }',
       '.footer-contact p { color: '+(t.footer_text||'rgba(255,255,255,0.75)')+' !important; }',
       '.footer-legal { color: '+(t.footer_text||'rgba(255,255,255,0.5)')+' !important; border-top-color: rgba(255,255,255,0.15) !important; }',
     ];
-    var el = document.getElementById('kyca-theme');
-    if (!el) { el = document.createElement('style'); el.id = 'kyca-theme'; document.head.appendChild(el); }
+    var el = document.getElementById('kahm-theme');
+    if (!el) { el = document.createElement('style'); el.id = 'kahm-theme'; document.head.appendChild(el); }
     el.textContent = css.join('\n');
   }
 
 
   // ── AD BANNER ROTATOR ──────────────────────────────────────────────────────
   function initAdBanner() {
-    fetch(API + '/api/ads/kyca')
+    fetch(API + '/api/ads/kahm')
       .then(function(r) { return r.json(); })
       .then(function(d) {
         var settings = d.settings || {};
         var ads = d.ads || [];
-        var banner = document.getElementById('kyca-ad-banner');
+        var banner = document.getElementById('kahm-ad-banner');
         if (!banner) return;
 
         // Hide if disabled or no ads
@@ -233,11 +233,11 @@
           var ad = ads[0];
           var src = ad.image.startsWith('http') ? ad.image : ad.image.startsWith('/uploads/') ? 'https://pbc-cms-production.up.railway.app' + ad.image : 'https://pbc-cms-production.up.railway.app/uploads/' + ad.image.split('/').pop();
           if (ad.link_url) {
-            banner.innerHTML = '<a id="kyca-ad-link" href="' + ad.link_url + '" target="_blank" rel="noopener" style="display:inline-block;">'
-              + '<img id="kyca-ad-img" src="' + src + '" alt="Advertisement" style="max-width:100%;height:auto;display:inline-block;" />'
+            banner.innerHTML = '<a id="kahm-ad-link" href="' + ad.link_url + '" target="_blank" rel="noopener" style="display:inline-block;">'
+              + '<img id="kahm-ad-img" src="' + src + '" alt="Advertisement" style="max-width:100%;height:auto;display:inline-block;" />'
               + '</a>';
           } else {
-            banner.innerHTML = '<img id="kyca-ad-img" src="' + src + '" alt="Advertisement" style="max-width:100%;height:auto;display:inline-block;" />';
+            banner.innerHTML = '<img id="kahm-ad-img" src="' + src + '" alt="Advertisement" style="max-width:100%;height:auto;display:inline-block;" />';
           }
           banner.style.display = 'block';
         }
@@ -245,8 +245,8 @@
         function showAd(idx) {
           var ad = ads[idx];
           var src = ad.image.startsWith('http') ? ad.image : ad.image.startsWith('/uploads/') ? 'https://pbc-cms-production.up.railway.app' + ad.image : 'https://pbc-cms-production.up.railway.app/uploads/' + ad.image.split('/').pop();
-          var img = document.getElementById('kyca-ad-img');
-          var link = document.getElementById('kyca-ad-link');
+          var img = document.getElementById('kahm-ad-img');
+          var link = document.getElementById('kahm-ad-link');
           if (img) img.src = src;
           if (link) link.href = ad.link_url || '#';
         }
@@ -261,7 +261,7 @@
         }
       })
       .catch(function() {
-        var banner = document.getElementById('kyca-ad-banner');
+        var banner = document.getElementById('kahm-ad-banner');
         if (banner) banner.style.display = 'none';
       });
   }
@@ -269,7 +269,7 @@
   // ── INIT ───────────────────────────────────────────────────────────────────
   Promise.all([
     fetch(root + CFG_URL).then(function(r) { return r.json(); }),
-    fetch(API + '/api/station-globals/kyca').then(function(r) { return r.json(); }).catch(function() { return {}; }),
+    fetch(API + '/api/station-globals/kahm').then(function(r) { return r.json(); }).catch(function() { return {}; }),
     fetch(API + '/api/theme').then(function(r) { return r.json(); }).catch(function() { return {}; })
   ]).then(function(results) {
     var cfg = results[0];
@@ -296,9 +296,9 @@
     if (globals.footer_bg)        cfg._footerBg              = globals.footer_bg;
     if (globals.mtr_bg)           cfg._mtrBg                 = globals.mtr_bg;
 
-    window.KYCA_CFG = cfg;
-    window.KYCA_API = API;
-    window.KYCA_ROOT = root;
+    window.KAHM_CFG = cfg;
+    window.KAHM_API = API;
+    window.KAHM_ROOT = root;
 
     var headerEl = document.getElementById('site-header');
     var footerEl = document.getElementById('site-footer');
@@ -320,7 +320,7 @@
           + '<span class="on-air-host" id="on-air-host"></span>'
           + '<span class="on-air-time" id="on-air-time"></span>'
           + '<div style="display:flex;gap:10px;margin-left:auto;flex-shrink:0;align-items:center;">'
-          + '<a href="#" data-listen="kyca" style="display:inline-flex;align-items:center;gap:6px;background:#c0392b;color:#fff;padding:6px 14px;border-radius:6px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;text-decoration:none;white-space:nowrap;">&#9654; Listen Live</a>'
+          + '<a href="#" data-listen="kahm" style="display:inline-flex;align-items:center;gap:6px;background:#487ea6;color:#fff;padding:6px 14px;border-radius:6px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;text-decoration:none;white-space:nowrap;">&#9654; Listen Live</a>'
           + '<button id="watch-live-btn" style="display:none;align-items:center;gap:6px;background:rgba(255,255,255,.15);color:#fff;padding:6px 14px;border-radius:6px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;cursor:pointer;white-space:nowrap;border:1px solid rgba(255,255,255,.3);">&#128250; Watch Live</button>'
           + '</div>'
           + '</div>';
@@ -344,11 +344,11 @@
     setTimeout(function() {
       var nav = document.querySelector('nav.main-nav');
       var onAir = document.getElementById('on-air-bar');
-      var weather = document.getElementById('kyca-weather-band');
+      var weather = document.getElementById('kahm-weather-band');
       if (!nav || !nav.parentNode) return;
 
       var wrapper = document.createElement('div');
-      wrapper.id = 'kyca-sticky-stack';
+      wrapper.id = 'kahm-sticky-stack';
       wrapper.style.cssText = 'position:sticky;top:0;z-index:1000;';
 
       // Insert wrapper before nav
@@ -370,27 +370,27 @@
     applyTheme(theme);
     initAdBanner();
     initWeatherReport(globals);
-    // Apply KYCA-specific nav bg AFTER theme
+    // Apply KAHM-specific nav bg AFTER theme
     if (cfg._navBg) {
-      var nbStyle = document.getElementById('kyca-nav-bg');
-      if (!nbStyle) { nbStyle = document.createElement('style'); nbStyle.id = 'kyca-nav-bg'; document.head.appendChild(nbStyle); }
+      var nbStyle = document.getElementById('kahm-nav-bg');
+      if (!nbStyle) { nbStyle = document.createElement('style'); nbStyle.id = 'kahm-nav-bg'; document.head.appendChild(nbStyle); }
       nbStyle.textContent = 'nav.main-nav { background: ' + cfg._navBg + ' !important; }';
     }
 
-    // Apply KYCA-specific footer bg AFTER theme (so it wins)
+    // Apply KAHM-specific footer bg AFTER theme (so it wins)
     if (cfg._footerBg) {
-      var fbStyle = document.getElementById('kyca-footer-bg');
-      if (!fbStyle) { fbStyle = document.createElement('style'); fbStyle.id = 'kyca-footer-bg'; document.head.appendChild(fbStyle); }
+      var fbStyle = document.getElementById('kahm-footer-bg');
+      if (!fbStyle) { fbStyle = document.createElement('style'); fbStyle.id = 'kahm-footer-bg'; document.head.appendChild(fbStyle); }
       fbStyle.textContent = 'footer { background: ' + cfg._footerBg + ' !important; border-top: none !important; }';
     }
-  }).catch(function(e) { console.error('KYCA layout.js: init failed', e); });
+  }).catch(function(e) { console.error('KAHM layout.js: init failed', e); });
 
 
   function initWeatherReport(globals) {
     var raw = globals.weather_report_url || '';
     if (!raw) return;
-    var playerEl = document.getElementById('kyca-weather-player');
-    var reportEl = document.getElementById('kyca-weather-report');
+    var playerEl = document.getElementById('kahm-weather-player');
+    var reportEl = document.getElementById('kahm-weather-report');
     if (!playerEl || !reportEl) return;
     // If they pasted a full iframe embed, extract the src URL
     var srcMatch = raw.match(/src=["']([^"']+)["\']/);
@@ -412,10 +412,10 @@
   }
 
   function initOnAirBar() {
-    var API_URL = window.KYCA_API || 'https://pbc-cms-production.up.railway.app';
+    var API_URL = window.KAHM_API || 'https://pbc-cms-production.up.railway.app';
     // Keep on-air bar current for visitors who leave the site open.
-    if (!window.KYCA_ON_AIR_TIMER) {
-      window.KYCA_ON_AIR_TIMER = setInterval(initOnAirBar, 60000);
+    if (!window.KAHM_ON_AIR_TIMER) {
+      window.KAHM_ON_AIR_TIMER = setInterval(initOnAirBar, 60000);
       window.addEventListener('focus', initOnAirBar);
       document.addEventListener('visibilitychange', function() {
         if (!document.hidden) initOnAirBar();
@@ -433,7 +433,7 @@
     // fallback groups same as homepage
     var todayGroup = dayGroups[day] || 'mon';
 
-    fetch(API_URL + '/api/schedule/kyca')
+    fetch(API_URL + '/api/schedule/kahm')
       .then(function(r) { return r.json(); })
       .then(function(data) {
         var slots = data.slots || [];
@@ -450,7 +450,7 @@
         if (!current) {
           if (bar) { bar.style.display = 'none'; setStickyOffsets(); }
           if (watchBtn) { watchBtn.style.display = 'none'; watchBtn.removeAttribute('data-video-url'); }
-          window.KYCA_CURRENT_VIDEO_URL = null;
+          window.KAHM_CURRENT_VIDEO_URL = null;
           return;
         }
         if (current) {
@@ -464,11 +464,11 @@
             if (current.video_url) {
               watchBtn.style.display = 'inline-flex';
               watchBtn.setAttribute('data-video-url', current.video_url);
-              window.KYCA_CURRENT_VIDEO_URL = current.video_url; // shared ref for player.js
+              window.KAHM_CURRENT_VIDEO_URL = current.video_url; // shared ref for player.js
             } else {
               watchBtn.style.display = 'none';
               watchBtn.removeAttribute('data-video-url');
-              window.KYCA_CURRENT_VIDEO_URL = null;
+              window.KAHM_CURRENT_VIDEO_URL = null;
             }
           }
         }
@@ -482,7 +482,7 @@
 
   function setStickyOffsets() {
     var onAirBar = document.getElementById('on-air-bar');
-    var weatherBand = document.getElementById('kyca-weather-band');
+    var weatherBand = document.getElementById('kahm-weather-band');
     if (!weatherBand) return;
 
     var onAirVisible = onAirBar && window.getComputedStyle(onAirBar).display !== 'none';

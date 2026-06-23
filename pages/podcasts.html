@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Podcasts — KYCA News Talk Radio</title>
+  <title>Podcasts — KAHM FM 102.1</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../css/kyca-base.css?v=27" />
-  <link rel="stylesheet" href="../css/kyca.css?v=27" />
+  <link rel="stylesheet" href="../css/kahm-base.css?v=27" />
+  <link rel="stylesheet" href="../css/kahm.css?v=27" />
   <style id="nav-critical">
     nav.main-nav{background:#fff7ec !important;position:sticky !important;top:0 !important;z-index:9999 !important;}
     .main-nav-inner{width:100%;padding:0 48px;display:flex;align-items:center;justify-content:space-between;min-height:100px;}
@@ -20,8 +20,8 @@
     .page-hero-img{width:100%;display:block;object-fit:cover;}
     .content-wrap{max-width:1600px;margin:0 auto;padding:48px 24px;}
     .show-group{margin-bottom:52px;}
-    .show-group-header{display:flex;align-items:center;gap:14px;margin-bottom:20px;padding-bottom:12px;border-bottom:3px solid #032a48;}
-    .show-group-name{font-size:20px;font-weight:900;color:#032a48;text-transform:uppercase;letter-spacing:.04em;}
+    .show-group-header{display:flex;align-items:center;gap:14px;margin-bottom:20px;padding-bottom:12px;border-bottom:3px solid #072f57;}
+    .show-group-name{font-size:20px;font-weight:900;color:#072f57;text-transform:uppercase;letter-spacing:.04em;}
     .show-group-station{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:#6c8ea3;color:#fff;padding:3px 10px;border-radius:100px;}
     #podcasts-container{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:24px;}
     .pod-show-card{display:block;background:#fff;border-radius:8px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,.08);text-decoration:none;transition:transform .2s,box-shadow .2s;}
@@ -29,12 +29,12 @@
     .pod-card{background:#fff;border-radius:8px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,.08);text-decoration:none;display:flex;flex-direction:column;transition:transform .2s,box-shadow .2s;}
     .pod-card:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(0,0,0,.13);}
     .pod-thumb{width:100%;aspect-ratio:1;object-fit:cover;background:#e8ecf0;display:block;}
-    .pod-thumb-placeholder{width:100%;aspect-ratio:1;background:linear-gradient(135deg,#032a48,#6c8ea3);display:flex;align-items:center;justify-content:center;font-size:48px;}
+    .pod-thumb-placeholder{width:100%;aspect-ratio:1;background:linear-gradient(135deg,#072f57,#6c8ea3);display:flex;align-items:center;justify-content:center;font-size:48px;}
     .pod-body{padding:14px;flex:1;display:flex;flex-direction:column;gap:5px;}
     .pod-date{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#6c8ea3;}
-    .pod-title{font-size:14px;font-weight:700;color:#032a48;line-height:1.4;flex:1;}
+    .pod-title{font-size:14px;font-weight:700;color:#072f57;line-height:1.4;flex:1;}
     .pod-desc{font-size:12px;color:#546e7a;line-height:1.5;margin-top:2px;}
-    .pod-listen{display:inline-flex;align-items:center;gap:6px;margin-top:10px;font-size:11px;font-weight:700;color:#c0392b;text-transform:uppercase;letter-spacing:.05em;}
+    .pod-listen{display:inline-flex;align-items:center;gap:6px;margin-top:10px;font-size:11px;font-weight:700;color:#487ea6;text-transform:uppercase;letter-spacing:.05em;}
     .no-results{text-align:center;padding:60px 24px;color:#546e7a;font-size:15px;}
 
   </style>
@@ -44,20 +44,20 @@
   </div>
 
   <!-- WEATHER BAND -->
-  <div id="kyca-weather-band" style="background:#032a48;border-bottom:1px solid rgba(255,255,255,0.08);overflow:hidden;height:120px;display:flex;align-items:center;">
+  <div id="kahm-weather-band" style="background:#072f57;border-bottom:1px solid rgba(255,255,255,0.08);overflow:hidden;height:120px;display:flex;align-items:center;">
     <div style="flex:1;overflow:hidden;height:95px;position:relative;margin-top:4px;">
-      <a class="weatherwidget-io" href="https://forecast7.com/en/34d54n112d47/prescott/?unit=us" data-label_1="PRESCOTT" data-label_2="WEATHER" data-theme="original" data-basecolor="#032a48" data-days="7">PRESCOTT WEATHER</a>
+      <a class="weatherwidget-io" href="https://forecast7.com/en/34d54n112d47/prescott/?unit=us" data-label_1="PRESCOTT" data-label_2="WEATHER" data-theme="original" data-basecolor="#072f57" data-days="7">PRESCOTT WEATHER</a>
     </div>
-    <div id="kyca-weather-report" style="flex-shrink:0;display:none;align-items:center;gap:8px;padding:0 20px;border-left:1px solid rgba(255,255,255,0.1);min-width:520px;background:#032a48;">
+    <div id="kahm-weather-report" style="flex-shrink:0;display:none;align-items:center;gap:8px;padding:0 20px;border-left:1px solid rgba(255,255,255,0.1);min-width:520px;background:#072f57;">
       <span style="font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,0.5);">&#127925; Today&#39;s Report</span>
-      <div id="kyca-weather-player"></div>
+      <div id="kahm-weather-player"></div>
     </div>
   </div>
-  <div id="kyca-ad-banner" style="display:none;text-align:center;padding:12px 0;background:#f8f9fa;border-bottom:1px solid #e8ecf0;"></div>
+  <div id="kahm-ad-banner" style="display:none;text-align:center;padding:12px 0;background:#f8f9fa;border-bottom:1px solid #e8ecf0;"></div>
   </div>
   <div class="page-hero">
     <h1>Podcasts</h1>
-    <p>Listen to KYCA shows on demand.</p>
+    <p>Listen to KAHM shows on demand.</p>
   </div>
 
 <div id="podcasts-container" class="content-wrap"></div>
@@ -71,7 +71,7 @@ var API_URL="https://pbc-cms-production.up.railway.app";
 function renderSection(s, i) {
   // Embed type — raw HTML (Vimeo/YouTube iframe)
   if (s.type === 'embed') {
-    var title = s.heading ? '<h2 style="font-size:clamp(18px,2.5vw,26px);font-weight:800;color:#032a48;margin-bottom:16px;">' + s.heading + '</h2>' : '';
+    var title = s.heading ? '<h2 style="font-size:clamp(18px,2.5vw,26px);font-weight:800;color:#072f57;margin-bottom:16px;">' + s.heading + '</h2>' : '';
     return '<div style="padding:32px 0;border-bottom:1px solid #e8ecf0;">' + title
       + '<div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;">'
       + '<div style="position:absolute;top:0;left:0;width:100%;height:100%;">' + (s.embed_code || '') + '</div>'
@@ -96,7 +96,7 @@ function renderSection(s, i) {
   // Separator
   var sepHtml = '';
   if (s.separator) {
-    var sepColor = s.separator_color || '#c0392b';
+    var sepColor = s.separator_color || '#487ea6';
     var sepAlign = s.heading_align || 'left';
     var sepMargin = sepAlign === 'center' ? '10px auto 0' : sepAlign === 'right' ? '10px 0 0 auto' : '10px 0 0';
     sepHtml = '<div style="width:48px;height:4px;background:' + sepColor + ';margin:' + sepMargin + ';"></div>';
@@ -165,7 +165,7 @@ function renderSection(s, i) {
     + '</div></div>';
 }
 
-fetch(API_URL+"/api/pages/podcasts").then(function(r){return r.json();}).then(function(p){if(p.hero_image){var isMobile=window.innerWidth<=768;var heroSrc=isMobile&&p.mobile_hero_image?p.mobile_hero_image:p.hero_image;var heroUrl=heroSrc.startsWith("uploads/")?API_URL+"/"+heroSrc:"../"+heroSrc;document.getElementById("page-hero-img").src=heroUrl;}/* bg_color skipped — KYCA uses site-level bg */
+fetch(API_URL+"/api/pages/podcasts").then(function(r){return r.json();}).then(function(p){if(p.hero_image){var isMobile=window.innerWidth<=768;var heroSrc=isMobile&&p.mobile_hero_image?p.mobile_hero_image:p.hero_image;var heroUrl=heroSrc.startsWith("uploads/")?API_URL+"/"+heroSrc:"../"+heroSrc;document.getElementById("page-hero-img").src=heroUrl;}/* bg_color skipped — KAHM uses site-level bg */
       // Re-apply after theme runs to ensure it wins
       setTimeout(function(){ if(s) s.textContent=s.textContent; }, 300);}   // Render CMS sections above page content
   if (p.sections) {
@@ -213,11 +213,11 @@ fetch(API_URL+"/api/pages/podcasts").then(function(r){return r.json();}).then(fu
         var href = show.video_url || show.audio_url || '#';
         var btnLabel = show.video_url ? '&#9654;&nbsp; Watch / Listen' : show.audio_url ? '&#9654;&nbsp; Listen' : '';
         return '<a href="show.html?id=' + show.id + '" class="pod-show-card">'
-          + (thumb ? '<img src="' + thumb + '" alt="' + show.show_name.replace(/"/g,'&quot;') + '" style="width:100%;aspect-ratio:1/1;object-fit:cover;display:block;" />' : '<div style="width:100%;aspect-ratio:1/1;background:linear-gradient(135deg,#032a48,#6c8ea3);display:flex;align-items:center;justify-content:center;"><span style="font-size:40px;color:rgba(255,255,255,.3);">&#9654;</span></div>')
+          + (thumb ? '<img src="' + thumb + '" alt="' + show.show_name.replace(/"/g,'&quot;') + '" style="width:100%;aspect-ratio:1/1;object-fit:cover;display:block;" />' : '<div style="width:100%;aspect-ratio:1/1;background:linear-gradient(135deg,#072f57,#6c8ea3);display:flex;align-items:center;justify-content:center;"><span style="font-size:40px;color:rgba(255,255,255,.3);">&#9654;</span></div>')
           + '<div style="padding:16px;">'
-          + '<div style="font-size:15px;font-weight:700;color:#032a48;margin-bottom:6px;">' + show.show_name + '</div>'
+          + '<div style="font-size:15px;font-weight:700;color:#072f57;margin-bottom:6px;">' + show.show_name + '</div>'
           + (show.description ? '<div style="font-size:12px;color:#546e7a;line-height:1.5;margin-bottom:10px;">' + show.description + '</div>' : '')
-          + '<span style="display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;color:#c0392b;text-transform:uppercase;letter-spacing:.05em;">&#9654; Watch / Listen</span>'
+          + '<span style="display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;color:#487ea6;text-transform:uppercase;letter-spacing:.05em;">&#9654; Watch / Listen</span>'
           + '</div></a>';
       }).join('');
     }).catch(function(){});
@@ -259,7 +259,7 @@ fetch(API_URL+"/api/pages/podcasts").then(function(r){return r.json();}).then(fu
         a.addEventListener('mouseover', function(){ this.style.background='rgba(255,255,255,.15)'; });
         a.addEventListener('mouseout',  function(){ this.style.background='rgba(255,255,255,.08)'; });
         a.addEventListener('click', function(){ document.getElementById('pbc-search-overlay').style.display='none'; });
-        a.innerHTML = '<div style="font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#c0392b;margin-bottom:4px;">'+h.type+'</div>'
+        a.innerHTML = '<div style="font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#487ea6;margin-bottom:4px;">'+h.type+'</div>'
           + '<div style="font-size:15px;font-weight:600;color:#fff;margin-bottom:3px;">'+h.label+'</div>'
           + (h.sub ? '<div style="font-size:12px;color:rgba(255,255,255,.55);">'+h.sub+'</div>' : '');
         results.appendChild(a);
@@ -329,7 +329,7 @@ fetch(API_URL+"/api/pages/podcasts").then(function(r){return r.json();}).then(fu
         var sub = document.querySelector('.page-hero p');
         if (sub) sub.textContent = p.page_subheading;
       }
-      /* bg_color skipped — KYCA uses site-level bg */
+      /* bg_color skipped — KAHM uses site-level bg */
     }).catch(function() {});
 })();
 </script>
