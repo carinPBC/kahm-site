@@ -92,8 +92,8 @@
     <!-- RIGHT 1/3: Video sidebar -->
     <div id="home-video-sidebar" style="background:#05254c;padding:24px 20px;display:flex;flex-direction:column;gap:24px;align-self:stretch;">
 
-      <!-- Courthouse Cam -->
-      <div>
+      <!-- Courthouse Cam (hidden until enabled) -->
+      <div style="display:none;">
         <div style="font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-bottom:8px;">&#128247; Live — Courthouse Plaza</div>
         <div style="position:relative;width:100%;padding-bottom:56.25%;border-radius:8px;overflow:hidden;background:#000;">
           <iframe
@@ -105,8 +105,8 @@
         </div>
       </div>
 
-      <!-- Sponsor Video -->
-      <div>
+      <!-- Sponsor Video (hidden until enabled) -->
+      <div style="display:none;">
         <div style="font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-bottom:8px;">&#9733; Sponsored</div>
         <div style="position:relative;width:100%;padding-bottom:56.25%;border-radius:8px;overflow:hidden;background:#000;">
           <iframe
@@ -373,7 +373,9 @@
     try {
       var d = new Date(dateStr.replace(' ', 'T') + 'Z');
       if (isNaN(d.getTime())) return '';
-      var h = d.getHours(), m = d.getMinutes();
+      // Arizona is UTC-7 year-round (no DST)
+      var az = new Date(d.getTime() - 7 * 60 * 60 * 1000);
+      var h = az.getUTCHours(), m = az.getUTCMinutes();
       var ampm = h >= 12 ? 'PM' : 'AM';
       h = h % 12 || 12;
       return h + ':' + (m < 10 ? '0' : '') + m + ' ' + ampm;
@@ -391,7 +393,7 @@
     }
 
     var html = '';
-    tracks.slice(0, 7).forEach(function(t, i) {
+    tracks.forEach(function(t, i) {
       var p      = parseMeta(t.meta);
       var isNow  = (i === 0);
       var time   = fmtTime(t.created_at);
