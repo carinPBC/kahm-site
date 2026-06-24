@@ -189,12 +189,12 @@
     var scheduleActive = activePages().indexOf('schedule') !== -1;
     var scheduleSection = document.getElementById('schedule-section');
     if (scheduleSection) scheduleSection.style.display = scheduleActive ? 'block' : 'none';
-    var sidebarEnabled = !(globals.home_video_sidebar_enabled === false || globals.home_video_sidebar_enabled === 'false' || globals.home_video_sidebar_enabled === '0');
-    if (!sidebarEnabled) {
-      var topRow = document.getElementById('home-top-row');
-      var sidebar = document.getElementById('home-video-sidebar');
-      if (topRow) topRow.style.gridTemplateColumns = '1fr';
-      if (sidebar) sidebar.style.display = 'none';
+    // home_video_sidebar_enabled controls video blocks only — sidebar always visible (recently played lives here)
+    var videosEnabled = !(globals.home_video_sidebar_enabled === false || globals.home_video_sidebar_enabled === 'false' || globals.home_video_sidebar_enabled === '0');
+    if (videosEnabled) {
+      // Show the video blocks when enabled
+      var videoBlocks = document.querySelectorAll('#home-video-sidebar > div[style*="display:none"]');
+      videoBlocks.forEach(function(el) { el.style.display = 'block'; });
     }
 
     // ── ON AIR — from real schedule ────────────────────────────
