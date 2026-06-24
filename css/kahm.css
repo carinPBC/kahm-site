@@ -16,7 +16,7 @@ body { background: #f5f8fb !important; }
 
 /* Nav */
 nav.main-nav { background: var(--cream) !important; }
-.nav-logo img { height: 180px; }
+.nav-logo img { height: 90px; }
 
 /* Listen Live button */
 .listen-btn {
@@ -254,7 +254,7 @@ nav.main-nav {
 /* KAHM brand finish */
 body { background: #f5f8fb !important; }
 nav.main-nav { background: #eef5fa !important; }
-.nav-logo img { height: 170px !important; }
+.nav-logo img { height: 90px !important; }
 .on-air-bar { background: #05254c !important; }
 .on-air-badge, .listen-btn, .hero-listen, .sc-btn { background: #487ea6 !important; }
 .listen-btn:hover, .hero-listen:hover, .sc-btn:hover { background: #315f83 !important; }
