@@ -229,26 +229,11 @@ nav.main-nav { background: var(--cream) !important; }
 .footer-logo img { height: 120px !important; margin-bottom: 6px !important; }
 .footer-tagline { display: none !important; }
 
-/* ── STICKY HEADER ───────────────────────────────────────────── */
-/* Nav: already sticky in kahm-base.css — reinforce here */
-/* kahm-sticky-stack wrapper (injected by layout.js) handles sticky */
-#kahm-sticky-stack {
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-}
-nav.main-nav {
-  position: relative !important;
-  top: auto !important;
-}
-.on-air-bar {
-  position: relative !important;
-  top: auto !important;
-}
-#kahm-weather-band {
-  position: relative !important;
-  top: auto !important;
-}
+/* ── NON-STICKY HEADER ───────────────────────────────────────── */
+#kahm-sticky-stack { position: static; }
+nav.main-nav { position: relative !important; top: auto !important; }
+.on-air-bar   { position: relative !important; top: auto !important; }
+#kahm-weather-band { position: relative !important; top: auto !important; }
 
 
 /* KAHM brand finish */

@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="css/kahm-base.css?v=27" />
   <link rel="stylesheet" href="css/kahm.css?v=27" />
   <style id="nav-critical">
-    nav.main-nav{background:#fff7ec !important;position:sticky !important;top:0 !important;z-index:9999 !important;}
+    nav.main-nav{background:#fff7ec !important;position:relative !important;top:auto !important;z-index:auto !important;}
     .main-nav-inner{width:100%;padding:0 48px;display:flex;align-items:center;justify-content:space-between;min-height:110px;}
     .nav-logo img{height:90px;width:auto;object-fit:contain;}
     .nav-search{background:none;border:none;cursor:pointer;color:#1a2f4e;padding:6px;display:flex;align-items:center;}
@@ -73,25 +73,7 @@
       <div id="kahm-weather-player"></div>
     </div>
   </div>
-  <script>
-  // Wrap nav+on-air-bar+weather-band in sticky container after layout.js?v=27 builds them
-  document.addEventListener('DOMContentLoaded', function() {
-    setTimeout(function() {
-      var nav = document.querySelector('nav.main-nav');
-      var onAir = document.getElementById('on-air-bar');
-      var weather = document.getElementById('kahm-weather-band');
-      if (!nav || !nav.parentNode || document.getElementById('kahm-sticky-stack')) return;
-      var wrapper = document.createElement('div');
-      wrapper.id = 'kahm-sticky-stack';
-      wrapper.style.cssText = 'position:sticky;top:0;z-index:1000;';
-      nav.parentNode.insertBefore(wrapper, nav);
-      wrapper.appendChild(nav);
-      if (onAir) wrapper.appendChild(onAir);
-      if (weather) wrapper.appendChild(weather);
-      nav.style.position = 'relative';
-    }, 500);
-  });
-  </script>
+
   <div id="kahm-ad-banner" style="display:none;text-align:center;padding:12px 0;background:#f8f9fa;border-bottom:1px solid #e8ecf0;"></div>
 
   <!-- NEWS + VIDEO SIDEBAR (2/3 + 1/3) -->

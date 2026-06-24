@@ -53,9 +53,9 @@ a { color: inherit; text-decoration: none; }
 /* Single nav bar — matches hero bg exactly, no border/shadow, seamless */
 .main-nav {
   background: #faf3e6 !important;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
+  position: relative;
+  top: auto;
+  z-index: auto;
   box-shadow: none;
 }
 .main-nav-inner {
