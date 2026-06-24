@@ -370,7 +370,7 @@
 
       var wrapper = document.createElement('div');
       wrapper.id = 'kahm-sticky-stack';
-      wrapper.style.cssText = 'position:sticky;top:0;z-index:1000;';
+      wrapper.style.cssText = 'position:static;';
 
       // Insert wrapper before nav
       nav.parentNode.insertBefore(wrapper, nav);
