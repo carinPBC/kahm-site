@@ -344,8 +344,9 @@
 
 <script>
 (function() {
-  var CMS_API    = 'https://pbc-cms-production.up.railway.app';
-  var POLL_MS    = 30000;  // matches server-side cache TTL
+  var CRN_RPC    = 'http://www.streamvortex.com:2199/external/rpc.php';
+  var CRN_USER   = 'calmarizona';
+  var POLL_MS    = 30000;
   var rpTimer    = null;
 
   function toTitleCase(str) {
@@ -396,7 +397,7 @@
     tracks.forEach(function(t, i) {
       var p      = parseMeta(t.meta);
       var isNow  = (i === 0 || t.is_current === true);
-      var time   = fmtTime(t.created_at);
+      var time   = t.localtime || fmtTime(t.created_at);
 
       html += '<div style="display:flex;align-items:center;gap:10px;padding:8px 0;' +
         (i > 0 ? 'border-top:1px solid rgba(255,255,255,0.06);' : '') +
@@ -442,35 +443,33 @@
   }
 
   function loadTracks() {
-    fetch(CMS_API + '/api/now-playing/kahm?ts=' + Date.now())
-      .then(function(r) { return r.json(); })
-      .then(function(data) {
-        if (!data || data.error) return;
-        // Build a unified list: current first, then history
-        var tracks = [];
-        if (data.current) {
-          tracks.push({
-            meta: (data.current.artist ? data.current.artist.toUpperCase() + ' - ' : '') + data.current.title.toUpperCase(),
-            image_url: null,
-            created_at: data.current.played_at,
-            is_current: true
-          });
-        }
-        (data.history || []).forEach(function(t) {
-          tracks.push({
-            meta: (t.artist ? t.artist.toUpperCase() + ' - ' : '') + t.title.toUpperCase(),
-            image_url: null,
-            created_at: t.played_at
-          });
-        });
-        if (tracks.length) renderTracks(tracks);
-      })
-      .catch(function() {
-        var list = document.getElementById('kahm-rp-list');
-        if (list && list.children.length <= 1) {
-          list.innerHTML = '<div style="font-size:12px;color:rgba(255,255,255,0.3);padding:8px 0;">Unable to load track data</div>';
-        }
-      });
+    // Use JSONP to call CentovaCast directly — real-time, no proxy needed
+    var cbName = 'kahmRPcb' + Date.now();
+    var script = document.createElement('script');
+    window[cbName] = function(data) {
+      delete window[cbName];
+      script.parentNode && script.parentNode.removeChild(script);
+      if (!data || data.type !== 'result') return;
+      var tracks = (data.data && data.data[0]) || [];
+      if (tracks.length) renderTracks(tracks.map(function(t, i) {
+        return {
+          meta: t.artist.toUpperCase() + ' - ' + t.title.toUpperCase(),
+          image_url: null,
+          created_at: null,
+          localtime: t.localtime,
+          is_current: i === 0
+        };
+      }));
+    };
+    script.onerror = function() {
+      delete window[cbName];
+      var list = document.getElementById('kahm-rp-list');
+      if (list && list.children.length <= 1) {
+        list.innerHTML = '<div style="font-size:12px;color:rgba(255,255,255,0.3);padding:8px 0;">Unable to load track data</div>';
+      }
+    };
+    script.src = CRN_RPC + '?m=recenttracks.get&username=' + CRN_USER + '&charset=utf8&rid=rp&callback=' + cbName + '&ts=' + Date.now();
+    document.head.appendChild(script);
   }
 
   document.addEventListener('DOMContentLoaded', function() {
