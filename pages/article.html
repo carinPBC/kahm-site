@@ -73,7 +73,25 @@
         .then(function(r) { return r.json(); })
         .then(function(article) {
           if (!article || !article.headline) {
-            document.getElementById('article-content').innerHTML = '<div class="article-loading">Article not found.</div>';
+            
+          // Build share URL for social media (server-rendered OG tags)
+          var shareUrl = 'https://pbc-cms-production.up.railway.app/share/article/' + articleId + '?station=kahm';
+          
+          // Add share bar after article loads
+          var shareBar = document.createElement('div');
+          shareBar.style.cssText = 'display:flex;align-items:center;gap:10px;padding:16px 0;border-top:1px solid #e8ecf0;margin-top:24px;flex-wrap:wrap;';
+          shareBar.innerHTML = '<span style="font-size:12px;font-weight:700;color:#546e7a;text-transform:uppercase;letter-spacing:.05em;">Share:</span>'
+            + '<a href="https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(shareUrl)+'" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;background:#1877f2;color:#fff;border-radius:5px;font-size:12px;font-weight:700;text-decoration:none;">Facebook</a>'
+            + '<a href="https://twitter.com/intent/tweet?url='+encodeURIComponent(shareUrl)+'&text='+encodeURIComponent(article.headline)+'" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;background:#000;color:#fff;border-radius:5px;font-size:12px;font-weight:700;text-decoration:none;">&#120143; / Twitter</a>'
+            + '<button onclick="navigator.clipboard.writeText(\'' + shareUrl + '\').then(function(){this.textContent=\'✓ Copied!\';setTimeout(function(){document.querySelector(\'.share-copy-btn\').textContent=\'Copy Link\'},2000)}.bind(this))" class="share-copy-btn" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;background:#487ea6;color:#fff;border:none;border-radius:5px;font-size:12px;font-weight:700;cursor:pointer;">Copy Link</button>';
+          
+          // Append share bar after article content renders
+          setTimeout(function() {
+            var wrap = document.querySelector('.article-wrap');
+            if (wrap) wrap.appendChild(shareBar);
+          }, 100);
+          
+          document.getElementById('article-content').innerHTML = '<div class="article-loading">Article not found.</div>';
             return;
           }
           document.title = article.headline + ' \u2014 KAHM FM 102.1';
@@ -95,6 +113,24 @@
           var date = article.published_at ? new Date(article.published_at).toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'}) : '';
           var author = article.author ? '<span>By ' + article.author + '</span>' : '';
           var body = (article.body || 'No content available.').split('\n').map(function(p) { return p ? '<p>' + p + '</p>' : ''; }).join('');
+          
+          // Build share URL for social media (server-rendered OG tags)
+          var shareUrl = 'https://pbc-cms-production.up.railway.app/share/article/' + articleId + '?station=kahm';
+          
+          // Add share bar after article loads
+          var shareBar = document.createElement('div');
+          shareBar.style.cssText = 'display:flex;align-items:center;gap:10px;padding:16px 0;border-top:1px solid #e8ecf0;margin-top:24px;flex-wrap:wrap;';
+          shareBar.innerHTML = '<span style="font-size:12px;font-weight:700;color:#546e7a;text-transform:uppercase;letter-spacing:.05em;">Share:</span>'
+            + '<a href="https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(shareUrl)+'" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;background:#1877f2;color:#fff;border-radius:5px;font-size:12px;font-weight:700;text-decoration:none;">Facebook</a>'
+            + '<a href="https://twitter.com/intent/tweet?url='+encodeURIComponent(shareUrl)+'&text='+encodeURIComponent(article.headline)+'" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;background:#000;color:#fff;border-radius:5px;font-size:12px;font-weight:700;text-decoration:none;">&#120143; / Twitter</a>'
+            + '<button onclick="navigator.clipboard.writeText(\'' + shareUrl + '\').then(function(){this.textContent=\'✓ Copied!\';setTimeout(function(){document.querySelector(\'.share-copy-btn\').textContent=\'Copy Link\'},2000)}.bind(this))" class="share-copy-btn" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;background:#487ea6;color:#fff;border:none;border-radius:5px;font-size:12px;font-weight:700;cursor:pointer;">Copy Link</button>';
+          
+          // Append share bar after article content renders
+          setTimeout(function() {
+            var wrap = document.querySelector('.article-wrap');
+            if (wrap) wrap.appendChild(shareBar);
+          }, 100);
+          
           document.getElementById('article-content').innerHTML =
             '<div class="article-cat">' + (article.news_type || '') + '</div>'
             + '<h1 class="article-headline">' + article.headline + '</h1>'
@@ -129,6 +165,24 @@
           }
         })
         .catch(function() {
+          
+          // Build share URL for social media (server-rendered OG tags)
+          var shareUrl = 'https://pbc-cms-production.up.railway.app/share/article/' + articleId + '?station=kahm';
+          
+          // Add share bar after article loads
+          var shareBar = document.createElement('div');
+          shareBar.style.cssText = 'display:flex;align-items:center;gap:10px;padding:16px 0;border-top:1px solid #e8ecf0;margin-top:24px;flex-wrap:wrap;';
+          shareBar.innerHTML = '<span style="font-size:12px;font-weight:700;color:#546e7a;text-transform:uppercase;letter-spacing:.05em;">Share:</span>'
+            + '<a href="https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent(shareUrl)+'" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;background:#1877f2;color:#fff;border-radius:5px;font-size:12px;font-weight:700;text-decoration:none;">Facebook</a>'
+            + '<a href="https://twitter.com/intent/tweet?url='+encodeURIComponent(shareUrl)+'&text='+encodeURIComponent(article.headline)+'" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;background:#000;color:#fff;border-radius:5px;font-size:12px;font-weight:700;text-decoration:none;">&#120143; / Twitter</a>'
+            + '<button onclick="navigator.clipboard.writeText(\'' + shareUrl + '\').then(function(){this.textContent=\'✓ Copied!\';setTimeout(function(){document.querySelector(\'.share-copy-btn\').textContent=\'Copy Link\'},2000)}.bind(this))" class="share-copy-btn" style="display:inline-flex;align-items:center;gap:6px;padding:6px 14px;background:#487ea6;color:#fff;border:none;border-radius:5px;font-size:12px;font-weight:700;cursor:pointer;">Copy Link</button>';
+          
+          // Append share bar after article content renders
+          setTimeout(function() {
+            var wrap = document.querySelector('.article-wrap');
+            if (wrap) wrap.appendChild(shareBar);
+          }, 100);
+          
           document.getElementById('article-content').innerHTML = '<div class="article-loading">Could not load article.</div>';
         });
     }
