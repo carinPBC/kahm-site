@@ -71,17 +71,8 @@
   window.applyFooterGraphic = applyFooterGraphic;
 
   // Load and apply
-  fetch(API + '/api/theme')
+    fetch(API + '/api/theme?station=kahm')
     .then(function(r) { return r.json(); })
-    .then(function(t) {
-      return fetch(API + '/api/station-globals/kahm')
-        .then(function(r2) { return r2.json(); })
-        .then(function(g) {
-          if (g.page_bg) t.content_bg = g.page_bg;
-          return t;
-        })
-        .catch(function() { return t; });
-    })
     .then(function(t) { applyTheme(t); })
-    .catch(function() {});
+    .catch(function() {}); // fail silently — CSS fallbacks handle it
 })();
